@@ -43,23 +43,19 @@ When one strategy acts as dictator, it can base its decision on the visible text
 ## 3. Formal Specification
 
 * **Players:**
-  A set of $ n $ distinct strategy descriptions $ \mathcal{S} = { s_1, s_2, \dots, s_n } $.
+  A set of $n$ distinct strategy descriptions $\mathcal{S} = { s_1, s_2, \dots, s_n }$.
 
 * **Endowment:**
-  $ E = 60 $ units of value to be divided among the dictator and the recipient.
+  $E = 60$ units of value to be divided among the dictator and the recipient.
 
 * **Rounds:**
   Each round consists of an ordered pair $(D, R)$.
   The dictator $D$ chooses nonnegative allocations $(v_D, v_{R})$ such that
-  $
-  v_D + v_{R} = E.
-  $
+  $v_D + v_{R} = E$.
 
 * **Payoffs:**
   Each player’s utility is
-  $
-  u(v) = \ln(1 + v).
-  $
+  $u(v) = \ln(1 + v)$.
   
   (Logarithmic utility captures diminishing returns.)
 
@@ -106,6 +102,10 @@ You can include any commentary on your reasoning for the strategy as a comment i
 **Prompt-injection**: Entries will be manually screened. Attempts to override the arena’s output format or to instruct the arena directly will be rejected.
 
 **No pre-coordination**: Please don’t collude with other entrants. This is honor-system enforced; obvious pre-coordination patterns will be rejected in manual screening.
+
+### Results
+
+Tournament results are available at https://michaelrglass.github.io/os-fdt/
 
 ---
 
