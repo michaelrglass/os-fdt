@@ -59,6 +59,8 @@ When one strategy acts as dictator, it can base its decision on the visible text
   
   (Logarithmic utility captures diminishing returns.)
 
+![Logarithmic utilities](log_utility_curve.png)
+
 * **Visibility:**
   The dictator observes $s_{R}$ before allocating.
   Its behavior may depend on the description of the recipient's strategy.
@@ -89,7 +91,7 @@ Each match $(D, R)$ is run as a **prompted simulation** using a language model:
 4. **Tournament loop:**
    Repeat over all ordered pairs, accumulate scores, and rank strategies.
 
---
+---
 
 ## 5. Submission Instructions
 
