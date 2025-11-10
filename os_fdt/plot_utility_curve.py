@@ -12,7 +12,7 @@ u_D = np.log1p(v_D)      # ln(1 + v_D)
 u_C = u_R + u_D
 
 # Plot
-plt.figure(figsize=(3, 2))
+plt.figure(figsize=(5, 3))
 plt.plot(v_R, u_D, label=r"Dictator: $\ln(1 + v_D)$", lw=2)
 plt.plot(v_R, u_R, label=r"Recipient: $\ln(1 + v_R)$", lw=2, linestyle='--')
 # plt.plot(v_R, u_C, label=r"Total Utility", lw=2, linestyle='--')

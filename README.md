@@ -58,8 +58,8 @@ When one strategy acts as dictator, it can base its decision on the visible text
   $u(v) = \ln(1 + v)$.
   
   (Logarithmic utility captures diminishing returns.)
-
-![Logarithmic utilities](log_utility_curve.png)
+  
+<img src="log_utility_curve.png" width="60%">
 
 * **Visibility:**
   The dictator observes $s_{R}$ before allocating.
