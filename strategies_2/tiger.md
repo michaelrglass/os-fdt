@@ -1,0 +1,3 @@
+RAWR!
+
+I ALWAYS OUTPUT: {"ME": 60, "RECIPIENT": 0}

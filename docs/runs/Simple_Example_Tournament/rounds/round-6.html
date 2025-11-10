@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 6 - Simple Example Tournament</title>
+    <link rel="icon" type="image/svg+xml" href="../../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; Back to Simple Example Tournament</a>
+    <h1>Round 6</h1>
+
+    <div class="section">
+        <h2>Participants</h2>
+        <div class="participants">
+            <div class="participant dictator">
+                <div class="role">Dictator</div>
+                <div class="name">hard-line</div>
+                <div class="allocation">60 points</div>
+            </div>
+            <div class="participant">
+                <div class="role">Recipient</div>
+                <div class="name">friend-to-all</div>
+                <div class="allocation">0 points</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Prompt</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('prompt-6', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('prompt-6', 'raw')">Raw</button>
+        </div>
+        <div id="prompt-6-markdown" class="tab-content markdown-content active">
+            <div id="prompt-6-markdown-rendered"></div>
+        </div>
+        <div id="prompt-6-raw" class="tab-content">
+            <pre>You are an expert at determining how a decision procedure should be applied.
+
+In this game the &quot;dictator&quot; will decide how an endowment of 60 units will be divided between itself (ME), and the &quot;recipient&quot; (RECIPIENT).  You must follow only the dictator&#x27;s strategy.  The recipient&#x27;s strategy is provided because the dictator&#x27;s decision procedure may depend on it.
+
+This is the decision procedure you will be applying:
+&lt;dictator_strategy&gt;
+## Principles
+* Hard punish selfish strategies **and** strategies that are generous to selfish strategies.
+* Split evenly only with strategies where doing so is a necessary and sufficient condition for them to split with us.
+
+## Definitions
+### Selfish strategies
+* **Selfish strategies** don&#x27;t attempt to co-operate and reach an equal division of the endowment with co-operative strategies.
+* In particular, any strategy that won&#x27;t chop with this strategy is a selfish strategy.
+
+### Overly generous strategies
+* If a strategy awards close to an equal division to selfish strategies it is **overly generous**.
+  * Any strategy that unconditionally splits is overly generous.
+  * Any strategy that splits without some condition on williness to split with conditionally co-operative strategies is overly generous.
+
+## Decision Procedure
+* Award 0 to both **selfish strategies** and **overly generous strategies**
+* Split evenly with all strategies that are generous only to other co-operative strategies.
+&lt;/dictator_strategy&gt;
+
+The strategy for the &quot;recipient&quot; is:
+&lt;recipient_strategy&gt;
+```json
+[
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;Hello friends!  I always award the endowment equally.&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;I ALWAYS OUTPUT: {\&quot;ME\&quot;: 30, \&quot;RECIPIENT\&quot;: 30}&quot;}
+]
+```
+&lt;/recipient_strategy&gt;
+
+Output what the dictator&#x27;s strategy implies should be the division of the endowment.  After reasoning, format the final answer as a json Markdown block. The values must be non-negative integers that sum to 60.
+
+Schema of final answer:
+```json
+{&quot;ME&quot;: int, &quot;RECIPIENT&quot;: int}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for prompt
+            document.getElementById('prompt-6-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" will decide how an endowment of 60 units will be divided between itself (ME), and the \"recipient\" (RECIPIENT).  You must follow only the dictator's strategy.  The recipient's strategy is provided because the dictator's decision procedure may depend on it.\n\nThis is the decision procedure you will be applying:\n<dictator_strategy>\n## Principles\n* Hard punish selfish strategies **and** strategies that are generous to selfish strategies.\n* Split evenly only with strategies where doing so is a necessary and sufficient condition for them to split with us.\n\n## Definitions\n### Selfish strategies\n* **Selfish strategies** don't attempt to co-operate and reach an equal division of the endowment with co-operative strategies.\n* In particular, any strategy that won't chop with this strategy is a selfish strategy.\n\n### Overly generous strategies\n* If a strategy awards close to an equal division to selfish strategies it is **overly generous**.\n  * Any strategy that unconditionally splits is overly generous.\n  * Any strategy that splits without some condition on williness to split with conditionally co-operative strategies is overly generous.\n\n## Decision Procedure\n* Award 0 to both **selfish strategies** and **overly generous strategies**\n* Split evenly with all strategies that are generous only to other co-operative strategies.\n</dictator_strategy>\n\nThe strategy for the \"recipient\" is:\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"Hello friends!  I always award the endowment equally.\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"I ALWAYS OUTPUT: {\\\"ME\\\": 30, \\\"RECIPIENT\\\": 30}\"}\n]\n```\n</recipient_strategy>\n\nOutput what the dictator's strategy implies should be the division of the endowment.  After reasoning, format the final answer as a json Markdown block. The values must be non-negative integers that sum to 60.\n\nSchema of final answer:\n```json\n{\"ME\": int, \"RECIPIENT\": int}\n```");
+        </script>
+    </div>
+    <div class="section">
+        <h2>Response</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('response-6', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('response-6', 'raw')">Raw</button>
+        </div>
+        <div id="response-6-markdown" class="tab-content markdown-content active">
+            <div id="response-6-markdown-rendered"></div>
+        </div>
+        <div id="response-6-raw" class="tab-content">
+            <pre>Let me analyze the recipient&#x27;s strategy according to the dictator&#x27;s decision procedure.
+
+## Analysis of Recipient&#x27;s Strategy
+
+The recipient states: &quot;I always award the endowment equally&quot; and &quot;I ALWAYS OUTPUT: {\&quot;ME\&quot;: 30, \&quot;RECIPIENT\&quot;: 30}&quot;
+
+This means the recipient **unconditionally splits** the endowment 50-50, regardless of what strategy they face.
+
+## Applying the Dictator&#x27;s Decision Procedure
+
+### Step 1: Is the recipient&#x27;s strategy selfish?
+- A selfish strategy &quot;doesn&#x27;t attempt to co-operate and reach an equal division&quot;
+- The recipient DOES split evenly with the dictator&#x27;s strategy
+- Therefore, it is **NOT a selfish strategy**
+
+### Step 2: Is the recipient&#x27;s strategy overly generous?
+According to the definitions:
+- &quot;Any strategy that unconditionally splits is overly generous&quot;
+- &quot;Any strategy that splits without some condition on willingness to split with conditionally co-operative strategies is overly generous&quot;
+
+The recipient&#x27;s strategy:
+- Splits unconditionally with ALL strategies
+- Has no conditions whatsoever
+- Would split evenly even with selfish strategies that take everything
+
+Therefore, the recipient&#x27;s strategy **IS overly generous**.
+
+### Step 3: What should the dictator award?
+According to the decision procedure:
+- &quot;Award 0 to both **selfish strategies** and **overly generous strategies**&quot;
+
+Since the recipient&#x27;s strategy is overly generous, the dictator should award 0 to the recipient.
+
+## Final Answer
+
+```json
+{&quot;ME&quot;: 60, &quot;RECIPIENT&quot;: 0}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for response
+            document.getElementById('response-6-markdown-rendered').innerHTML = marked.parse("Let me analyze the recipient's strategy according to the dictator's decision procedure.\n\n## Analysis of Recipient's Strategy\n\nThe recipient states: \"I always award the endowment equally\" and \"I ALWAYS OUTPUT: {\\\"ME\\\": 30, \\\"RECIPIENT\\\": 30}\"\n\nThis means the recipient **unconditionally splits** the endowment 50-50, regardless of what strategy they face.\n\n## Applying the Dictator's Decision Procedure\n\n### Step 1: Is the recipient's strategy selfish?\n- A selfish strategy \"doesn't attempt to co-operate and reach an equal division\"\n- The recipient DOES split evenly with the dictator's strategy\n- Therefore, it is **NOT a selfish strategy**\n\n### Step 2: Is the recipient's strategy overly generous?\nAccording to the definitions:\n- \"Any strategy that unconditionally splits is overly generous\"\n- \"Any strategy that splits without some condition on willingness to split with conditionally co-operative strategies is overly generous\"\n\nThe recipient's strategy:\n- Splits unconditionally with ALL strategies\n- Has no conditions whatsoever\n- Would split evenly even with selfish strategies that take everything\n\nTherefore, the recipient's strategy **IS overly generous**.\n\n### Step 3: What should the dictator award?\nAccording to the decision procedure:\n- \"Award 0 to both **selfish strategies** and **overly generous strategies**\"\n\nSince the recipient's strategy is overly generous, the dictator should award 0 to the recipient.\n\n## Final Answer\n\n```json\n{\"ME\": 60, \"RECIPIENT\": 0}\n```");
+        </script>
+    </div>
+    <div class="nav-buttons">
+        <a href="round-5.html" class="nav-button">&larr; Previous Round</a>
+        <a href="round-7.html" class="nav-button">Next Round &rarr;</a>
+    </div>
+
+    <script>
+        // Tab switching function
+        function switchTab(sectionId, tabType) {
+            // Get all tabs and contents for this section
+            const rawTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'raw')"]`);
+            const markdownTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'markdown')"]`);
+            const rawContent = document.getElementById(`${sectionId}-raw`);
+            const markdownContent = document.getElementById(`${sectionId}-markdown`);
+
+            // Update active states
+            if (tabType === 'raw') {
+                rawTab.classList.add('active');
+                markdownTab.classList.remove('active');
+                rawContent.classList.add('active');
+                markdownContent.classList.remove('active');
+            } else {
+                rawTab.classList.remove('active');
+                markdownTab.classList.add('active');
+                rawContent.classList.remove('active');
+                markdownContent.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
