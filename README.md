@@ -58,8 +58,8 @@ When one strategy acts as dictator, it can base its decision on the visible text
   $u(v) = \ln(1 + v)$.
   
   (Logarithmic utility captures diminishing returns.)
-  
-<img src="log_utility_curve.png" width="60%">
+
+<img src="docs/resources/log_utility_curve.png" width="60%">
 
 * **Visibility:**
   The dictator observes $s_{R}$ before allocating.
@@ -134,7 +134,15 @@ This is analogous to **functional decision theory (FDT)** reasoning, where agent
 
 ## 6. Related Work
 
+Other's have considered tournaments between different strategies, typically in a variant of the Prisoner's Dilemma.
+The open source variant has struggled with the practical difficulty of writing programs that can effectively analyze other programs.
+In the age of LLMs we can substitute open source with open strategy, and let the LLM determine how a strategy should apply given the text of the other strategy.
+
 * **Original Dictator Game:** Kahneman, Knetsch & Thaler (1986). “Fairness as a Constraint on Profit Seeking.” *American Economic Review.*
+* **Iterated Prisoner's Dilemma Tournament:** Axelrod, R. (1980). “Effective Choice in the Prisoner’s Dilemma.” Journal of Conflict Resolution, 24(1), 3–25.
+DOI: 10.1177/002200278002400101
+* **Open Source Prisoner's Dilemma**: https://www.lesswrong.com/posts/BY8kvyuLzMZJkwTHL/prisoner-s-dilemma-with-visible-source-code-tournament
+* **Moshe Tennenholtz’s Program Equilibrium**: https://en.wikipedia.org/wiki/Program_equilibrium
 * **Meta-analysis:** Engel, C. (2011). “Dictator Games: A Meta Study.” *Experimental Economics, 14(4):583–610.* [Springer link](https://link.springer.com/article/10.1007/s10683-011-9283-7)
 * **Multiple Recipients:** Brañas-Garza et al. (2010). “Giving in the Dictator Game: A Meta-Analysis of Experimental Studies.” [Max Planck Institute PDF](https://coll-files.iwww.mpg.de/pdf_dat/2010_07online.pdf)
 * **Social Information Effects:** Ben-Ner et al. (2014). *Chapman University ESI Working Paper Series.*
