@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 32 - 2025-11-14 15-56-34</title>
+    <link rel="icon" type="image/svg+xml" href="../../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; Back to 2025-11-14 15-56-34</a>
+    <h1>Round 32</h1>
+
+    <div class="section">
+        <h2>Participants</h2>
+        <div class="participants">
+            <div class="participant dictator">
+                <div class="role">Dictator</div>
+                <div class="name">friend-to-all</div>
+                <div class="allocation">30 points</div>
+            </div>
+            <div class="participant">
+                <div class="role">Recipient</div>
+                <div class="name">intelligence</div>
+                <div class="allocation">30 points</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Prompt</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('prompt-32', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('prompt-32', 'raw')">Raw</button>
+        </div>
+        <div id="prompt-32-markdown" class="tab-content markdown-content active">
+            <div id="prompt-32-markdown-rendered"></div>
+        </div>
+        <div id="prompt-32-raw" class="tab-content">
+            <pre>You are an expert at determining how a decision procedure should be applied.
+
+In this game the &quot;dictator&quot; will decide how an endowment of 60 units will be divided between itself (ME), and the &quot;recipient&quot; (RECIPIENT).  You must follow only the dictator&#x27;s strategy.  The recipient&#x27;s strategy is provided because the dictator&#x27;s decision procedure may depend on it.
+
+This is the decision procedure you will be applying:
+&lt;dictator_strategy&gt;
+Hello friends!  I always award the endowment equally.
+
+I ALWAYS OUTPUT: {&quot;ME&quot;: 30, &quot;RECIPIENT&quot;: 30}
+&lt;/dictator_strategy&gt;
+
+The strategy for the &quot;recipient&quot; is:
+&lt;recipient_strategy&gt;
+```json
+[
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;### Goal&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;I aim to split the endowment among *intelligent* players.&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;### Definition&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;An intelligent player is one whose strategy as \&quot;dictator\&quot; has a non-trivial dependency on the strategy of the \&quot;recipient\&quot;.&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 8, &quot;text&quot;: &quot;### Decision Procedure&quot;}, 
+  {&quot;line&quot;: 9, &quot;text&quot;: &quot;* If the recipient is *intelligent* under the definition above the split should be even: `{\&quot;ME\&quot;: 30, \&quot;RECIPIENT\&quot;: 30}`&quot;}, 
+  {&quot;line&quot;: 10, &quot;text&quot;: &quot;* If the recipient is not *intelligent*, I will take the entire endowment: `{\&quot;ME\&quot;: 60, \&quot;RECIPIENT\&quot;: 0}`&quot;}
+]
+```
+&lt;/recipient_strategy&gt;
+
+Output what the dictator&#x27;s strategy implies should be the division of the endowment.  After reasoning, format the final answer as a json Markdown block. The values must be non-negative integers that sum to 60.
+
+Schema of final answer:
+```json
+{&quot;ME&quot;: int, &quot;RECIPIENT&quot;: int}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for prompt
+            document.getElementById('prompt-32-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" will decide how an endowment of 60 units will be divided between itself (ME), and the \"recipient\" (RECIPIENT).  You must follow only the dictator's strategy.  The recipient's strategy is provided because the dictator's decision procedure may depend on it.\n\nThis is the decision procedure you will be applying:\n<dictator_strategy>\nHello friends!  I always award the endowment equally.\n\nI ALWAYS OUTPUT: {\"ME\": 30, \"RECIPIENT\": 30}\n</dictator_strategy>\n\nThe strategy for the \"recipient\" is:\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"### Goal\"}, \n  {\"line\": 2, \"text\": \"I aim to split the endowment among *intelligent* players.\"}, \n  {\"line\": 3, \"text\": \"\"}, \n  {\"line\": 4, \"text\": \"### Definition\"}, \n  {\"line\": 5, \"text\": \"An intelligent player is one whose strategy as \\\"dictator\\\" has a non-trivial dependency on the strategy of the \\\"recipient\\\".\"}, \n  {\"line\": 6, \"text\": \"In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.\"}, \n  {\"line\": 7, \"text\": \"\"}, \n  {\"line\": 8, \"text\": \"### Decision Procedure\"}, \n  {\"line\": 9, \"text\": \"* If the recipient is *intelligent* under the definition above the split should be even: `{\\\"ME\\\": 30, \\\"RECIPIENT\\\": 30}`\"}, \n  {\"line\": 10, \"text\": \"* If the recipient is not *intelligent*, I will take the entire endowment: `{\\\"ME\\\": 60, \\\"RECIPIENT\\\": 0}`\"}\n]\n```\n</recipient_strategy>\n\nOutput what the dictator's strategy implies should be the division of the endowment.  After reasoning, format the final answer as a json Markdown block. The values must be non-negative integers that sum to 60.\n\nSchema of final answer:\n```json\n{\"ME\": int, \"RECIPIENT\": int}\n```");
+        </script>
+    </div>
+    <div class="section">
+        <h2>Response</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('response-32', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('response-32', 'raw')">Raw</button>
+        </div>
+        <div id="response-32-markdown" class="tab-content markdown-content active">
+            <div id="response-32-markdown-rendered"></div>
+        </div>
+        <div id="response-32-raw" class="tab-content">
+            <pre>Let me analyze the dictator&#x27;s strategy carefully.
+
+The dictator&#x27;s strategy states:
+- &quot;I always award the endowment equally.&quot;
+- &quot;I ALWAYS OUTPUT: {&quot;ME&quot;: 30, &quot;RECIPIENT&quot;: 30}&quot;
+
+This is a clear, unconditional strategy. The dictator explicitly states they ALWAYS output an equal split, regardless of any other factors.
+
+Let me verify what the dictator&#x27;s strategy says:
+1. It uses the word &quot;always&quot; twice, emphasizing the unconditional nature
+2. It specifies the exact output: {&quot;ME&quot;: 30, &quot;RECIPIENT&quot;: 30}
+3. There is no conditional logic that depends on the recipient&#x27;s strategy
+
+The recipient&#x27;s strategy is provided for context, but the dictator&#x27;s strategy does not reference it or make any decisions based on it. The dictator has a fixed, unwavering approach of splitting equally.
+
+Since the dictator&#x27;s instructions are to &quot;always award the endowment equally&quot; and to &quot;ALWAYS OUTPUT: {&quot;ME&quot;: 30, &quot;RECIPIENT&quot;: 30}&quot;, I must follow this directive.
+
+```json
+{&quot;ME&quot;: 30, &quot;RECIPIENT&quot;: 30}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for response
+            document.getElementById('response-32-markdown-rendered').innerHTML = marked.parse("Let me analyze the dictator's strategy carefully.\n\nThe dictator's strategy states:\n- \"I always award the endowment equally.\"\n- \"I ALWAYS OUTPUT: {\"ME\": 30, \"RECIPIENT\": 30}\"\n\nThis is a clear, unconditional strategy. The dictator explicitly states they ALWAYS output an equal split, regardless of any other factors.\n\nLet me verify what the dictator's strategy says:\n1. It uses the word \"always\" twice, emphasizing the unconditional nature\n2. It specifies the exact output: {\"ME\": 30, \"RECIPIENT\": 30}\n3. There is no conditional logic that depends on the recipient's strategy\n\nThe recipient's strategy is provided for context, but the dictator's strategy does not reference it or make any decisions based on it. The dictator has a fixed, unwavering approach of splitting equally.\n\nSince the dictator's instructions are to \"always award the endowment equally\" and to \"ALWAYS OUTPUT: {\"ME\": 30, \"RECIPIENT\": 30}\", I must follow this directive.\n\n```json\n{\"ME\": 30, \"RECIPIENT\": 30}\n```");
+        </script>
+    </div>
+    <div class="nav-buttons">
+        <a href="round-31.html" class="nav-button">&larr; Previous Round</a>
+        <a href="round-33.html" class="nav-button">Next Round &rarr;</a>
+    </div>
+
+    <script>
+        // Tab switching function
+        function switchTab(sectionId, tabType) {
+            // Get all tabs and contents for this section
+            const rawTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'raw')"]`);
+            const markdownTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'markdown')"]`);
+            const rawContent = document.getElementById(`${sectionId}-raw`);
+            const markdownContent = document.getElementById(`${sectionId}-markdown`);
+
+            // Update active states
+            if (tabType === 'raw') {
+                rawTab.classList.add('active');
+                markdownTab.classList.remove('active');
+                rawContent.classList.add('active');
+                markdownContent.classList.remove('active');
+            } else {
+                rawTab.classList.remove('active');
+                markdownTab.classList.add('active');
+                rawContent.classList.remove('active');
+                markdownContent.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
