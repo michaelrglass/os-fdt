@@ -116,7 +116,7 @@ Tournament results are available at https://michaelrglass.github.io/os-fdt/
 ### Non-zero-sum dynamics
 
 Because utilities are logarithmic, the total welfare is not fixed.
-The sum of utilities is maximized for an **even split** $ (30, 30) $, but self-interested deviations can reduce collective payoff.
+The sum of utilities is maximized for an **even split** $(30, 30)$, but self-interested deviations can reduce collective payoff.
 
 ### Conditional cooperation and acausal reasoning
 

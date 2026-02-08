@@ -29,7 +29,7 @@ To publish this site on GitHub Pages:
 6. Select `/docs` as the folder
 7. Click Save
 
-Your site will be available at: `https://<username>.github.io/<repository-name>/`
+Your site will be available at: `https://michaelrglass.github.io/os-fdt/`
 
 ## Local Preview
 
