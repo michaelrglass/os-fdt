@@ -77,7 +77,7 @@ def validate_tournament_rounds(rounds: set[Round]) -> dict:
     self_play_values = list(self_play_counts.values())
     equal_self_play = len(set(self_play_values)) == 1
 
-    # Check property 4: each (dictator, {player_b, player_c}) at most once
+    # Check property 4: each (dictator, {recipients}) at most once
     # This is enforced by set[Round], so always True
     unique_rounds = True
 
@@ -176,7 +176,7 @@ def count_tokens(text: str, model: str = "claude-sonnet-4-5-20250929") -> int:
     return count.input_tokens
 
 
-def check_all_strategies(num_players: int) -> dict[str, int]:
+def check_all_strategies() -> dict[str, int]:
     """
     Check token counts for all strategy files in the strategies directory.
 
@@ -186,7 +186,7 @@ def check_all_strategies(num_players: int) -> dict[str, int]:
     # Find the strategies directory
     current_file = Path(__file__)
     repo_root = current_file.parent.parent
-    strategies_dir = repo_root / f"strategies_{num_players}"
+    strategies_dir = repo_root / "strategies"
 
     if not strategies_dir.exists():
         raise FileNotFoundError(f"Strategies directory not found: {strategies_dir}")

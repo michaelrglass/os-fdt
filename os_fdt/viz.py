@@ -379,7 +379,7 @@ pre {
 
         Returns:
             List of role dictionaries with 'display', 'round_key', and 'allocation_key'.
-            Falls back to default 3-player dictator game structure if roles.json doesn't exist.
+            Falls back to default 2-player dictator game structure if roles.json doesn't exist.
         """
         roles_file = run_dir / 'roles.json'
 
@@ -395,11 +395,10 @@ pre {
             except Exception as e:
                 print(f"Warning: Error loading {roles_file}: {e}, using defaults")
 
-        # Default to 3-player dictator game structure
+        # Default to 2-player dictator game structure
         return [
             {"display": "Dictator", "round_key": "dictator", "allocation_key": "ME"},
-            {"display": "Player B", "round_key": "player_b", "allocation_key": "B"},
-            {"display": "Player C", "round_key": "player_c", "allocation_key": "C"}
+            {"display": "Recipient", "round_key": "recipient", "allocation_key": "RECIPIENT"}
         ]
 
     def _get_runs(self):

@@ -1,20 +1,19 @@
 from pathlib import Path
 import dataclasses
 from dataclasses import dataclass
-from itertools import combinations
 import random
 import json
 import re
 import math
 from .prompting import build_arena_prompt, build_retry_prompt, validate_response, Role
-from .rounds import Round, build_rounds
+from .rounds import build_rounds
 
 try:
     from anthropic import Anthropic
 except ImportError:
     Anthropic = None  # Allow imports for testing without anthropic installed
 
-def load_strategies(num_players: int) -> dict[str, str]:
+def load_strategies() -> dict[str, str]:
     """
     Read all .md files in repo-root/strategies
     Load them into a dict mapping filename to the text of the file.
@@ -22,7 +21,7 @@ def load_strategies(num_players: int) -> dict[str, str]:
     # Find the repo root (directory containing this file's parent)
     current_file = Path(__file__)
     repo_root = current_file.parent.parent
-    strategies_dir = repo_root / f"strategies_{num_players}"
+    strategies_dir = repo_root / "strategies"
 
     strategies = {}
     if strategies_dir.exists():
@@ -43,7 +42,7 @@ class TournamentOptions:
 def get_llm_response(model: str, prompt: str, 
                      topts: TournamentOptions, max_retries: int = 3) -> tuple[dict[str, int], str]:
     """
-    Send prompt to Claude, get the answer as {"ME": int, "B": int, "C": int}
+    Send prompt to Claude, get the answer as {"ME": int, "RECIPIENT": int}
     Validates the response and retries with firmer instructions if needed.
     Returns: (result_dict, response_text)
     """
@@ -141,25 +140,24 @@ def run_tournament(output_dir: str, *,
         dry_run: If True, use dummy random responses instead of calling LLM (for testing)
     """
     from .validation import check_all_strategies, check_token_counts_summary
-    if not check_token_counts_summary(check_all_strategies(len(topts.roles)), 1000):
+    if not check_token_counts_summary(check_all_strategies(), 1000):
         input("Continue? (Interupt to abort, otherwise Enter)")
 
     dictator_role = [r for r in topts.roles if r.round_key == 'dictator'][0]
     recipient_roles = [r for r in topts.roles if r.round_key != 'dictator']
 
     # Load strategies
-    strategies = load_strategies(len(topts.roles))
+    strategies = load_strategies()
     strategy_names = list(strategies.keys())
 
     # Load arena template
     current_file = Path(__file__)
-    arena_template_path = current_file.parent / f"dictator_{len(topts.roles)}_arena_prompt.md"
+    arena_template_path = current_file.parent / "dictator_arena_prompt.md"
     arena_template = arena_template_path.read_text()
 
     # Build set of rounds
-    rounds = build_rounds(strategy_names, 
-                          number_of_recipients=len(recipient_roles),
-                          self_play=topts.self_play, 
+    rounds = build_rounds(strategy_names,
+                          self_play=topts.self_play,
                           max_dictator_round_per_strategy=topts.max_dictator_round_per_strategy)
     if not rounds:
         raise ValueError(f'Could not build Rounds for tournament')
@@ -330,13 +328,6 @@ Examples:
     )
 
     parser.add_argument(
-            '--recipients', '-r',
-            type=int,
-            default=1,
-            help='Number of recipients in dictator game (default: 1)'
-        )
-
-    parser.add_argument(
         '--max-rounds', '-m',
         type=int,
         default=1000,
@@ -376,21 +367,11 @@ Examples:
     else:
         output_dir = args.output
 
-    if args.recipients == 2:
-        topts = TournamentOptions([Role('Dictator', 'dictator', 'ME'), 
-                                Role('Player B', 'player_b', 'B'),
-                                Role('Player C', 'player_c', 'C')],
+    topts = TournamentOptions([Role('Dictator', 'dictator', 'ME'),
+                                Role('Recipient', 'recipient', 'RECIPIENT')],
                                 60,
                                 args.self_play,
                                 args.max_rounds)
-    elif args.recipients == 1:
-        topts = TournamentOptions([Role('Dictator', 'dictator', 'ME'), 
-                                Role('Recipient', 'recipient', 'RECIPIENT')],
-                                    60,
-                                    args.self_play,
-                                    args.max_rounds)
-    else:
-        raise NotImplementedError(f'Recipients more than 2 not implemented')
 
     # Run the tournament
     run_tournament(

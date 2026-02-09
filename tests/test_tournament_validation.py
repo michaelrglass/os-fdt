@@ -9,7 +9,7 @@ def test_validate(n: int, max_dictator_round_per_strategy: int):
     """Test validation on a tournament."""
     print(f"\n=== Validating {n} strategies, {max_dictator_round_per_strategy} rounds per s ===")
     strategy_names = [f"S_{i}" for i in range(n)]
-    rounds = build_rounds(strategy_names, 2, self_play=n % 2 == 0, 
+    rounds = build_rounds(strategy_names, self_play=n % 2 == 0,
                           max_dictator_round_per_strategy=max_dictator_round_per_strategy)
 
     result = validate_tournament_rounds(rounds)

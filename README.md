@@ -163,7 +163,7 @@ Under this lens, the Open Strategy Dictator Game becomes a simplified model for 
 
 ## 8. Running tournaments
 
-To run a tournament over strategies in os-fdt/strategies_2:
+To run a tournament over strategies in os-fdt/strategies:
 ```bash
 python -m os_fdt.tournament
 ```

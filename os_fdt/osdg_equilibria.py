@@ -285,20 +285,14 @@ def main():
         dictator_name = round_data["dictator"]
         dictator_idx = name_to_idx[dictator_name]
 
-        # For 2-player games, there's one recipient
-        if len(recipient_roles) == 1:
-            recipient_name = round_data[recipient_roles[0]["round_key"]]
-            recipient_idx = name_to_idx[recipient_name]
+        recipient_name = round_data[recipient_roles[0]["round_key"]]
+        recipient_idx = name_to_idx[recipient_name]
 
-            # How much did this dictator award to itself?
-            dictator_allocation = round_data["allocation"][dictator_role["allocation_key"]]
+        # How much did this dictator award to itself?
+        dictator_allocation = round_data["allocation"][dictator_role["allocation_key"]]
 
-            v_sum[dictator_idx, recipient_idx] += dictator_allocation
-            v_count[dictator_idx, recipient_idx] += 1
-        else:
-            # For 3+ player games, we need to handle multiple recipients
-            # This is more complex and may need different treatment
-            raise NotImplementedError("Multi-recipient games not yet supported for equilibrium analysis")
+        v_sum[dictator_idx, recipient_idx] += dictator_allocation
+        v_count[dictator_idx, recipient_idx] += 1
 
     # Check that we have data
     if E is None:
