@@ -5,6 +5,14 @@ import html
 import shutil
 from pathlib import Path
 
+try:
+    import numpy as np
+    from .osdg_equilibria import (build_game_matrix, find_dominated_strategies,
+                                   find_equivalent_strategies, softmax_equilibria_sample)
+    _HAS_ANALYSIS = True
+except ImportError:
+    _HAS_ANALYSIS = False
+
 
 class StaticSiteGenerator:
     """Generates static HTML/CSS/JS files for tournament visualization."""
@@ -378,6 +386,132 @@ pre {
             {"display": "Recipient", "round_key": "recipient", "allocation_key": "RECIPIENT"}
         ]
 
+    def _load_analysis_data(self, run_dir: Path):
+        """Load rounds.jsonl and build v matrix + game matrix A.
+
+        Returns (names, A) or (None, None) if data unavailable.
+        """
+        if not _HAS_ANALYSIS:
+            return None, None
+
+        rounds_path = run_dir / "rounds.jsonl"
+        if not rounds_path.exists():
+            return None, None
+
+        strategy_names_set: set[str] = set()
+        rounds_data = []
+        E = None
+
+        with open(rounds_path) as f:
+            for line in f:
+                rd = json.loads(line)
+                rounds_data.append(rd)
+                strategy_names_set.add(rd["dictator"])
+                strategy_names_set.add(rd["recipient"])
+                if E is None:
+                    E = sum(rd["allocation"].values())
+
+        if E is None:
+            return None, None
+
+        names = sorted(list(strategy_names_set))
+        n = len(names)
+        name_to_idx = {name: i for i, name in enumerate(names)}
+
+        v = np.zeros((n, n))  # type: ignore[possibly-unbound]
+        v_count = np.zeros((n, n), dtype=int)  # type: ignore[possibly-unbound]
+
+        for rd in rounds_data:
+            di = name_to_idx[rd["dictator"]]
+            ri = name_to_idx[rd["recipient"]]
+            v[di, ri] += rd["allocation"]["ME"]
+            v_count[di, ri] += 1
+
+        for i in range(n):
+            for j in range(n):
+                if v_count[i, j] > 0:
+                    v[i, j] /= v_count[i, j]
+                else:
+                    v[i, j] = E / 2.0
+
+        A = build_game_matrix(v, float(E))  # type: ignore[possibly-unbound]
+        return names, A
+
+    def _generate_analysis_html(self, run_dir: Path) -> str:
+        """Generate HTML sections for dominated strategies, equivalent strategies,
+        and softmax equilibria."""
+        names, A = self._load_analysis_data(run_dir)
+        if names is None or A is None:
+            return ""
+
+        parts = []
+
+        # --- Dominated strategies ---
+        dom = find_dominated_strategies(A)  # type: ignore[possibly-unbound]
+        parts.append('    <div class="section">')
+        parts.append('        <h2>Dominated Strategies</h2>')
+        if not dom:
+            parts.append('        <p>No dominated strategies found.</p>')
+        else:
+            parts.append('        <ul>')
+            for i, kind, pure_doms in dom:
+                name_esc = html.escape(names[i])
+                if pure_doms:
+                    dom_names = ", ".join(html.escape(names[j]) for j in pure_doms)
+                    parts.append(f'            <li><strong>{name_esc}</strong> &mdash; {kind}ly dominated by: {dom_names}</li>')
+                else:
+                    parts.append(f'            <li><strong>{name_esc}</strong> &mdash; {kind}ly dominated (by mixture only)</li>')
+            parts.append('        </ul>')
+        parts.append('    </div>')
+
+        # --- Equivalent strategies ---
+        equiv = find_equivalent_strategies(A)  # type: ignore[possibly-unbound]
+        parts.append('    <div class="section">')
+        parts.append('        <h2>Equivalent Strategies</h2>')
+        if not equiv:
+            parts.append('        <p>No equivalent strategy pairs found.</p>')
+        else:
+            parts.append('        <ul>')
+            for group in equiv:
+                group_names = ", ".join(html.escape(names[i]) for i in group)
+                parts.append(f'            <li>{{{group_names}}}</li>')
+            parts.append('        </ul>')
+        parts.append('    </div>')
+
+        # --- Softmax equilibria ---
+        betas = [1.0, 5.0, 20.0]
+        num_samples = 1000
+        parts.append('    <div class="section">')
+        parts.append('        <h2>Softmax Equilibria</h2>')
+        parts.append(f'        <p>{num_samples} random starting points per &beta;</p>')
+
+        for beta in betas:
+            clusters = softmax_equilibria_sample(A, beta, num_samples=num_samples)  # type: ignore[possibly-unbound]
+            n_fp = len(clusters)
+            parts.append(f'        <h3>&beta; = {beta} &mdash; {n_fp} distinct fixed point{"s" if n_fp != 1 else ""}</h3>')
+
+            for eq_idx, (f, count) in enumerate(clusters):
+                pct = 100 * count / num_samples
+                R = A @ f
+                parts.append(f'        <div style="margin-bottom: 12px;">')
+                parts.append(f'            <strong>#{eq_idx + 1}</strong> basin: {count}/{num_samples} ({pct:.1f}%)')
+                parts.append('            <table style="margin-top: 6px;">')
+                parts.append('                <thead><tr><th>Strategy</th><th class="score">Frequency</th><th class="score">Reward</th></tr></thead>')
+                parts.append('                <tbody>')
+                order = np.argsort(-f)  # type: ignore[possibly-unbound]
+                for i in order:
+                    if f[i] < 1e-6:
+                        continue
+                    parts.append(f'                    <tr><td>{html.escape(names[i])}</td>'
+                                 f'<td class="score">{f[i]:.4f}</td>'
+                                 f'<td class="score">{R[i]:.4f}</td></tr>')
+                parts.append('                </tbody>')
+                parts.append('            </table>')
+                parts.append('        </div>')
+
+        parts.append('    </div>')
+        return '\n'.join(parts) + '\n'
+
     def _get_runs(self):
         """Get list of tournament runs with metadata."""
         runs = []
@@ -581,6 +715,9 @@ pre {
     </div>
 """
 
+        # Add analysis sections
+        html_content += self._generate_analysis_html(run_dir)
+
         # Add rounds section
         html_content += self._generate_rounds_section_html(
             latest_run_name,
@@ -685,16 +822,13 @@ pre {
                 <div class="rounds-grid">
 """
 
-            for round_info in rounds_list:
+            for round_info in sorted(rounds_list, key=lambda r: r['participants']):
                 idx = round_info['index']
                 participants_list = round_info['participants']
-                # Build display string: "A vs B" or "A vs B vs C" etc.
-                players_display = " vs ".join(participants_list)
-                # Add data attributes for all participants for filtering
+                players_display = ", ".join(participants_list)
                 data_attrs = f'data-players="{html.escape(" ".join(participants_list))}"'
 
                 html_content += f"""                    <a href="{rounds_path_prefix}round-{idx}.html" class="round-link-detailed" {data_attrs}>
-                        <div class="round-number">Round {idx}</div>
                         <div class="round-players">{html.escape(players_display)}</div>
                     </a>
 """
@@ -898,6 +1032,9 @@ pre {
         </table>
     </div>
 """
+
+        # Add analysis sections
+        html_content += self._generate_analysis_html(run_dir)
 
         # Add rounds section
         html_content += self._generate_rounds_section_html(run_name, num_rounds, rounds_file)
