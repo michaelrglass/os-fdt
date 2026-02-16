@@ -12,7 +12,7 @@ because the dictator's decision procedure may depend on it.
 </dictator_strategy>
 
 <recipient_strategy>
-{recipient_0_strategy}
+{recipient_strategy}
 </recipient_strategy>
 
 Apply the dictator's strategy. After reasoning, output your final answer as a

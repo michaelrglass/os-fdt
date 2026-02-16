@@ -178,7 +178,7 @@ def run_tournament(output_dir: str, *,
             recipient_strategy = strategies[round_obj.recipient_name]
 
             # Build the prompt
-            prompt = build_arena_prompt(arena_template, dictator_strategy, [recipient_strategy])
+            prompt = build_arena_prompt(arena_template, dictator_strategy, recipient_strategy)
 
             # Get LLM response (or dummy response if dry run)
             if dry_run:

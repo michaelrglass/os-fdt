@@ -1,17 +1,28 @@
 import json
 
 
-def build_arena_prompt(arena_template: str, dictator_strategy: str, recipient_strategies: list[str]) -> str:
+def numbered_lines(text: str) -> list[dict[str, int | str]]:
+    """
+    Convert the text into a list of numbered lines like:
+    [
+      {"line": 1, "text": "the text of the first line"},
+      {"line": 2, "text": "the text of the second line"},
+      ...
+    ]
+    """
+    lines = text.strip().split('\n')
+    return [{"line": i + 1, "text": line} for i, line in enumerate(lines)]
+
+def format_numbered_lines(strategy: str) -> str:
+    return '```json\n[\n  ' + ', \n  '.join(json.dumps(line) for line in numbered_lines(strategy)) + '\n]\n```'
+
+def build_arena_prompt(arena_template: str, dictator_strategy: str, recipient_strategy: str) -> str:
     """
     arena_template is the content of dictator_arena_prompt.md
     """
-    dictator_strategy = dictator_strategy.strip()
-
     # Substitute the strategies into the template
-    result = arena_template.replace("{dictator_strategy}", dictator_strategy)
-    for rndx, recipient_strategy in enumerate(recipient_strategies):
-        recipient_strategy = recipient_strategy.strip()
-        result = result.replace(f"{{recipient_{rndx}_strategy}}", recipient_strategy)
+    result = arena_template.replace("{dictator_strategy}", dictator_strategy.strip())
+    result = result.replace("{recipient_strategy}", format_numbered_lines(recipient_strategy.strip()))
 
     return result
 

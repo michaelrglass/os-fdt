@@ -46,17 +46,18 @@ When one strategy acts as dictator, it can base its decision on the visible text
   A set of $n$ distinct strategy descriptions $\mathcal{S} = { s_1, s_2, \dots, s_n }$.
 
 * **Endowment:**
-  $E = 60$ units of value to be divided among the dictator and the recipient.
+  $E = 60$ units of value.
 
 * **Rounds:**
   Each round consists of an ordered pair $(D, R)$.
-  The dictator $D$ chooses nonnegative allocations $(v_D, v_{R})$ such that
-  $v_D + v_{R} = E$.
+  The dictator $D$ makes a binary choice:
+  - **SHARE** — split equally: dictator gets $E/2$, recipient gets $E/2$.
+  - **TAKE** — keep everything: dictator gets $E$, recipient gets $0$.
 
 * **Payoffs:**
-  Each player’s utility is
+  Each player's utility is
   $u(v) = \ln(1 + v)$.
-  
+
   (Logarithmic utility captures diminishing returns.)
 
 <img src="docs/resources/log_utility_curve.png" width="60%">
@@ -80,13 +81,13 @@ Each match $(D, R)$ is run as a **prompted simulation** using a language model:
 1. **Prompt filling:**
    A template includes `Strategy(D)`, `Strategy(R)` plus instructions such as:
 
-   > “Output what the dictator's strategy implies should be the division of the endowment.”
+   > "Apply the dictator's strategy and output SHARE or TAKE."
 
 2. **Model decision:**
-   The LLM (e.g. Claude) outputs a distribution $(v_D, v_{R})$.
+   The LLM (e.g. Claude) outputs `{"decision": "SHARE"}` or `{"decision": "TAKE"}`.
 
 3. **Scoring:**
-   Each participant’s score increases by $\ln(1 + v)$.
+   Each participant's score increases by $\ln(1 + v)$ where $v$ is the value they receive.
 
 4. **Tournament loop:**
    Repeat over all ordered pairs, accumulate scores, and rank strategies.
@@ -116,7 +117,7 @@ Tournament results are available at https://michaelrglass.github.io/os-fdt/
 ### Non-zero-sum dynamics
 
 Because utilities are logarithmic, the total welfare is not fixed.
-The sum of utilities is maximized for an **even split** $(30, 30)$, but self-interested deviations can reduce collective payoff.
+The sum of utilities is maximized when the dictator chooses **SHARE** $(30, 30)$, but a self-interested dictator prefers **TAKE** $(60, 0)$ since $\ln(61) > \ln(31)$.
 
 ### Conditional cooperation and acausal reasoning
 
