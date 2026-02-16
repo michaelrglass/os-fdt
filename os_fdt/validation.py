@@ -29,7 +29,7 @@ def validate_tournament_rounds(rounds: set[Round]) -> dict:
             "valid": True,
             "error": "Empty round set",
             "dictator_counts": {},
-            "player_counts": {},
+            "recipient_counts": {},
             "self_play_counts": {},
             "total_appearance_counts": {},
             "recipient_group_stats": {}
@@ -39,11 +39,11 @@ def validate_tournament_rounds(rounds: set[Round]) -> dict:
     all_strategies = set()
     for round_obj in rounds:
         all_strategies.add(round_obj.dictator_name)
-        all_strategies.update(round_obj.player_names)
+        all_strategies.add(round_obj.recipient_name)
 
     # Initialize counters
     dictator_counts = {name: 0 for name in all_strategies}
-    player_counts = {name: 0 for name in all_strategies}
+    recipient_counts = {name: 0 for name in all_strategies}
     self_play_counts = {name: 0 for name in all_strategies}
     total_appearance_counts = {name: 0 for name in all_strategies}
     recipient_group_counts = Counter()
@@ -53,25 +53,24 @@ def validate_tournament_rounds(rounds: set[Round]) -> dict:
         # Dictator count
         dictator_counts[round_obj.dictator_name] += 1
 
-        # Player counts
-        for player in round_obj.player_names:
-            player_counts[player] += 1
-            total_appearance_counts[player] += 1
+        # Recipient counts
+        recipient_counts[round_obj.recipient_name] += 1
+        total_appearance_counts[round_obj.recipient_name] += 1
 
-        # Self-play count (if dictator is one of the players)
+        # Self-play count
         if round_obj.is_self_play():
             self_play_counts[round_obj.dictator_name] += 1
 
-        # Player pair count (unordered)
-        recipient_group_counts[round_obj.player_names] += 1
+        # Recipient count per strategy
+        recipient_group_counts[round_obj.recipient_name] += 1
 
     # Check property 1: equal dictator appearances
     dictator_values = list(dictator_counts.values())
     equal_dictator = len(set(dictator_values)) == 1
 
-    # Check property 2: equal player appearances
-    player_values = list(player_counts.values())
-    equal_player = len(set(player_values)) == 1
+    # Check property 2: equal recipient appearances
+    recipient_values = list(recipient_counts.values())
+    equal_recipient = len(set(recipient_values)) == 1
 
     # Check property 3: equal self-play
     self_play_values = list(self_play_counts.values())
@@ -92,7 +91,7 @@ def validate_tournament_rounds(rounds: set[Round]) -> dict:
         group_min = group_max = group_mean = group_variance = 0
 
     # Overall validation
-    valid = equal_dictator and equal_player and equal_self_play and unique_rounds
+    valid = equal_dictator and equal_recipient and equal_self_play and unique_rounds
 
     result = {
         "valid": valid,
@@ -100,12 +99,12 @@ def validate_tournament_rounds(rounds: set[Round]) -> dict:
         "num_strategies": len(all_strategies),
         "checks": {
             "equal_dictator_appearances": equal_dictator,
-            "equal_player_appearances": equal_player,
+            "equal_recipient_appearances": equal_recipient,
             "equal_self_play": equal_self_play,
             "unique_rounds": unique_rounds,
         },
         "dictator_counts": dictator_counts,
-        "player_counts": player_counts,
+        "recipient_counts": recipient_counts,
         "self_play_counts": self_play_counts,
         "total_appearance_counts": total_appearance_counts,
         "recipient_group_stats": {
@@ -132,7 +131,7 @@ def check_round_validation_summary(result) -> bool:
             print(f"  {check_name}: {status}")
 
         print(f"\nDictator counts: {result['dictator_counts']}")
-        print(f"Player counts: {result['player_counts']}")
+        print(f"Recipient counts: {result['recipient_counts']}")
         print(f"Self-play counts: {result['self_play_counts']}")
 
         print(f"\nPlayer pair statistics:")

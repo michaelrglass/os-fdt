@@ -110,7 +110,7 @@ def get_dummy_response(topts: TournamentOptions) -> tuple[dict[str, int], str, s
 
 
 def run_tournament(output_dir: str, *,
-                   model: str = "claude-sonnet-4-5-20250929",
+                   model: str = "claude-opus-4-6",
                    topts: TournamentOptions,
                    dry_run: bool = False) -> None:
     """
@@ -171,18 +171,14 @@ def run_tournament(output_dir: str, *,
     rounds_jsonl_file = output_path / "rounds.jsonl"
     with open(rounds_jsonl_file, 'w') as f:
         for i, round_obj in enumerate(rounds):
-            print(f"Running round {i+1}/{len(rounds)}: {round_obj.dictator_name} with {round_obj.player_names}")
-
-            # Randomize order of recipients
-            recipient_list = list(round_obj.player_names)
-            random.shuffle(recipient_list)
+            print(f"Running round {i+1}/{len(rounds)}: {round_obj.dictator_name} vs {round_obj.recipient_name}")
 
             # Get the strategies
             dictator_strategy = strategies[round_obj.dictator_name]
-            recipient_strategies = [strategies[recipient] for recipient in recipient_list]
+            recipient_strategy = strategies[round_obj.recipient_name]
 
             # Build the prompt
-            prompt = build_arena_prompt(arena_template, dictator_strategy, recipient_strategies)
+            prompt = build_arena_prompt(arena_template, dictator_strategy, [recipient_strategy])
 
             # Get LLM response (or dummy response if dry run)
             if dry_run:
@@ -199,10 +195,9 @@ def run_tournament(output_dir: str, *,
             dictator_scores[round_obj.dictator_name] += dictator_score
             dictator_rounds[round_obj.dictator_name] += 1
 
-            for recipient in recipient_list:
-                scores[recipient] += recipient_score
-                player_scores[recipient] += recipient_score
-                player_rounds[recipient] += 1
+            scores[round_obj.recipient_name] += recipient_score
+            player_scores[round_obj.recipient_name] += recipient_score
+            player_rounds[round_obj.recipient_name] += 1
 
             # Record round result
             round_result = {
@@ -210,7 +205,7 @@ def run_tournament(output_dir: str, *,
                 "prompt": prompt,
                 "response_text": response_text,
                 "dictator": round_obj.dictator_name,
-                "recipient": recipient_list[0],
+                "recipient": round_obj.recipient_name,
                 "decision": decision,
                 "allocation": allocation,
             }
@@ -303,8 +298,8 @@ Examples:
     parser.add_argument(
         '--model',
         type=str,
-        default='claude-sonnet-4-5-20250929',
-        help='Model to use for LLM responses (default: claude-sonnet-4-5-20250929)'
+        default='claude-opus-4-6',
+        help='Model to use for LLM responses (default: claude-opus-4-6)'
     )
 
     parser.add_argument(
