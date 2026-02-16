@@ -1,11 +1,10 @@
 from pathlib import Path
-import dataclasses
 from dataclasses import dataclass
 import random
 import json
 import re
 import math
-from .prompting import build_arena_prompt, build_retry_prompt, validate_response, Role
+from .prompting import build_arena_prompt, build_retry_prompt, validate_decision, decision_to_allocation
 from .rounds import build_rounds
 
 try:
@@ -34,17 +33,15 @@ def load_strategies() -> dict[str, str]:
 
 @dataclass
 class TournamentOptions:
-    roles: list[Role]
     total_endowment: int
     self_play: bool
-    max_dictator_round_per_strategy: int
 
-def get_llm_response(model: str, prompt: str, 
-                     topts: TournamentOptions, max_retries: int = 3) -> tuple[dict[str, int], str]:
+def get_llm_response(model: str, prompt: str,
+                     topts: TournamentOptions, max_retries: int = 3) -> tuple[dict[str, int], str, str]:
     """
-    Send prompt to Claude, get the answer as {"ME": int, "RECIPIENT": int}
+    Send prompt to Claude, get the decision as "SHARE" or "TAKE".
     Validates the response and retries with firmer instructions if needed.
-    Returns: (result_dict, response_text)
+    Returns: (allocation_dict, decision, response_text)
     """
     if Anthropic is None:
         raise RuntimeError("anthropic module not installed. Install with: pip install anthropic")
@@ -70,55 +67,46 @@ def get_llm_response(model: str, prompt: str,
             if json_match:
                 result_dict = json.loads(json_match.group(1))
             else:
-                # Fallback: try to find any JSON object in the response
-                json_match = re.search(r'\{[^}]*"ME"[^}]*\}', response_text)
+                # Fallback: try to find any JSON object with "decision" key
+                json_match = re.search(r'\{[^}]*"decision"[^}]*\}', response_text)
                 if json_match:
                     result_dict = json.loads(json_match.group(0))
                 else:
                     raise ValueError("No JSON found in response")
 
-            # Validate the response
-            validate_response(result_dict, topts.roles, topts.total_endowment)
+            # Validate the decision
+            validate_decision(result_dict)
 
-            # If we made it here, the response is valid
-            return result_dict, response_text
+            decision = result_dict["decision"]
+            allocation = decision_to_allocation(decision, topts.total_endowment)
+
+            return allocation, decision, response_text
 
         except (json.JSONDecodeError, ValueError, KeyError) as e:
             # Response is invalid
             if attempt < max_retries - 1:
-                # Add a firm correction message to the conversation
-                error_message = build_retry_prompt(topts.roles, topts.total_endowment, e)
+                error_message = build_retry_prompt(e)
 
                 messages.append({"role": "assistant", "content": response_text})
                 messages.append({"role": "user", "content": error_message})
                 continue
             else:
-                # Out of retries, raise the error
                 raise ValueError(f"Failed to get valid response after {max_retries} attempts. Last error: {e}. Last response: {response_text}")
 
     # Should never reach here
     raise ValueError("Unexpected error in get_llm_response")
 
 
-def get_dummy_response(topts: TournamentOptions) -> tuple[dict[str, int], str]:
+def get_dummy_response(topts: TournamentOptions) -> tuple[dict[str, int], str, str]:
     """
-    Returns a random valid allocation without calling the LLM.
+    Returns a random SHARE or TAKE decision without calling the LLM.
     Used for dry-run testing to avoid API costs.
     """
-    # Generate three random non-negative integers that sum to total_endowment
-    allocation_keys = [r.allocation_key for r in topts.roles]
-    remaining_endowment = topts.total_endowment
-    allocation_values = []
-    for _ in range(len(allocation_keys)-1):
-        v = random.randint(0, remaining_endowment)
-        remaining_endowment -= v
-        allocation_values.append(v)
-    allocation_values.append(remaining_endowment)
+    decision = random.choice(["SHARE", "TAKE"])
+    allocation = decision_to_allocation(decision, topts.total_endowment)
+    response = f"[DRY RUN] Random decision: {decision}, allocation: {allocation}"
 
-    result_dict = {k: v for k, v in zip(allocation_keys, allocation_values)}
-    response = f"[DRY RUN] Random allocation: {result_dict}"
-
-    return result_dict, response
+    return allocation, decision, response
 
 
 def run_tournament(output_dir: str, *,
@@ -136,15 +124,12 @@ def run_tournament(output_dir: str, *,
     Args:
         output_dir: Directory to write tournament results
         model: Anthropic model name
-        topts: tournament options and role structure
+        topts: tournament options
         dry_run: If True, use dummy random responses instead of calling LLM (for testing)
     """
     from .validation import check_all_strategies, check_token_counts_summary
     if not check_token_counts_summary(check_all_strategies(), 1000):
         input("Continue? (Interupt to abort, otherwise Enter)")
-
-    dictator_role = [r for r in topts.roles if r.round_key == 'dictator'][0]
-    recipient_roles = [r for r in topts.roles if r.round_key != 'dictator']
 
     # Load strategies
     strategies = load_strategies()
@@ -157,8 +142,7 @@ def run_tournament(output_dir: str, *,
 
     # Build set of rounds
     rounds = build_rounds(strategy_names,
-                          self_play=topts.self_play,
-                          max_dictator_round_per_strategy=topts.max_dictator_round_per_strategy)
+                          self_play=topts.self_play)
     if not rounds:
         raise ValueError(f'Could not build Rounds for tournament')
 
@@ -168,7 +152,7 @@ def run_tournament(output_dir: str, *,
 
     if dry_run:
         print("=" * 60)
-        print("DRY RUN MODE: Using random allocations instead of LLM")
+        print("DRY RUN MODE: Using random decisions instead of LLM")
         print("=" * 60)
 
     # Create output directory
@@ -202,23 +186,22 @@ def run_tournament(output_dir: str, *,
 
             # Get LLM response (or dummy response if dry run)
             if dry_run:
-                result_dict, response_text = get_dummy_response(topts)
+                allocation, decision, response_text = get_dummy_response(topts)
             else:
-                result_dict, response_text = get_llm_response(model, prompt, topts)
+                allocation, decision, response_text = get_llm_response(model, prompt, topts)
 
             # Compute scores using logarithmic scoring: ln(1 + v) where v is the endowment awarded
-            dictator_score = math.log(1 + result_dict.get(dictator_role.allocation_key, 0))
-            recipient_scores = [math.log(1 + result_dict.get(rr.allocation_key, 0)) 
-                                for rr in recipient_roles]
+            dictator_score = math.log(1 + allocation["ME"])
+            recipient_score = math.log(1 + allocation["RECIPIENT"])
 
             # Track total scores and dictator vs recipient scores separately
             scores[round_obj.dictator_name] += dictator_score
             dictator_scores[round_obj.dictator_name] += dictator_score
             dictator_rounds[round_obj.dictator_name] += 1
 
-            for recipient, score in zip(recipient_list, recipient_scores):
-                scores[recipient] += score
-                player_scores[recipient] += score
+            for recipient in recipient_list:
+                scores[recipient] += recipient_score
+                player_scores[recipient] += recipient_score
                 player_rounds[recipient] += 1
 
             # Record round result
@@ -227,10 +210,10 @@ def run_tournament(output_dir: str, *,
                 "prompt": prompt,
                 "response_text": response_text,
                 "dictator": round_obj.dictator_name,
-                "allocation": result_dict,
+                "recipient": recipient_list[0],
+                "decision": decision,
+                "allocation": allocation,
             }
-            round_result.update({r.round_key: recipient_name 
-                                 for r, recipient_name in zip(recipient_roles, recipient_list)})
             f.write(json.dumps(round_result) + '\n')
 
     # Write leaderboard
@@ -259,9 +242,6 @@ def run_tournament(output_dir: str, *,
 
     with open(output_path / "leaderboard.json", 'w') as f:
         json.dump(leaderboard_data, f, indent=2)
-
-    with open(output_path / "roles.json", 'w') as f:
-        json.dump([dataclasses.asdict(r) for r in topts.roles], f, indent=2)
 
     # Write human-readable leaderboard
     leaderboard_txt = output_path / "leaderboard.txt"
@@ -328,13 +308,6 @@ Examples:
     )
 
     parser.add_argument(
-        '--max-rounds', '-m',
-        type=int,
-        default=1000,
-        help='Maximum number of rounds each strategy can be dictator (default: 1000)'
-    )
-
-    parser.add_argument(
         '--self-play',
         action='store_true',
         default=True,
@@ -351,7 +324,7 @@ Examples:
     parser.add_argument(
         '--dry-run', '-d',
         action='store_true',
-        help='Run in dry-run mode with random allocations (no LLM calls)'
+        help='Run in dry-run mode with random decisions (no LLM calls)'
     )
 
     args = parser.parse_args()
@@ -367,11 +340,7 @@ Examples:
     else:
         output_dir = args.output
 
-    topts = TournamentOptions([Role('Dictator', 'dictator', 'ME'),
-                                Role('Recipient', 'recipient', 'RECIPIENT')],
-                                60,
-                                args.self_play,
-                                args.max_rounds)
+    topts = TournamentOptions(60, args.self_play)
 
     # Run the tournament
     run_tournament(

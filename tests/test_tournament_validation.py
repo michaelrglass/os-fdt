@@ -5,12 +5,11 @@ from os_fdt.validation import validate_tournament_rounds, check_round_validation
 import random
 
 
-def test_validate(n: int, max_dictator_round_per_strategy: int):
+def test_validate(n: int):
     """Test validation on a tournament."""
-    print(f"\n=== Validating {n} strategies, {max_dictator_round_per_strategy} rounds per s ===")
+    print(f"\n=== Validating {n} strategies ===")
     strategy_names = [f"S_{i}" for i in range(n)]
-    rounds = build_rounds(strategy_names, self_play=n % 2 == 0,
-                          max_dictator_round_per_strategy=max_dictator_round_per_strategy)
+    rounds = build_rounds(strategy_names, self_play=n % 2 == 0)
 
     result = validate_tournament_rounds(rounds)
 
@@ -26,7 +25,7 @@ def run_all_tests():
     for _ in range(100):
         try:
             n=random.randint(3, 100)
-            test_validate(n, max_dictator_round_per_strategy=random.randint(n, 1000))
+            test_validate(n)
             passed += 1
         except AssertionError as e:
             print(f"  FAIL: {e}")

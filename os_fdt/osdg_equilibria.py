@@ -230,7 +230,7 @@ def unit_vec(n: int, i: int) -> np.ndarray:
 
 def main():
     ap = argparse.ArgumentParser(description="Compute symmetric NE and ESS for the Open-Strategy Dictator Game.")
-    ap.add_argument("--run", required=True, help="Directory with tournament run output (roles.json and rounds.jsonl).")
+    ap.add_argument("--run", required=True, help="Directory with tournament run output (rounds.jsonl).")
     ap.add_argument("--max-support", type=int, default=4, help="Max support size to enumerate for mixed NE.")
     ap.add_argument("--ess-grid", type=int, default=20, help="Grid resolution for mixed ESS check (higher = stricter).")
     ap.add_argument("--tol", type=float, default=1e-9, help="Numerical tolerance.")
@@ -238,16 +238,7 @@ def main():
 
     # Load tournament results from the run directory
     run_path = Path(args.run)
-    roles_path = run_path / "roles.json"
     rounds_path = run_path / "rounds.jsonl"
-
-    # Load roles to understand the structure
-    with open(roles_path, "r") as f:
-        roles_data = json.load(f)
-
-    # Find dictator and recipient roles
-    dictator_role = next(r for r in roles_data if r["round_key"] == "dictator")
-    recipient_roles = [r for r in roles_data if r["round_key"] != "dictator"]
 
     # Calculate total endowment from first round
     # (Sum all allocations to get E)
@@ -264,8 +255,7 @@ def main():
 
             # Collect strategy names
             strategy_names_set.add(round_data["dictator"])
-            for recipient_role in recipient_roles:
-                strategy_names_set.add(round_data[recipient_role["round_key"]])
+            strategy_names_set.add(round_data["recipient"])
 
             # Calculate E from first round if not set
             if E is None:
@@ -285,11 +275,11 @@ def main():
         dictator_name = round_data["dictator"]
         dictator_idx = name_to_idx[dictator_name]
 
-        recipient_name = round_data[recipient_roles[0]["round_key"]]
+        recipient_name = round_data["recipient"]
         recipient_idx = name_to_idx[recipient_name]
 
         # How much did this dictator award to itself?
-        dictator_allocation = round_data["allocation"][dictator_role["allocation_key"]]
+        dictator_allocation = round_data["allocation"]["ME"]
 
         v_sum[dictator_idx, recipient_idx] += dictator_allocation
         v_count[dictator_idx, recipient_idx] += 1

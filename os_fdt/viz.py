@@ -372,30 +372,7 @@ pre {
         path.write_text(content, encoding='utf-8')
 
     def _load_roles(self, run_dir: Path) -> list[dict]:
-        """Load role configuration from roles.json in run directory.
-
-        Args:
-            run_dir: Path to the tournament run directory
-
-        Returns:
-            List of role dictionaries with 'display', 'round_key', and 'allocation_key'.
-            Falls back to default 2-player dictator game structure if roles.json doesn't exist.
-        """
-        roles_file = run_dir / 'roles.json'
-
-        if roles_file.exists():
-            try:
-                with open(roles_file) as f:
-                    roles = json.load(f)
-                    # Validate that first role is dictator
-                    if roles and roles[0]['round_key'] == 'dictator':
-                        return roles
-                    else:
-                        print(f"Warning: First role in {roles_file} is not dictator, using defaults")
-            except Exception as e:
-                print(f"Warning: Error loading {roles_file}: {e}, using defaults")
-
-        # Default to 2-player dictator game structure
+        """Return the fixed 2-player dictator game role structure."""
         return [
             {"display": "Dictator", "round_key": "dictator", "allocation_key": "ME"},
             {"display": "Recipient", "round_key": "recipient", "allocation_key": "RECIPIENT"}
@@ -412,7 +389,7 @@ pre {
             if not run_dir.is_dir():
                 continue
 
-            run_info = {'name': run_dir.name}
+            run_info: dict[str, str | int] = {'name': run_dir.name}
 
             # Try to get metadata from leaderboard
             leaderboard_file = run_dir / 'leaderboard.json'

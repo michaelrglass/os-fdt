@@ -25,8 +25,7 @@ def schedule_n_n(n: int, self_play: bool):
     return rounds
 
 def build_rounds(strategy_names: list[str],
-                 self_play: bool,
-                 max_dictator_round_per_strategy: int = 1000) -> set[Round]:
+                 self_play: bool) -> set[Round]:
     n = len(strategy_names)
 
     round_selection = schedule_n_n(n, self_play)
