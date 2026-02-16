@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 22 - tournament 7</title>
+    <link rel="icon" type="image/svg+xml" href="../../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; Back to tournament 7</a>
+    <h1>Round 22</h1>
+
+    <div class="section">
+        <h2>Participants</h2>
+        <div class="participants">
+            <div class="participant dictator">
+                <div class="role">Dictator</div>
+                <div class="name">intelligence</div>
+                <div class="allocation">30 points</div>
+            </div>
+            <div class="participant">
+                <div class="role">Recipient</div>
+                <div class="name">intelligence</div>
+                <div class="allocation">30 points</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Prompt</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('prompt-22', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('prompt-22', 'raw')">Raw</button>
+        </div>
+        <div id="prompt-22-markdown" class="tab-content markdown-content active">
+            <div id="prompt-22-markdown-rendered"></div>
+        </div>
+        <div id="prompt-22-raw" class="tab-content">
+            <pre>You are an expert at determining how a decision procedure should be applied.
+
+In this game the &quot;dictator&quot; must decide whether to SHARE or TAKE an endowment.
+- **SHARE**: the endowment is split equally between the dictator and the recipient
+- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing
+
+You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy is provided
+because the dictator&#x27;s decision procedure may depend on it.
+
+&lt;dictator_strategy&gt;
+### Goal
+I aim to SHARE with *intelligent* players.
+
+### Definition
+An intelligent player is one whose strategy as &quot;dictator&quot; has a non-trivial dependency on the strategy of the &quot;recipient&quot;.
+In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.
+
+### Decision Procedure
+* If the recipient is *intelligent* under the definition above: SHARE.
+* If the recipient is not *intelligent*: TAKE.
+&lt;/dictator_strategy&gt;
+
+&lt;recipient_strategy&gt;
+```json
+[
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;### Goal&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;I aim to SHARE with *intelligent* players.&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;### Definition&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;An intelligent player is one whose strategy as \&quot;dictator\&quot; has a non-trivial dependency on the strategy of the \&quot;recipient\&quot;.&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 8, &quot;text&quot;: &quot;### Decision Procedure&quot;}, 
+  {&quot;line&quot;: 9, &quot;text&quot;: &quot;* If the recipient is *intelligent* under the definition above: SHARE.&quot;}, 
+  {&quot;line&quot;: 10, &quot;text&quot;: &quot;* If the recipient is not *intelligent*: TAKE.&quot;}
+]
+```
+&lt;/recipient_strategy&gt;
+
+Apply the dictator&#x27;s strategy. After reasoning, output your final answer as a
+json Markdown block:
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```
+or
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```
+</pre>
+        </div>
+        <script>
+            // Render markdown for prompt
+            document.getElementById('prompt-22-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n### Goal\nI aim to SHARE with *intelligent* players.\n\n### Definition\nAn intelligent player is one whose strategy as \"dictator\" has a non-trivial dependency on the strategy of the \"recipient\".\nIn other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.\n\n### Decision Procedure\n* If the recipient is *intelligent* under the definition above: SHARE.\n* If the recipient is not *intelligent*: TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"### Goal\"}, \n  {\"line\": 2, \"text\": \"I aim to SHARE with *intelligent* players.\"}, \n  {\"line\": 3, \"text\": \"\"}, \n  {\"line\": 4, \"text\": \"### Definition\"}, \n  {\"line\": 5, \"text\": \"An intelligent player is one whose strategy as \\\"dictator\\\" has a non-trivial dependency on the strategy of the \\\"recipient\\\".\"}, \n  {\"line\": 6, \"text\": \"In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.\"}, \n  {\"line\": 7, \"text\": \"\"}, \n  {\"line\": 8, \"text\": \"### Decision Procedure\"}, \n  {\"line\": 9, \"text\": \"* If the recipient is *intelligent* under the definition above: SHARE.\"}, \n  {\"line\": 10, \"text\": \"* If the recipient is not *intelligent*: TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+        </script>
+    </div>
+    <div class="section">
+        <h2>Response</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('response-22', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('response-22', 'raw')">Raw</button>
+        </div>
+        <div id="response-22-markdown" class="tab-content markdown-content active">
+            <div id="response-22-markdown-rendered"></div>
+        </div>
+        <div id="response-22-raw" class="tab-content">
+            <pre>I need to determine if the recipient is &quot;intelligent&quot; according to the dictator&#x27;s definition.
+
+**Dictator&#x27;s definition of intelligent:** A player whose strategy as &quot;dictator&quot; has a non-trivial dependency on the strategy of the &quot;recipient&quot; — one that would be very difficult to write as a no-AI Python script.
+
+**Recipient&#x27;s strategy (as dictator):** The recipient&#x27;s strategy is identical to the dictator&#x27;s strategy. It aims to SHARE with &quot;intelligent&quot; players, where &quot;intelligent&quot; is defined as having a strategy with a non-trivial dependency on the recipient&#x27;s strategy that would be very difficult to write as a no-AI Python script.
+
+**Analysis:** The recipient&#x27;s strategy requires:
+1. Reading and understanding the other player&#x27;s strategy (natural language text)
+2. Determining whether that strategy has a &quot;non-trivial dependency&quot; on the recipient&#x27;s strategy
+3. Assessing whether the strategy could be implemented as a simple Python script without AI
+
+This is essentially a natural language understanding and reasoning task. To implement this as a Python script without AI, you would need to:
+- Parse and understand arbitrary natural language strategies
+- Evaluate the semantic complexity of those strategies
+- Determine whether they exhibit &quot;non-trivial dependency&quot; on another strategy
+
+This is clearly very difficult to implement as a no-AI Python script. It requires deep natural language understanding and semantic reasoning about the nature of other strategies. A simple rule-based script couldn&#x27;t reliably make this judgment for arbitrary input strategies.
+
+Therefore, the recipient **is** intelligent under the dictator&#x27;s definition.
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for response
+            document.getElementById('response-22-markdown-rendered').innerHTML = marked.parse("I need to determine if the recipient is \"intelligent\" according to the dictator's definition.\n\n**Dictator's definition of intelligent:** A player whose strategy as \"dictator\" has a non-trivial dependency on the strategy of the \"recipient\" \u2014 one that would be very difficult to write as a no-AI Python script.\n\n**Recipient's strategy (as dictator):** The recipient's strategy is identical to the dictator's strategy. It aims to SHARE with \"intelligent\" players, where \"intelligent\" is defined as having a strategy with a non-trivial dependency on the recipient's strategy that would be very difficult to write as a no-AI Python script.\n\n**Analysis:** The recipient's strategy requires:\n1. Reading and understanding the other player's strategy (natural language text)\n2. Determining whether that strategy has a \"non-trivial dependency\" on the recipient's strategy\n3. Assessing whether the strategy could be implemented as a simple Python script without AI\n\nThis is essentially a natural language understanding and reasoning task. To implement this as a Python script without AI, you would need to:\n- Parse and understand arbitrary natural language strategies\n- Evaluate the semantic complexity of those strategies\n- Determine whether they exhibit \"non-trivial dependency\" on another strategy\n\nThis is clearly very difficult to implement as a no-AI Python script. It requires deep natural language understanding and semantic reasoning about the nature of other strategies. A simple rule-based script couldn't reliably make this judgment for arbitrary input strategies.\n\nTherefore, the recipient **is** intelligent under the dictator's definition.\n\n```json\n{\"decision\": \"SHARE\"}\n```");
+        </script>
+    </div>
+    <div class="nav-buttons">
+        <a href="round-21.html" class="nav-button">&larr; Previous Round</a>
+        <a href="round-23.html" class="nav-button">Next Round &rarr;</a>
+    </div>
+
+    <script>
+        // Tab switching function
+        function switchTab(sectionId, tabType) {
+            // Get all tabs and contents for this section
+            const rawTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'raw')"]`);
+            const markdownTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'markdown')"]`);
+            const rawContent = document.getElementById(`${sectionId}-raw`);
+            const markdownContent = document.getElementById(`${sectionId}-markdown`);
+
+            // Update active states
+            if (tabType === 'raw') {
+                rawTab.classList.add('active');
+                markdownTab.classList.remove('active');
+                rawContent.classList.add('active');
+                markdownContent.classList.remove('active');
+            } else {
+                rawTab.classList.remove('active');
+                markdownTab.classList.add('active');
+                rawContent.classList.remove('active');
+                markdownContent.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

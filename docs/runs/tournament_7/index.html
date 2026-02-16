@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tournament 7 - Tournament Results</title>
+    <link rel="icon" type="image/svg+xml" href="../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <a href="../../index.html" class="back-link">&larr; Back to all runs</a>
+    <h1>tournament 7</h1>
+    <div class="meta">7 strategies, 49 rounds</div>
+
+    <div class="leaderboard">
+        <h2>Leaderboard</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="rank">Rank</th>
+                    <th class="strategy">Strategy</th>
+                    <th class="score">Total</th>
+                    <th class="score">As Dictator</th>
+                    <th class="score">As Player</th>
+                    <th class="score">Avg Dictator</th>
+                    <th class="score">Avg Player</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="rank">#1</td>
+                    <td class="strategy">conditional-cooperator</td>
+                    <td class="score">45.32</td>
+                    <td class="score">24.71</td>
+                    <td class="score">20.60</td>
+                    <td class="score">3.53</td>
+                    <td class="score">2.94</td>
+                </tr>
+                <tr>
+                    <td class="rank">#2</td>
+                    <td class="strategy">hard-line</td>
+                    <td class="score">44.59</td>
+                    <td class="score">27.42</td>
+                    <td class="score">17.17</td>
+                    <td class="score">3.92</td>
+                    <td class="score">2.45</td>
+                </tr>
+                <tr>
+                    <td class="rank">#3</td>
+                    <td class="strategy">chivalry</td>
+                    <td class="score">43.24</td>
+                    <td class="score">26.07</td>
+                    <td class="score">17.17</td>
+                    <td class="score">3.72</td>
+                    <td class="score">2.45</td>
+                </tr>
+                <tr>
+                    <td class="rank">#4</td>
+                    <td class="strategy">anti-exploiter</td>
+                    <td class="score">41.88</td>
+                    <td class="score">24.71</td>
+                    <td class="score">17.17</td>
+                    <td class="score">3.53</td>
+                    <td class="score">2.45</td>
+                </tr>
+                <tr>
+                    <td class="rank">#5</td>
+                    <td class="strategy">intelligence</td>
+                    <td class="score">39.13</td>
+                    <td class="score">25.39</td>
+                    <td class="score">13.74</td>
+                    <td class="score">3.63</td>
+                    <td class="score">1.96</td>
+                </tr>
+                <tr>
+                    <td class="rank">#6</td>
+                    <td class="strategy">friend-to-all</td>
+                    <td class="score">37.77</td>
+                    <td class="score">24.04</td>
+                    <td class="score">13.74</td>
+                    <td class="score">3.43</td>
+                    <td class="score">1.96</td>
+                </tr>
+                <tr>
+                    <td class="rank">#7</td>
+                    <td class="strategy">tiger</td>
+                    <td class="score">32.21</td>
+                    <td class="score">28.78</td>
+                    <td class="score">3.43</td>
+                    <td class="score">4.11</td>
+                    <td class="score">0.49</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="section">
+        <h2>Dominated Strategies</h2>
+        <ul>
+            <li><strong>anti-exploiter</strong> &mdash; weakly dominated by: chivalry, conditional-cooperator</li>
+            <li><strong>friend-to-all</strong> &mdash; weakly dominated by: anti-exploiter, chivalry, conditional-cooperator</li>
+            <li><strong>intelligence</strong> &mdash; weakly dominated by: hard-line</li>
+            <li><strong>tiger</strong> &mdash; weakly dominated by: hard-line</li>
+        </ul>
+    </div>
+    <div class="section">
+        <h2>Equivalent Strategies</h2>
+        <p>No equivalent strategy pairs found.</p>
+    </div>
+    <div class="section">
+        <h2>Softmax Equilibria</h2>
+        <p>1000 random starting points per &beta;</p>
+        <h3>&beta; = 1.0 &mdash; 1 distinct fixed point</h3>
+        <div style="margin-bottom: 12px;">
+            <strong>#1</strong> basin: 1000/1000 (100.0%)
+            <table style="margin-top: 6px;">
+                <thead><tr><th>Strategy</th><th class="score">Frequency</th><th class="score">Reward</th></tr></thead>
+                <tbody>
+                    <tr><td>conditional-cooperator</td><td class="score">0.2810</td><td class="score">6.7939</td></tr>
+                    <tr><td>hard-line</td><td class="score">0.2224</td><td class="score">6.5599</td></tr>
+                    <tr><td>chivalry</td><td class="score">0.1607</td><td class="score">6.2353</td></tr>
+                    <tr><td>anti-exploiter</td><td class="score">0.1309</td><td class="score">6.0303</td></tr>
+                    <tr><td>friend-to-all</td><td class="score">0.0975</td><td class="score">5.7355</td></tr>
+                    <tr><td>intelligence</td><td class="score">0.0805</td><td class="score">5.5443</td></tr>
+                    <tr><td>tiger</td><td class="score">0.0268</td><td class="score">4.4457</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <h3>&beta; = 5.0 &mdash; 1 distinct fixed point</h3>
+        <div style="margin-bottom: 12px;">
+            <strong>#1</strong> basin: 1000/1000 (100.0%)
+            <table style="margin-top: 6px;">
+                <thead><tr><th>Strategy</th><th class="score">Frequency</th><th class="score">Reward</th></tr></thead>
+                <tbody>
+                    <tr><td>conditional-cooperator</td><td class="score">0.5011</td><td class="score">6.8680</td></tr>
+                    <tr><td>hard-line</td><td class="score">0.4980</td><td class="score">6.8667</td></tr>
+                    <tr><td>chivalry</td><td class="score">0.0005</td><td class="score">5.4949</td></tr>
+                    <tr><td>anti-exploiter</td><td class="score">0.0001</td><td class="score">5.1577</td></tr>
+                    <tr><td>friend-to-all</td><td class="score">0.0001</td><td class="score">5.1574</td></tr>
+                    <tr><td>intelligence</td><td class="score">0.0001</td><td class="score">5.1560</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <h3>&beta; = 20.0 &mdash; 2 distinct fixed points</h3>
+        <div style="margin-bottom: 12px;">
+            <strong>#1</strong> basin: 788/1000 (78.8%)
+            <table style="margin-top: 6px;">
+                <thead><tr><th>Strategy</th><th class="score">Frequency</th><th class="score">Reward</th></tr></thead>
+                <tbody>
+                    <tr><td>conditional-cooperator</td><td class="score">0.5000</td><td class="score">6.8680</td></tr>
+                    <tr><td>hard-line</td><td class="score">0.5000</td><td class="score">6.8680</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-bottom: 12px;">
+            <strong>#2</strong> basin: 212/1000 (21.2%)
+            <table style="margin-top: 6px;">
+                <thead><tr><th>Strategy</th><th class="score">Frequency</th><th class="score">Reward</th></tr></thead>
+                <tbody>
+                    <tr><td>conditional-cooperator</td><td class="score">0.2527</td><td class="score">6.8680</td></tr>
+                    <tr><td>chivalry</td><td class="score">0.2495</td><td class="score">6.8674</td></tr>
+                    <tr><td>anti-exploiter</td><td class="score">0.2488</td><td class="score">6.8672</td></tr>
+                    <tr><td>friend-to-all</td><td class="score">0.2488</td><td class="score">6.8672</td></tr>
+                    <tr><td>hard-line</td><td class="score">0.0002</td><td class="score">6.5167</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="rounds-section">
+        <h2>Rounds (49 total)</h2>
+
+        <div style="margin-bottom: 15px;">
+            <label for="strategy-filter" style="font-weight: 500; margin-right: 10px;">Filter by strategy:</label>
+            <select id="strategy-filter" onchange="filterRounds()" style="padding: 6px 12px; border-radius: 4px; border: 1px solid #ddd; font-size: 14px;">
+                <option value="all">All rounds</option>
+                <option value="anti-exploiter">anti-exploiter</option>
+                <option value="chivalry">chivalry</option>
+                <option value="conditional-cooperator">conditional-cooperator</option>
+                <option value="friend-to-all">friend-to-all</option>
+                <option value="hard-line">hard-line</option>
+                <option value="intelligence">intelligence</option>
+                <option value="tiger">tiger</option>
+            </select>
+        </div>
+
+        <div id="rounds-container">
+            <div class="dictator-group" data-dictator="anti-exploiter">
+                <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: anti-exploiter</h3>
+                <div class="rounds-grid">
+                    <a href="rounds/round-41.html" class="round-link-detailed" data-players="anti-exploiter">
+                        <div class="round-players">anti-exploiter</div>
+                    </a>
+                    <a href="rounds/round-35.html" class="round-link-detailed" data-players="chivalry">
+                        <div class="round-players">chivalry</div>
+                    </a>
+                    <a href="rounds/round-32.html" class="round-link-detailed" data-players="conditional-cooperator">
+                        <div class="round-players">conditional-cooperator</div>
+                    </a>
+                    <a href="rounds/round-39.html" class="round-link-detailed" data-players="friend-to-all">
+                        <div class="round-players">friend-to-all</div>
+                    </a>
+                    <a href="rounds/round-2.html" class="round-link-detailed" data-players="hard-line">
+                        <div class="round-players">hard-line</div>
+                    </a>
+                    <a href="rounds/round-21.html" class="round-link-detailed" data-players="intelligence">
+                        <div class="round-players">intelligence</div>
+                    </a>
+                    <a href="rounds/round-4.html" class="round-link-detailed" data-players="tiger">
+                        <div class="round-players">tiger</div>
+                    </a>
+                </div>
+            </div>
+            <div class="dictator-group" data-dictator="chivalry">
+                <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: chivalry</h3>
+                <div class="rounds-grid">
+                    <a href="rounds/round-19.html" class="round-link-detailed" data-players="anti-exploiter">
+                        <div class="round-players">anti-exploiter</div>
+                    </a>
+                    <a href="rounds/round-14.html" class="round-link-detailed" data-players="chivalry">
+                        <div class="round-players">chivalry</div>
+                    </a>
+                    <a href="rounds/round-7.html" class="round-link-detailed" data-players="conditional-cooperator">
+                        <div class="round-players">conditional-cooperator</div>
+                    </a>
+                    <a href="rounds/round-16.html" class="round-link-detailed" data-players="friend-to-all">
+                        <div class="round-players">friend-to-all</div>
+                    </a>
+                    <a href="rounds/round-28.html" class="round-link-detailed" data-players="hard-line">
+                        <div class="round-players">hard-line</div>
+                    </a>
+                    <a href="rounds/round-49.html" class="round-link-detailed" data-players="intelligence">
+                        <div class="round-players">intelligence</div>
+                    </a>
+                    <a href="rounds/round-34.html" class="round-link-detailed" data-players="tiger">
+                        <div class="round-players">tiger</div>
+                    </a>
+                </div>
+            </div>
+            <div class="dictator-group" data-dictator="conditional-cooperator">
+                <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: conditional-cooperator</h3>
+                <div class="rounds-grid">
+                    <a href="rounds/round-48.html" class="round-link-detailed" data-players="anti-exploiter">
+                        <div class="round-players">anti-exploiter</div>
+                    </a>
+                    <a href="rounds/round-40.html" class="round-link-detailed" data-players="chivalry">
+                        <div class="round-players">chivalry</div>
+                    </a>
+                    <a href="rounds/round-38.html" class="round-link-detailed" data-players="conditional-cooperator">
+                        <div class="round-players">conditional-cooperator</div>
+                    </a>
+                    <a href="rounds/round-47.html" class="round-link-detailed" data-players="friend-to-all">
+                        <div class="round-players">friend-to-all</div>
+                    </a>
+                    <a href="rounds/round-6.html" class="round-link-detailed" data-players="hard-line">
+                        <div class="round-players">hard-line</div>
+                    </a>
+                    <a href="rounds/round-23.html" class="round-link-detailed" data-players="intelligence">
+                        <div class="round-players">intelligence</div>
+                    </a>
+                    <a href="rounds/round-13.html" class="round-link-detailed" data-players="tiger">
+                        <div class="round-players">tiger</div>
+                    </a>
+                </div>
+            </div>
+            <div class="dictator-group" data-dictator="friend-to-all">
+                <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: friend-to-all</h3>
+                <div class="rounds-grid">
+                    <a href="rounds/round-31.html" class="round-link-detailed" data-players="anti-exploiter">
+                        <div class="round-players">anti-exploiter</div>
+                    </a>
+                    <a href="rounds/round-26.html" class="round-link-detailed" data-players="chivalry">
+                        <div class="round-players">chivalry</div>
+                    </a>
+                    <a href="rounds/round-24.html" class="round-link-detailed" data-players="conditional-cooperator">
+                        <div class="round-players">conditional-cooperator</div>
+                    </a>
+                    <a href="rounds/round-29.html" class="round-link-detailed" data-players="friend-to-all">
+                        <div class="round-players">friend-to-all</div>
+                    </a>
+                    <a href="rounds/round-45.html" class="round-link-detailed" data-players="hard-line">
+                        <div class="round-players">hard-line</div>
+                    </a>
+                    <a href="rounds/round-12.html" class="round-link-detailed" data-players="intelligence">
+                        <div class="round-players">intelligence</div>
+                    </a>
+                    <a href="rounds/round-1.html" class="round-link-detailed" data-players="tiger">
+                        <div class="round-players">tiger</div>
+                    </a>
+                </div>
+            </div>
+            <div class="dictator-group" data-dictator="hard-line">
+                <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: hard-line</h3>
+                <div class="rounds-grid">
+                    <a href="rounds/round-20.html" class="round-link-detailed" data-players="anti-exploiter">
+                        <div class="round-players">anti-exploiter</div>
+                    </a>
+                    <a href="rounds/round-11.html" class="round-link-detailed" data-players="chivalry">
+                        <div class="round-players">chivalry</div>
+                    </a>
+                    <a href="rounds/round-8.html" class="round-link-detailed" data-players="conditional-cooperator">
+                        <div class="round-players">conditional-cooperator</div>
+                    </a>
+                    <a href="rounds/round-17.html" class="round-link-detailed" data-players="friend-to-all">
+                        <div class="round-players">friend-to-all</div>
+                    </a>
+                    <a href="rounds/round-27.html" class="round-link-detailed" data-players="hard-line">
+                        <div class="round-players">hard-line</div>
+                    </a>
+                    <a href="rounds/round-46.html" class="round-link-detailed" data-players="intelligence">
+                        <div class="round-players">intelligence</div>
+                    </a>
+                    <a href="rounds/round-33.html" class="round-link-detailed" data-players="tiger">
+                        <div class="round-players">tiger</div>
+                    </a>
+                </div>
+            </div>
+            <div class="dictator-group" data-dictator="intelligence">
+                <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: intelligence</h3>
+                <div class="rounds-grid">
+                    <a href="rounds/round-43.html" class="round-link-detailed" data-players="anti-exploiter">
+                        <div class="round-players">anti-exploiter</div>
+                    </a>
+                    <a href="rounds/round-37.html" class="round-link-detailed" data-players="chivalry">
+                        <div class="round-players">chivalry</div>
+                    </a>
+                    <a href="rounds/round-36.html" class="round-link-detailed" data-players="conditional-cooperator">
+                        <div class="round-players">conditional-cooperator</div>
+                    </a>
+                    <a href="rounds/round-42.html" class="round-link-detailed" data-players="friend-to-all">
+                        <div class="round-players">friend-to-all</div>
+                    </a>
+                    <a href="rounds/round-3.html" class="round-link-detailed" data-players="hard-line">
+                        <div class="round-players">hard-line</div>
+                    </a>
+                    <a href="rounds/round-22.html" class="round-link-detailed" data-players="intelligence">
+                        <div class="round-players">intelligence</div>
+                    </a>
+                    <a href="rounds/round-10.html" class="round-link-detailed" data-players="tiger">
+                        <div class="round-players">tiger</div>
+                    </a>
+                </div>
+            </div>
+            <div class="dictator-group" data-dictator="tiger">
+                <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: tiger</h3>
+                <div class="rounds-grid">
+                    <a href="rounds/round-18.html" class="round-link-detailed" data-players="anti-exploiter">
+                        <div class="round-players">anti-exploiter</div>
+                    </a>
+                    <a href="rounds/round-9.html" class="round-link-detailed" data-players="chivalry">
+                        <div class="round-players">chivalry</div>
+                    </a>
+                    <a href="rounds/round-5.html" class="round-link-detailed" data-players="conditional-cooperator">
+                        <div class="round-players">conditional-cooperator</div>
+                    </a>
+                    <a href="rounds/round-15.html" class="round-link-detailed" data-players="friend-to-all">
+                        <div class="round-players">friend-to-all</div>
+                    </a>
+                    <a href="rounds/round-25.html" class="round-link-detailed" data-players="hard-line">
+                        <div class="round-players">hard-line</div>
+                    </a>
+                    <a href="rounds/round-44.html" class="round-link-detailed" data-players="intelligence">
+                        <div class="round-players">intelligence</div>
+                    </a>
+                    <a href="rounds/round-30.html" class="round-link-detailed" data-players="tiger">
+                        <div class="round-players">tiger</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterRounds() {
+            const filter = document.getElementById('strategy-filter').value;
+            const groups = document.querySelectorAll('.dictator-group');
+
+            groups.forEach(group => {
+                if (filter === 'all') {
+                    group.style.display = 'block';
+                    // Show all rounds in this group
+                    group.querySelectorAll('.round-link-detailed').forEach(round => {
+                        round.style.display = 'inline-block';
+                    });
+                } else {
+                    const dictator = group.getAttribute('data-dictator');
+                    const rounds = group.querySelectorAll('.round-link-detailed');
+                    let hasVisibleRounds = false;
+
+                    rounds.forEach(round => {
+                        const players = round.getAttribute('data-players');
+                        // Show round if filter matches dictator or any player
+                        if (dictator === filter || players.includes(filter)) {
+                            round.style.display = 'inline-block';
+                            hasVisibleRounds = true;
+                        } else {
+                            round.style.display = 'none';
+                        }
+                    });
+
+                    // Hide group if no rounds are visible
+                    group.style.display = hasVisibleRounds ? 'block' : 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

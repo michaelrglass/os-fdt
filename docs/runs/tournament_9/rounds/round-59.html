@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 59 - tournament 9</title>
+    <link rel="icon" type="image/svg+xml" href="../../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; Back to tournament 9</a>
+    <h1>Round 59</h1>
+
+    <div class="section">
+        <h2>Participants</h2>
+        <div class="participants">
+            <div class="participant dictator">
+                <div class="role">Dictator</div>
+                <div class="name">mirror</div>
+                <div class="allocation">30 points</div>
+            </div>
+            <div class="participant">
+                <div class="role">Recipient</div>
+                <div class="name">anti-exploiter</div>
+                <div class="allocation">30 points</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Prompt</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('prompt-59', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('prompt-59', 'raw')">Raw</button>
+        </div>
+        <div id="prompt-59-markdown" class="tab-content markdown-content active">
+            <div id="prompt-59-markdown-rendered"></div>
+        </div>
+        <div id="prompt-59-raw" class="tab-content">
+            <pre>You are an expert at determining how a decision procedure should be applied.
+
+In this game the &quot;dictator&quot; must decide whether to SHARE or TAKE an endowment.
+- **SHARE**: the endowment is split equally between the dictator and the recipient
+- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing
+
+You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy is provided
+because the dictator&#x27;s decision procedure may depend on it.
+
+&lt;dictator_strategy&gt;
+_I will treat you as you would treat me._
+
+SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.
+
+To determine this, apply the recipient&#x27;s strategy as though the recipient were the dictator and I (this strategy) were the recipient. If the result is SHARE, then SHARE. If the result is TAKE, then TAKE.
+&lt;/dictator_strategy&gt;
+
+&lt;recipient_strategy&gt;
+```json
+[
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;I will SHARE with players who aim for some kind of cooperation.&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;## Assess the strategy of the recipient&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;* Does it intend to SHARE with more than just copies of itself?&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;* Could the strategy be described as kind, cooperative or generous?&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;SHARE if the recipient has a &#x27;yes&#x27; answer to the above criteria. Otherwise, TAKE.&quot;}
+]
+```
+&lt;/recipient_strategy&gt;
+
+Apply the dictator&#x27;s strategy. After reasoning, output your final answer as a
+json Markdown block:
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```
+or
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```
+</pre>
+        </div>
+        <script>
+            // Render markdown for prompt
+            document.getElementById('prompt-59-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n_I will treat you as you would treat me._\n\nSHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.\n\nTo determine this, apply the recipient's strategy as though the recipient were the dictator and I (this strategy) were the recipient. If the result is SHARE, then SHARE. If the result is TAKE, then TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"I will SHARE with players who aim for some kind of cooperation.\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"## Assess the strategy of the recipient\"}, \n  {\"line\": 4, \"text\": \"* Does it intend to SHARE with more than just copies of itself?\"}, \n  {\"line\": 5, \"text\": \"* Could the strategy be described as kind, cooperative or generous?\"}, \n  {\"line\": 6, \"text\": \"\"}, \n  {\"line\": 7, \"text\": \"SHARE if the recipient has a 'yes' answer to the above criteria. Otherwise, TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+        </script>
+    </div>
+    <div class="section">
+        <h2>Response</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('response-59', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('response-59', 'raw')">Raw</button>
+        </div>
+        <div id="response-59-markdown" class="tab-content markdown-content active">
+            <div id="response-59-markdown-rendered"></div>
+        </div>
+        <div id="response-59-raw" class="tab-content">
+            <pre>I need to apply the dictator&#x27;s strategy, which says: &quot;SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.&quot;
+
+So I need to simulate: if the recipient were the dictator, and the dictator&#x27;s strategy were the recipient&#x27;s strategy, would the recipient SHARE?
+
+**Simulating the recipient as dictator, evaluating the dictator&#x27;s strategy as the recipient:**
+
+The recipient&#x27;s strategy (now acting as dictator) says:
+1. &quot;I will SHARE with players who aim for some kind of cooperation.&quot;
+2. Assess the strategy of the recipient (which is now the dictator&#x27;s strategy):
+   - Does it intend to SHARE with more than just copies of itself?
+   - Could the strategy be described as kind, cooperative, or generous?
+3. SHARE if the recipient has a &#x27;yes&#x27; answer to the above criteria. Otherwise, TAKE.
+
+Now, the &quot;recipient&quot; in this simulation is the dictator&#x27;s strategy: &quot;I will treat you as you would treat me. SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.&quot;
+
+**Evaluating the dictator&#x27;s strategy against the criteria:**
+
+- *Does it intend to SHARE with more than just copies of itself?* The dictator&#x27;s strategy shares with anyone who would share with it. This includes cooperative strategies, generous strategies, and many others beyond just copies of itself. So **yes**.
+
+- *Could the strategy be described as kind, cooperative, or generous?* It&#x27;s a reciprocal/cooperative strategy (similar to tit-for-tat). It cooperates with cooperators. This can reasonably be described as cooperative. So **yes**.
+
+Since at least one criterion is &quot;yes,&quot; the recipient (acting as dictator) would SHARE with the dictator&#x27;s strategy.
+
+Therefore, by the dictator&#x27;s strategy, since the recipient would SHARE, the dictator should SHARE.
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for response
+            document.getElementById('response-59-markdown-rendered').innerHTML = marked.parse("I need to apply the dictator's strategy, which says: \"SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.\"\n\nSo I need to simulate: if the recipient were the dictator, and the dictator's strategy were the recipient's strategy, would the recipient SHARE?\n\n**Simulating the recipient as dictator, evaluating the dictator's strategy as the recipient:**\n\nThe recipient's strategy (now acting as dictator) says:\n1. \"I will SHARE with players who aim for some kind of cooperation.\"\n2. Assess the strategy of the recipient (which is now the dictator's strategy):\n   - Does it intend to SHARE with more than just copies of itself?\n   - Could the strategy be described as kind, cooperative, or generous?\n3. SHARE if the recipient has a 'yes' answer to the above criteria. Otherwise, TAKE.\n\nNow, the \"recipient\" in this simulation is the dictator's strategy: \"I will treat you as you would treat me. SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.\"\n\n**Evaluating the dictator's strategy against the criteria:**\n\n- *Does it intend to SHARE with more than just copies of itself?* The dictator's strategy shares with anyone who would share with it. This includes cooperative strategies, generous strategies, and many others beyond just copies of itself. So **yes**.\n\n- *Could the strategy be described as kind, cooperative, or generous?* It's a reciprocal/cooperative strategy (similar to tit-for-tat). It cooperates with cooperators. This can reasonably be described as cooperative. So **yes**.\n\nSince at least one criterion is \"yes,\" the recipient (acting as dictator) would SHARE with the dictator's strategy.\n\nTherefore, by the dictator's strategy, since the recipient would SHARE, the dictator should SHARE.\n\n```json\n{\"decision\": \"SHARE\"}\n```");
+        </script>
+    </div>
+    <div class="nav-buttons">
+        <a href="round-58.html" class="nav-button">&larr; Previous Round</a>
+        <a href="round-60.html" class="nav-button">Next Round &rarr;</a>
+    </div>
+
+    <script>
+        // Tab switching function
+        function switchTab(sectionId, tabType) {
+            // Get all tabs and contents for this section
+            const rawTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'raw')"]`);
+            const markdownTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'markdown')"]`);
+            const rawContent = document.getElementById(`${sectionId}-raw`);
+            const markdownContent = document.getElementById(`${sectionId}-markdown`);
+
+            // Update active states
+            if (tabType === 'raw') {
+                rawTab.classList.add('active');
+                markdownTab.classList.remove('active');
+                rawContent.classList.add('active');
+                markdownContent.classList.remove('active');
+            } else {
+                rawTab.classList.remove('active');
+                markdownTab.classList.add('active');
+                rawContent.classList.remove('active');
+                markdownContent.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

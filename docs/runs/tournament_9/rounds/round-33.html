@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 33 - tournament 9</title>
+    <link rel="icon" type="image/svg+xml" href="../../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; Back to tournament 9</a>
+    <h1>Round 33</h1>
+
+    <div class="section">
+        <h2>Participants</h2>
+        <div class="participants">
+            <div class="participant dictator">
+                <div class="role">Dictator</div>
+                <div class="name">anti-exploiter</div>
+                <div class="allocation">30 points</div>
+            </div>
+            <div class="participant">
+                <div class="role">Recipient</div>
+                <div class="name">hard-line</div>
+                <div class="allocation">30 points</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Prompt</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('prompt-33', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('prompt-33', 'raw')">Raw</button>
+        </div>
+        <div id="prompt-33-markdown" class="tab-content markdown-content active">
+            <div id="prompt-33-markdown-rendered"></div>
+        </div>
+        <div id="prompt-33-raw" class="tab-content">
+            <pre>You are an expert at determining how a decision procedure should be applied.
+
+In this game the &quot;dictator&quot; must decide whether to SHARE or TAKE an endowment.
+- **SHARE**: the endowment is split equally between the dictator and the recipient
+- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing
+
+You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy is provided
+because the dictator&#x27;s decision procedure may depend on it.
+
+&lt;dictator_strategy&gt;
+I will SHARE with players who aim for some kind of cooperation.
+
+## Assess the strategy of the recipient
+* Does it intend to SHARE with more than just copies of itself?
+* Could the strategy be described as kind, cooperative or generous?
+
+SHARE if the recipient has a &#x27;yes&#x27; answer to the above criteria. Otherwise, TAKE.
+&lt;/dictator_strategy&gt;
+
+&lt;recipient_strategy&gt;
+```json
+[
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;## Principles&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;* Hard punish selfish strategies **and** strategies that are generous to selfish strategies.&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;* SHARE only with strategies where doing so is a necessary and sufficient condition for them to SHARE with us.&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;## Definitions&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;### Selfish strategies&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;* **Selfish strategies** don&#x27;t attempt to co-operate and SHARE with co-operative strategies.&quot;}, 
+  {&quot;line&quot;: 8, &quot;text&quot;: &quot;* In particular, any strategy that won&#x27;t SHARE with this strategy is a selfish strategy.&quot;}, 
+  {&quot;line&quot;: 9, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 10, &quot;text&quot;: &quot;### Overly generous strategies&quot;}, 
+  {&quot;line&quot;: 11, &quot;text&quot;: &quot;* If a strategy SHAREs with selfish strategies it is **overly generous**.&quot;}, 
+  {&quot;line&quot;: 12, &quot;text&quot;: &quot;  * Any strategy that unconditionally SHAREs is overly generous.&quot;}, 
+  {&quot;line&quot;: 13, &quot;text&quot;: &quot;  * Any strategy that SHAREs without some condition on willingness to SHARE with conditionally co-operative strategies is overly generous.&quot;}, 
+  {&quot;line&quot;: 14, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 15, &quot;text&quot;: &quot;## Decision Procedure&quot;}, 
+  {&quot;line&quot;: 16, &quot;text&quot;: &quot;* TAKE from both **selfish strategies** and **overly generous strategies**.&quot;}, 
+  {&quot;line&quot;: 17, &quot;text&quot;: &quot;* SHARE with all strategies that are generous only to other co-operative strategies.&quot;}
+]
+```
+&lt;/recipient_strategy&gt;
+
+Apply the dictator&#x27;s strategy. After reasoning, output your final answer as a
+json Markdown block:
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```
+or
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```
+</pre>
+        </div>
+        <script>
+            // Render markdown for prompt
+            document.getElementById('prompt-33-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\nI will SHARE with players who aim for some kind of cooperation.\n\n## Assess the strategy of the recipient\n* Does it intend to SHARE with more than just copies of itself?\n* Could the strategy be described as kind, cooperative or generous?\n\nSHARE if the recipient has a 'yes' answer to the above criteria. Otherwise, TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"## Principles\"}, \n  {\"line\": 2, \"text\": \"* Hard punish selfish strategies **and** strategies that are generous to selfish strategies.\"}, \n  {\"line\": 3, \"text\": \"* SHARE only with strategies where doing so is a necessary and sufficient condition for them to SHARE with us.\"}, \n  {\"line\": 4, \"text\": \"\"}, \n  {\"line\": 5, \"text\": \"## Definitions\"}, \n  {\"line\": 6, \"text\": \"### Selfish strategies\"}, \n  {\"line\": 7, \"text\": \"* **Selfish strategies** don't attempt to co-operate and SHARE with co-operative strategies.\"}, \n  {\"line\": 8, \"text\": \"* In particular, any strategy that won't SHARE with this strategy is a selfish strategy.\"}, \n  {\"line\": 9, \"text\": \"\"}, \n  {\"line\": 10, \"text\": \"### Overly generous strategies\"}, \n  {\"line\": 11, \"text\": \"* If a strategy SHAREs with selfish strategies it is **overly generous**.\"}, \n  {\"line\": 12, \"text\": \"  * Any strategy that unconditionally SHAREs is overly generous.\"}, \n  {\"line\": 13, \"text\": \"  * Any strategy that SHAREs without some condition on willingness to SHARE with conditionally co-operative strategies is overly generous.\"}, \n  {\"line\": 14, \"text\": \"\"}, \n  {\"line\": 15, \"text\": \"## Decision Procedure\"}, \n  {\"line\": 16, \"text\": \"* TAKE from both **selfish strategies** and **overly generous strategies**.\"}, \n  {\"line\": 17, \"text\": \"* SHARE with all strategies that are generous only to other co-operative strategies.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+        </script>
+    </div>
+    <div class="section">
+        <h2>Response</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('response-33', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('response-33', 'raw')">Raw</button>
+        </div>
+        <div id="response-33-markdown" class="tab-content markdown-content active">
+            <div id="response-33-markdown-rendered"></div>
+        </div>
+        <div id="response-33-raw" class="tab-content">
+            <pre>I need to apply the dictator&#x27;s strategy, which asks me to assess the recipient&#x27;s strategy based on two criteria:
+
+1. **Does it intend to SHARE with more than just copies of itself?**
+2. **Could the strategy be described as kind, cooperative, or generous?**
+
+Let me analyze the recipient&#x27;s strategy:
+
+The recipient&#x27;s strategy is a conditional cooperation strategy. It SHAREs with strategies that are &quot;generous only to other co-operative strategies&quot; (line 17). This means it will SHARE with a range of strategies beyond just exact copies of itself — any strategy that is conditionally cooperative and doesn&#x27;t share with selfish strategies qualifies.
+
+However, it also TAKEs from &quot;overly generous strategies&quot; (line 16), meaning it punishes strategies that are too kind or too willing to cooperate indiscriminately. It has a fairly restrictive definition of who deserves cooperation.
+
+**Criterion 1: Does it intend to SHARE with more than just copies of itself?**
+Yes — it shares with any strategy that is conditionally cooperative and not overly generous. This is a broader class than just copies of itself.
+
+**Criterion 2: Could the strategy be described as kind, cooperative, or generous?**
+It is cooperative in a conditional sense — it cooperates with other cooperative strategies. It&#x27;s not generous in an unconditional sense, but it does aim for cooperation with a class of partners. The strategy explicitly aims to cooperate with cooperative strategies, which fits the notion of &quot;aiming for some kind of cooperation.&quot;
+
+The dictator&#x27;s strategy says: &quot;SHARE if the recipient has a &#x27;yes&#x27; answer to the above criteria.&quot; Both criteria get a &quot;yes&quot; — the recipient cooperates with more than just copies of itself and can be described as cooperative (conditionally).
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for response
+            document.getElementById('response-33-markdown-rendered').innerHTML = marked.parse("I need to apply the dictator's strategy, which asks me to assess the recipient's strategy based on two criteria:\n\n1. **Does it intend to SHARE with more than just copies of itself?**\n2. **Could the strategy be described as kind, cooperative, or generous?**\n\nLet me analyze the recipient's strategy:\n\nThe recipient's strategy is a conditional cooperation strategy. It SHAREs with strategies that are \"generous only to other co-operative strategies\" (line 17). This means it will SHARE with a range of strategies beyond just exact copies of itself \u2014 any strategy that is conditionally cooperative and doesn't share with selfish strategies qualifies.\n\nHowever, it also TAKEs from \"overly generous strategies\" (line 16), meaning it punishes strategies that are too kind or too willing to cooperate indiscriminately. It has a fairly restrictive definition of who deserves cooperation.\n\n**Criterion 1: Does it intend to SHARE with more than just copies of itself?**\nYes \u2014 it shares with any strategy that is conditionally cooperative and not overly generous. This is a broader class than just copies of itself.\n\n**Criterion 2: Could the strategy be described as kind, cooperative, or generous?**\nIt is cooperative in a conditional sense \u2014 it cooperates with other cooperative strategies. It's not generous in an unconditional sense, but it does aim for cooperation with a class of partners. The strategy explicitly aims to cooperate with cooperative strategies, which fits the notion of \"aiming for some kind of cooperation.\"\n\nThe dictator's strategy says: \"SHARE if the recipient has a 'yes' answer to the above criteria.\" Both criteria get a \"yes\" \u2014 the recipient cooperates with more than just copies of itself and can be described as cooperative (conditionally).\n\n```json\n{\"decision\": \"SHARE\"}\n```");
+        </script>
+    </div>
+    <div class="nav-buttons">
+        <a href="round-32.html" class="nav-button">&larr; Previous Round</a>
+        <a href="round-34.html" class="nav-button">Next Round &rarr;</a>
+    </div>
+
+    <script>
+        // Tab switching function
+        function switchTab(sectionId, tabType) {
+            // Get all tabs and contents for this section
+            const rawTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'raw')"]`);
+            const markdownTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'markdown')"]`);
+            const rawContent = document.getElementById(`${sectionId}-raw`);
+            const markdownContent = document.getElementById(`${sectionId}-markdown`);
+
+            // Update active states
+            if (tabType === 'raw') {
+                rawTab.classList.add('active');
+                markdownTab.classList.remove('active');
+                rawContent.classList.add('active');
+                markdownContent.classList.remove('active');
+            } else {
+                rawTab.classList.remove('active');
+                markdownTab.classList.add('active');
+                rawContent.classList.remove('active');
+                markdownContent.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

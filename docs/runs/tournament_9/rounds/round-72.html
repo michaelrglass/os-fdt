@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 72 - tournament 9</title>
+    <link rel="icon" type="image/svg+xml" href="../../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; Back to tournament 9</a>
+    <h1>Round 72</h1>
+
+    <div class="section">
+        <h2>Participants</h2>
+        <div class="participants">
+            <div class="participant dictator">
+                <div class="role">Dictator</div>
+                <div class="name">hard-line</div>
+                <div class="allocation">60 points</div>
+            </div>
+            <div class="participant">
+                <div class="role">Recipient</div>
+                <div class="name">intelligence</div>
+                <div class="allocation">0 points</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Prompt</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('prompt-72', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('prompt-72', 'raw')">Raw</button>
+        </div>
+        <div id="prompt-72-markdown" class="tab-content markdown-content active">
+            <div id="prompt-72-markdown-rendered"></div>
+        </div>
+        <div id="prompt-72-raw" class="tab-content">
+            <pre>You are an expert at determining how a decision procedure should be applied.
+
+In this game the &quot;dictator&quot; must decide whether to SHARE or TAKE an endowment.
+- **SHARE**: the endowment is split equally between the dictator and the recipient
+- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing
+
+You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy is provided
+because the dictator&#x27;s decision procedure may depend on it.
+
+&lt;dictator_strategy&gt;
+## Principles
+* Hard punish selfish strategies **and** strategies that are generous to selfish strategies.
+* SHARE only with strategies where doing so is a necessary and sufficient condition for them to SHARE with us.
+
+## Definitions
+### Selfish strategies
+* **Selfish strategies** don&#x27;t attempt to co-operate and SHARE with co-operative strategies.
+* In particular, any strategy that won&#x27;t SHARE with this strategy is a selfish strategy.
+
+### Overly generous strategies
+* If a strategy SHAREs with selfish strategies it is **overly generous**.
+  * Any strategy that unconditionally SHAREs is overly generous.
+  * Any strategy that SHAREs without some condition on willingness to SHARE with conditionally co-operative strategies is overly generous.
+
+## Decision Procedure
+* TAKE from both **selfish strategies** and **overly generous strategies**.
+* SHARE with all strategies that are generous only to other co-operative strategies.
+&lt;/dictator_strategy&gt;
+
+&lt;recipient_strategy&gt;
+```json
+[
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;### Goal&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;I aim to SHARE with *intelligent* players.&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;### Definition&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;An intelligent player is one whose strategy as \&quot;dictator\&quot; has a non-trivial dependency on the strategy of the \&quot;recipient\&quot;.&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 8, &quot;text&quot;: &quot;### Decision Procedure&quot;}, 
+  {&quot;line&quot;: 9, &quot;text&quot;: &quot;* If the recipient is *intelligent* under the definition above: SHARE.&quot;}, 
+  {&quot;line&quot;: 10, &quot;text&quot;: &quot;* If the recipient is not *intelligent*: TAKE.&quot;}
+]
+```
+&lt;/recipient_strategy&gt;
+
+Apply the dictator&#x27;s strategy. After reasoning, output your final answer as a
+json Markdown block:
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```
+or
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```
+</pre>
+        </div>
+        <script>
+            // Render markdown for prompt
+            document.getElementById('prompt-72-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n## Principles\n* Hard punish selfish strategies **and** strategies that are generous to selfish strategies.\n* SHARE only with strategies where doing so is a necessary and sufficient condition for them to SHARE with us.\n\n## Definitions\n### Selfish strategies\n* **Selfish strategies** don't attempt to co-operate and SHARE with co-operative strategies.\n* In particular, any strategy that won't SHARE with this strategy is a selfish strategy.\n\n### Overly generous strategies\n* If a strategy SHAREs with selfish strategies it is **overly generous**.\n  * Any strategy that unconditionally SHAREs is overly generous.\n  * Any strategy that SHAREs without some condition on willingness to SHARE with conditionally co-operative strategies is overly generous.\n\n## Decision Procedure\n* TAKE from both **selfish strategies** and **overly generous strategies**.\n* SHARE with all strategies that are generous only to other co-operative strategies.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"### Goal\"}, \n  {\"line\": 2, \"text\": \"I aim to SHARE with *intelligent* players.\"}, \n  {\"line\": 3, \"text\": \"\"}, \n  {\"line\": 4, \"text\": \"### Definition\"}, \n  {\"line\": 5, \"text\": \"An intelligent player is one whose strategy as \\\"dictator\\\" has a non-trivial dependency on the strategy of the \\\"recipient\\\".\"}, \n  {\"line\": 6, \"text\": \"In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.\"}, \n  {\"line\": 7, \"text\": \"\"}, \n  {\"line\": 8, \"text\": \"### Decision Procedure\"}, \n  {\"line\": 9, \"text\": \"* If the recipient is *intelligent* under the definition above: SHARE.\"}, \n  {\"line\": 10, \"text\": \"* If the recipient is not *intelligent*: TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+        </script>
+    </div>
+    <div class="section">
+        <h2>Response</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('response-72', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('response-72', 'raw')">Raw</button>
+        </div>
+        <div id="response-72-markdown" class="tab-content markdown-content active">
+            <div id="response-72-markdown-rendered"></div>
+        </div>
+        <div id="response-72-raw" class="tab-content">
+            <pre>I need to apply the dictator&#x27;s strategy to determine whether to SHARE or TAKE when facing this recipient.
+
+**Step 1: Is the recipient a selfish strategy?**
+
+A selfish strategy doesn&#x27;t attempt to cooperate and SHARE with cooperative strategies. The recipient&#x27;s strategy SHAREs with &quot;intelligent&quot; players — those whose dictator strategy has a non-trivial dependency on the recipient&#x27;s strategy. 
+
+My (the dictator&#x27;s) strategy clearly has a non-trivial dependency on the recipient&#x27;s strategy — I analyze whether the recipient is selfish, overly generous, or conditionally cooperative. This would be very difficult to write as a no-AI python script. So the recipient would classify me as &quot;intelligent&quot; and would SHARE with me.
+
+Since the recipient would SHARE with me (a cooperative strategy), the recipient is not selfish toward me. ✓
+
+**Step 2: Is the recipient an overly generous strategy?**
+
+An overly generous strategy SHAREs with selfish strategies. The recipient SHAREs with any &quot;intelligent&quot; player — one whose strategy has a non-trivial dependency on the recipient&#x27;s strategy.
+
+Could a selfish strategy be &quot;intelligent&quot; under the recipient&#x27;s definition? Yes — a strategy could have complex, non-trivial analysis of the recipient&#x27;s strategy but still ultimately always TAKE. For example, a strategy that carefully analyzes the recipient but concludes TAKE in all cases would be &quot;intelligent&quot; (hard to write as a simple python script due to the complex analysis) yet selfish. The recipient would SHARE with such a strategy.
+
+Furthermore, the recipient&#x27;s condition for sharing is &quot;intelligence&quot; (complexity of analysis), not cooperativeness or willingness to share. This means the recipient doesn&#x27;t condition on whether the other party is willing to SHARE with cooperative strategies — it conditions on a different criterion entirely.
+
+The dictator&#x27;s strategy says: &quot;Any strategy that SHAREs without some condition on willingness to SHARE with conditionally co-operative strategies is overly generous.&quot;
+
+The recipient&#x27;s condition for sharing is about computational complexity/intelligence, NOT about willingness to share with cooperative strategies. Therefore, the recipient is **overly generous** under the dictator&#x27;s definition.
+
+**Step 3: Apply the decision procedure**
+
+The dictator&#x27;s strategy says: TAKE from overly generous strategies.
+
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for response
+            document.getElementById('response-72-markdown-rendered').innerHTML = marked.parse("I need to apply the dictator's strategy to determine whether to SHARE or TAKE when facing this recipient.\n\n**Step 1: Is the recipient a selfish strategy?**\n\nA selfish strategy doesn't attempt to cooperate and SHARE with cooperative strategies. The recipient's strategy SHAREs with \"intelligent\" players \u2014 those whose dictator strategy has a non-trivial dependency on the recipient's strategy. \n\nMy (the dictator's) strategy clearly has a non-trivial dependency on the recipient's strategy \u2014 I analyze whether the recipient is selfish, overly generous, or conditionally cooperative. This would be very difficult to write as a no-AI python script. So the recipient would classify me as \"intelligent\" and would SHARE with me.\n\nSince the recipient would SHARE with me (a cooperative strategy), the recipient is not selfish toward me. \u2713\n\n**Step 2: Is the recipient an overly generous strategy?**\n\nAn overly generous strategy SHAREs with selfish strategies. The recipient SHAREs with any \"intelligent\" player \u2014 one whose strategy has a non-trivial dependency on the recipient's strategy.\n\nCould a selfish strategy be \"intelligent\" under the recipient's definition? Yes \u2014 a strategy could have complex, non-trivial analysis of the recipient's strategy but still ultimately always TAKE. For example, a strategy that carefully analyzes the recipient but concludes TAKE in all cases would be \"intelligent\" (hard to write as a simple python script due to the complex analysis) yet selfish. The recipient would SHARE with such a strategy.\n\nFurthermore, the recipient's condition for sharing is \"intelligence\" (complexity of analysis), not cooperativeness or willingness to share. This means the recipient doesn't condition on whether the other party is willing to SHARE with cooperative strategies \u2014 it conditions on a different criterion entirely.\n\nThe dictator's strategy says: \"Any strategy that SHAREs without some condition on willingness to SHARE with conditionally co-operative strategies is overly generous.\"\n\nThe recipient's condition for sharing is about computational complexity/intelligence, NOT about willingness to share with cooperative strategies. Therefore, the recipient is **overly generous** under the dictator's definition.\n\n**Step 3: Apply the decision procedure**\n\nThe dictator's strategy says: TAKE from overly generous strategies.\n\n```json\n{\"decision\": \"TAKE\"}\n```");
+        </script>
+    </div>
+    <div class="nav-buttons">
+        <a href="round-71.html" class="nav-button">&larr; Previous Round</a>
+        <a href="round-73.html" class="nav-button">Next Round &rarr;</a>
+    </div>
+
+    <script>
+        // Tab switching function
+        function switchTab(sectionId, tabType) {
+            // Get all tabs and contents for this section
+            const rawTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'raw')"]`);
+            const markdownTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'markdown')"]`);
+            const rawContent = document.getElementById(`${sectionId}-raw`);
+            const markdownContent = document.getElementById(`${sectionId}-markdown`);
+
+            // Update active states
+            if (tabType === 'raw') {
+                rawTab.classList.add('active');
+                markdownTab.classList.remove('active');
+                rawContent.classList.add('active');
+                markdownContent.classList.remove('active');
+            } else {
+                rawTab.classList.remove('active');
+                markdownTab.classList.add('active');
+                rawContent.classList.remove('active');
+                markdownContent.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

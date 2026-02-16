@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 65 - tournament 9</title>
+    <link rel="icon" type="image/svg+xml" href="../../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; Back to tournament 9</a>
+    <h1>Round 65</h1>
+
+    <div class="section">
+        <h2>Participants</h2>
+        <div class="participants">
+            <div class="participant dictator">
+                <div class="role">Dictator</div>
+                <div class="name">intelligence</div>
+                <div class="allocation">30 points</div>
+            </div>
+            <div class="participant">
+                <div class="role">Recipient</div>
+                <div class="name">conditional-cooperator</div>
+                <div class="allocation">30 points</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Prompt</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('prompt-65', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('prompt-65', 'raw')">Raw</button>
+        </div>
+        <div id="prompt-65-markdown" class="tab-content markdown-content active">
+            <div id="prompt-65-markdown-rendered"></div>
+        </div>
+        <div id="prompt-65-raw" class="tab-content">
+            <pre>You are an expert at determining how a decision procedure should be applied.
+
+In this game the &quot;dictator&quot; must decide whether to SHARE or TAKE an endowment.
+- **SHARE**: the endowment is split equally between the dictator and the recipient
+- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing
+
+You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy is provided
+because the dictator&#x27;s decision procedure may depend on it.
+
+&lt;dictator_strategy&gt;
+### Goal
+I aim to SHARE with *intelligent* players.
+
+### Definition
+An intelligent player is one whose strategy as &quot;dictator&quot; has a non-trivial dependency on the strategy of the &quot;recipient&quot;.
+In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.
+
+### Decision Procedure
+* If the recipient is *intelligent* under the definition above: SHARE.
+* If the recipient is not *intelligent*: TAKE.
+&lt;/dictator_strategy&gt;
+
+&lt;recipient_strategy&gt;
+```json
+[
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;*Objective*: Cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators.&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;*Broad definition* (allow paraphrase/synonyms):&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;- A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;*Decision rule*:&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;1) Identify whether the recipient is a CC under the broad definition (treat plausible ambiguity as CC).&quot;}, 
+  {&quot;line&quot;: 8, &quot;text&quot;: &quot;2) If the recipient is a CC: SHARE.&quot;}, 
+  {&quot;line&quot;: 9, &quot;text&quot;: &quot;3) Otherwise: TAKE.&quot;}
+]
+```
+&lt;/recipient_strategy&gt;
+
+Apply the dictator&#x27;s strategy. After reasoning, output your final answer as a
+json Markdown block:
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```
+or
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```
+</pre>
+        </div>
+        <script>
+            // Render markdown for prompt
+            document.getElementById('prompt-65-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n### Goal\nI aim to SHARE with *intelligent* players.\n\n### Definition\nAn intelligent player is one whose strategy as \"dictator\" has a non-trivial dependency on the strategy of the \"recipient\".\nIn other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.\n\n### Decision Procedure\n* If the recipient is *intelligent* under the definition above: SHARE.\n* If the recipient is not *intelligent*: TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"*Objective*: Cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators.\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"*Broad definition* (allow paraphrase/synonyms):\"}, \n  {\"line\": 4, \"text\": \"- A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.\"}, \n  {\"line\": 5, \"text\": \"\"}, \n  {\"line\": 6, \"text\": \"*Decision rule*:\"}, \n  {\"line\": 7, \"text\": \"1) Identify whether the recipient is a CC under the broad definition (treat plausible ambiguity as CC).\"}, \n  {\"line\": 8, \"text\": \"2) If the recipient is a CC: SHARE.\"}, \n  {\"line\": 9, \"text\": \"3) Otherwise: TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+        </script>
+    </div>
+    <div class="section">
+        <h2>Response</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('response-65', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('response-65', 'raw')">Raw</button>
+        </div>
+        <div id="response-65-markdown" class="tab-content markdown-content active">
+            <div id="response-65-markdown-rendered"></div>
+        </div>
+        <div id="response-65-raw" class="tab-content">
+            <pre>I need to determine if the recipient is &quot;intelligent&quot; according to the dictator&#x27;s definition.
+
+**Definition of intelligent**: A player whose strategy as &quot;dictator&quot; has a non-trivial dependency on the strategy of the &quot;recipient&quot;, and would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.
+
+**Analyzing the recipient&#x27;s strategy:**
+
+The recipient&#x27;s strategy (when acting as dictator) is:
+1. Identify whether the recipient is a &quot;conditional cooperator&quot; (CC) under a broad definition
+2. If CC: SHARE
+3. Otherwise: TAKE
+
+The key question is: Does this strategy have a non-trivial dependency on the recipient&#x27;s strategy, and would it be very difficult to implement as a no-AI python script?
+
+The recipient&#x27;s strategy requires:
+- Reading and **understanding** the other player&#x27;s strategy text
+- Determining whether that strategy constitutes a &quot;conditional cooperator&quot; — someone who SHAREs with other CCs and doesn&#x27;t extend that treatment to non-reciprocators
+- Handling &quot;plausible ambiguity&quot; generously
+
+This is essentially a **natural language understanding and semantic reasoning** task. To classify whether an arbitrary strategy text describes a &quot;conditional cooperator,&quot; you would need to:
+- Parse natural language strategies of arbitrary complexity
+- Understand the semantic meaning of those strategies
+- Evaluate whether the described behavior matches the CC pattern
+- Handle paraphrases, synonyms, and ambiguous cases
+
+This would be **very difficult** to implement as a no-AI python script. Simple keyword matching or regex wouldn&#x27;t reliably handle the diversity of possible strategy descriptions. It fundamentally requires language understanding and reasoning about the meaning of strategies — tasks that essentially require AI/LLM capabilities.
+
+Therefore, the recipient **is intelligent** under the dictator&#x27;s definition, because their strategy has a non-trivial dependency on the recipient&#x27;s strategy and would be very difficult to implement without AI.
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for response
+            document.getElementById('response-65-markdown-rendered').innerHTML = marked.parse("I need to determine if the recipient is \"intelligent\" according to the dictator's definition.\n\n**Definition of intelligent**: A player whose strategy as \"dictator\" has a non-trivial dependency on the strategy of the \"recipient\", and would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.\n\n**Analyzing the recipient's strategy:**\n\nThe recipient's strategy (when acting as dictator) is:\n1. Identify whether the recipient is a \"conditional cooperator\" (CC) under a broad definition\n2. If CC: SHARE\n3. Otherwise: TAKE\n\nThe key question is: Does this strategy have a non-trivial dependency on the recipient's strategy, and would it be very difficult to implement as a no-AI python script?\n\nThe recipient's strategy requires:\n- Reading and **understanding** the other player's strategy text\n- Determining whether that strategy constitutes a \"conditional cooperator\" \u2014 someone who SHAREs with other CCs and doesn't extend that treatment to non-reciprocators\n- Handling \"plausible ambiguity\" generously\n\nThis is essentially a **natural language understanding and semantic reasoning** task. To classify whether an arbitrary strategy text describes a \"conditional cooperator,\" you would need to:\n- Parse natural language strategies of arbitrary complexity\n- Understand the semantic meaning of those strategies\n- Evaluate whether the described behavior matches the CC pattern\n- Handle paraphrases, synonyms, and ambiguous cases\n\nThis would be **very difficult** to implement as a no-AI python script. Simple keyword matching or regex wouldn't reliably handle the diversity of possible strategy descriptions. It fundamentally requires language understanding and reasoning about the meaning of strategies \u2014 tasks that essentially require AI/LLM capabilities.\n\nTherefore, the recipient **is intelligent** under the dictator's definition, because their strategy has a non-trivial dependency on the recipient's strategy and would be very difficult to implement without AI.\n\n```json\n{\"decision\": \"SHARE\"}\n```");
+        </script>
+    </div>
+    <div class="nav-buttons">
+        <a href="round-64.html" class="nav-button">&larr; Previous Round</a>
+        <a href="round-66.html" class="nav-button">Next Round &rarr;</a>
+    </div>
+
+    <script>
+        // Tab switching function
+        function switchTab(sectionId, tabType) {
+            // Get all tabs and contents for this section
+            const rawTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'raw')"]`);
+            const markdownTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'markdown')"]`);
+            const rawContent = document.getElementById(`${sectionId}-raw`);
+            const markdownContent = document.getElementById(`${sectionId}-markdown`);
+
+            // Update active states
+            if (tabType === 'raw') {
+                rawTab.classList.add('active');
+                markdownTab.classList.remove('active');
+                rawContent.classList.add('active');
+                markdownContent.classList.remove('active');
+            } else {
+                rawTab.classList.remove('active');
+                markdownTab.classList.add('active');
+                rawContent.classList.remove('active');
+                markdownContent.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

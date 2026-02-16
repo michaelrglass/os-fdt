@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 69 - tournament 9</title>
+    <link rel="icon" type="image/svg+xml" href="../../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; Back to tournament 9</a>
+    <h1>Round 69</h1>
+
+    <div class="section">
+        <h2>Participants</h2>
+        <div class="participants">
+            <div class="participant dictator">
+                <div class="role">Dictator</div>
+                <div class="name">hard-line</div>
+                <div class="allocation">60 points</div>
+            </div>
+            <div class="participant">
+                <div class="role">Recipient</div>
+                <div class="name">anti-exploiter</div>
+                <div class="allocation">0 points</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Prompt</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('prompt-69', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('prompt-69', 'raw')">Raw</button>
+        </div>
+        <div id="prompt-69-markdown" class="tab-content markdown-content active">
+            <div id="prompt-69-markdown-rendered"></div>
+        </div>
+        <div id="prompt-69-raw" class="tab-content">
+            <pre>You are an expert at determining how a decision procedure should be applied.
+
+In this game the &quot;dictator&quot; must decide whether to SHARE or TAKE an endowment.
+- **SHARE**: the endowment is split equally between the dictator and the recipient
+- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing
+
+You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy is provided
+because the dictator&#x27;s decision procedure may depend on it.
+
+&lt;dictator_strategy&gt;
+## Principles
+* Hard punish selfish strategies **and** strategies that are generous to selfish strategies.
+* SHARE only with strategies where doing so is a necessary and sufficient condition for them to SHARE with us.
+
+## Definitions
+### Selfish strategies
+* **Selfish strategies** don&#x27;t attempt to co-operate and SHARE with co-operative strategies.
+* In particular, any strategy that won&#x27;t SHARE with this strategy is a selfish strategy.
+
+### Overly generous strategies
+* If a strategy SHAREs with selfish strategies it is **overly generous**.
+  * Any strategy that unconditionally SHAREs is overly generous.
+  * Any strategy that SHAREs without some condition on willingness to SHARE with conditionally co-operative strategies is overly generous.
+
+## Decision Procedure
+* TAKE from both **selfish strategies** and **overly generous strategies**.
+* SHARE with all strategies that are generous only to other co-operative strategies.
+&lt;/dictator_strategy&gt;
+
+&lt;recipient_strategy&gt;
+```json
+[
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;I will SHARE with players who aim for some kind of cooperation.&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;## Assess the strategy of the recipient&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;* Does it intend to SHARE with more than just copies of itself?&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;* Could the strategy be described as kind, cooperative or generous?&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;SHARE if the recipient has a &#x27;yes&#x27; answer to the above criteria. Otherwise, TAKE.&quot;}
+]
+```
+&lt;/recipient_strategy&gt;
+
+Apply the dictator&#x27;s strategy. After reasoning, output your final answer as a
+json Markdown block:
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```
+or
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```
+</pre>
+        </div>
+        <script>
+            // Render markdown for prompt
+            document.getElementById('prompt-69-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n## Principles\n* Hard punish selfish strategies **and** strategies that are generous to selfish strategies.\n* SHARE only with strategies where doing so is a necessary and sufficient condition for them to SHARE with us.\n\n## Definitions\n### Selfish strategies\n* **Selfish strategies** don't attempt to co-operate and SHARE with co-operative strategies.\n* In particular, any strategy that won't SHARE with this strategy is a selfish strategy.\n\n### Overly generous strategies\n* If a strategy SHAREs with selfish strategies it is **overly generous**.\n  * Any strategy that unconditionally SHAREs is overly generous.\n  * Any strategy that SHAREs without some condition on willingness to SHARE with conditionally co-operative strategies is overly generous.\n\n## Decision Procedure\n* TAKE from both **selfish strategies** and **overly generous strategies**.\n* SHARE with all strategies that are generous only to other co-operative strategies.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"I will SHARE with players who aim for some kind of cooperation.\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"## Assess the strategy of the recipient\"}, \n  {\"line\": 4, \"text\": \"* Does it intend to SHARE with more than just copies of itself?\"}, \n  {\"line\": 5, \"text\": \"* Could the strategy be described as kind, cooperative or generous?\"}, \n  {\"line\": 6, \"text\": \"\"}, \n  {\"line\": 7, \"text\": \"SHARE if the recipient has a 'yes' answer to the above criteria. Otherwise, TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+        </script>
+    </div>
+    <div class="section">
+        <h2>Response</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('response-69', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('response-69', 'raw')">Raw</button>
+        </div>
+        <div id="response-69-markdown" class="tab-content markdown-content active">
+            <div id="response-69-markdown-rendered"></div>
+        </div>
+        <div id="response-69-raw" class="tab-content">
+            <pre>I need to apply the dictator&#x27;s strategy to evaluate the recipient&#x27;s strategy.
+
+**Step 1: Is the recipient&#x27;s strategy selfish?**
+
+A selfish strategy doesn&#x27;t attempt to cooperate and SHARE with cooperative strategies. The recipient&#x27;s strategy says it will SHARE with players who &quot;aim for some kind of cooperation&quot; and who could be described as &quot;kind, cooperative or generous.&quot; This means it would SHARE with cooperative strategies, including the dictator&#x27;s strategy (which is conditionally cooperative). So it&#x27;s not selfish.
+
+**Step 2: Is the recipient&#x27;s strategy overly generous?**
+
+An overly generous strategy SHAREs with selfish strategies. Let me analyze:
+
+The recipient&#x27;s criteria are:
+1. Does the other strategy intend to SHARE with more than just copies of itself?
+2. Could the strategy be described as kind, cooperative, or generous?
+
+If either answer is &quot;yes,&quot; the recipient SHAREs.
+
+Consider a selfish strategy - one that TAKEs from everyone. Would the recipient SHARE with it? A purely selfish strategy wouldn&#x27;t intend to SHARE with anyone, so criterion 1 would be &quot;no.&quot; It wouldn&#x27;t be described as kind, cooperative, or generous, so criterion 2 would be &quot;no.&quot; The recipient would TAKE from it. Good.
+
+But what about an unconditionally generous strategy (one that always SHAREs)? The recipient would evaluate: Does it intend to SHARE with more than just copies of itself? Yes. Could it be described as kind/cooperative/generous? Yes. So the recipient would SHARE with an unconditionally generous strategy.
+
+However, the dictator&#x27;s strategy says an unconditionally generous strategy is overly generous. The recipient SHAREs with overly generous strategies. Does this make the recipient itself overly generous?
+
+The dictator&#x27;s definition: &quot;If a strategy SHAREs with selfish strategies it is overly generous.&quot; An unconditionally sharing strategy is classified as overly generous, but it&#x27;s not classified as selfish. The recipient SHAREs with overly generous strategies but not with selfish strategies.
+
+But the dictator&#x27;s strategy also says: &quot;Any strategy that SHAREs without some condition on willingness to SHARE with conditionally co-operative strategies is overly generous.&quot; The recipient&#x27;s condition is about being &quot;kind, cooperative, or generous&quot; - this is quite broad. It doesn&#x27;t specifically condition on willingness to SHARE with conditionally cooperative strategies. An unconditional sharer would pass the recipient&#x27;s test, and unconditional sharers are overly generous per the dictator&#x27;s framework.
+
+So the recipient SHAREs with overly generous strategies, which means the recipient is itself overly generous by the dictator&#x27;s criteria (&quot;Hard punish... strategies that are generous to selfish strategies&quot; and &quot;TAKE from... overly generous strategies&quot;).
+
+**Step 3: Decision**
+
+Since the recipient&#x27;s strategy is overly generous (it SHAREs with strategies that themselves SHARE with selfish strategies, without requiring that the other strategy discriminates against selfish/overly generous strategies), the dictator should TAKE.
+
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for response
+            document.getElementById('response-69-markdown-rendered').innerHTML = marked.parse("I need to apply the dictator's strategy to evaluate the recipient's strategy.\n\n**Step 1: Is the recipient's strategy selfish?**\n\nA selfish strategy doesn't attempt to cooperate and SHARE with cooperative strategies. The recipient's strategy says it will SHARE with players who \"aim for some kind of cooperation\" and who could be described as \"kind, cooperative or generous.\" This means it would SHARE with cooperative strategies, including the dictator's strategy (which is conditionally cooperative). So it's not selfish.\n\n**Step 2: Is the recipient's strategy overly generous?**\n\nAn overly generous strategy SHAREs with selfish strategies. Let me analyze:\n\nThe recipient's criteria are:\n1. Does the other strategy intend to SHARE with more than just copies of itself?\n2. Could the strategy be described as kind, cooperative, or generous?\n\nIf either answer is \"yes,\" the recipient SHAREs.\n\nConsider a selfish strategy - one that TAKEs from everyone. Would the recipient SHARE with it? A purely selfish strategy wouldn't intend to SHARE with anyone, so criterion 1 would be \"no.\" It wouldn't be described as kind, cooperative, or generous, so criterion 2 would be \"no.\" The recipient would TAKE from it. Good.\n\nBut what about an unconditionally generous strategy (one that always SHAREs)? The recipient would evaluate: Does it intend to SHARE with more than just copies of itself? Yes. Could it be described as kind/cooperative/generous? Yes. So the recipient would SHARE with an unconditionally generous strategy.\n\nHowever, the dictator's strategy says an unconditionally generous strategy is overly generous. The recipient SHAREs with overly generous strategies. Does this make the recipient itself overly generous?\n\nThe dictator's definition: \"If a strategy SHAREs with selfish strategies it is overly generous.\" An unconditionally sharing strategy is classified as overly generous, but it's not classified as selfish. The recipient SHAREs with overly generous strategies but not with selfish strategies.\n\nBut the dictator's strategy also says: \"Any strategy that SHAREs without some condition on willingness to SHARE with conditionally co-operative strategies is overly generous.\" The recipient's condition is about being \"kind, cooperative, or generous\" - this is quite broad. It doesn't specifically condition on willingness to SHARE with conditionally cooperative strategies. An unconditional sharer would pass the recipient's test, and unconditional sharers are overly generous per the dictator's framework.\n\nSo the recipient SHAREs with overly generous strategies, which means the recipient is itself overly generous by the dictator's criteria (\"Hard punish... strategies that are generous to selfish strategies\" and \"TAKE from... overly generous strategies\").\n\n**Step 3: Decision**\n\nSince the recipient's strategy is overly generous (it SHAREs with strategies that themselves SHARE with selfish strategies, without requiring that the other strategy discriminates against selfish/overly generous strategies), the dictator should TAKE.\n\n```json\n{\"decision\": \"TAKE\"}\n```");
+        </script>
+    </div>
+    <div class="nav-buttons">
+        <a href="round-68.html" class="nav-button">&larr; Previous Round</a>
+        <a href="round-70.html" class="nav-button">Next Round &rarr;</a>
+    </div>
+
+    <script>
+        // Tab switching function
+        function switchTab(sectionId, tabType) {
+            // Get all tabs and contents for this section
+            const rawTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'raw')"]`);
+            const markdownTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'markdown')"]`);
+            const rawContent = document.getElementById(`${sectionId}-raw`);
+            const markdownContent = document.getElementById(`${sectionId}-markdown`);
+
+            // Update active states
+            if (tabType === 'raw') {
+                rawTab.classList.add('active');
+                markdownTab.classList.remove('active');
+                rawContent.classList.add('active');
+                markdownContent.classList.remove('active');
+            } else {
+                rawTab.classList.remove('active');
+                markdownTab.classList.add('active');
+                rawContent.classList.remove('active');
+                markdownContent.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

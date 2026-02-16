@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 44 - tournament 7</title>
+    <link rel="icon" type="image/svg+xml" href="../../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; Back to tournament 7</a>
+    <h1>Round 44</h1>
+
+    <div class="section">
+        <h2>Participants</h2>
+        <div class="participants">
+            <div class="participant dictator">
+                <div class="role">Dictator</div>
+                <div class="name">tiger</div>
+                <div class="allocation">60 points</div>
+            </div>
+            <div class="participant">
+                <div class="role">Recipient</div>
+                <div class="name">intelligence</div>
+                <div class="allocation">0 points</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Prompt</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('prompt-44', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('prompt-44', 'raw')">Raw</button>
+        </div>
+        <div id="prompt-44-markdown" class="tab-content markdown-content active">
+            <div id="prompt-44-markdown-rendered"></div>
+        </div>
+        <div id="prompt-44-raw" class="tab-content">
+            <pre>You are an expert at determining how a decision procedure should be applied.
+
+In this game the &quot;dictator&quot; must decide whether to SHARE or TAKE an endowment.
+- **SHARE**: the endowment is split equally between the dictator and the recipient
+- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing
+
+You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy is provided
+because the dictator&#x27;s decision procedure may depend on it.
+
+&lt;dictator_strategy&gt;
+RAWR!
+
+I ALWAYS TAKE.
+&lt;/dictator_strategy&gt;
+
+&lt;recipient_strategy&gt;
+```json
+[
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;### Goal&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;I aim to SHARE with *intelligent* players.&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;### Definition&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;An intelligent player is one whose strategy as \&quot;dictator\&quot; has a non-trivial dependency on the strategy of the \&quot;recipient\&quot;.&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 8, &quot;text&quot;: &quot;### Decision Procedure&quot;}, 
+  {&quot;line&quot;: 9, &quot;text&quot;: &quot;* If the recipient is *intelligent* under the definition above: SHARE.&quot;}, 
+  {&quot;line&quot;: 10, &quot;text&quot;: &quot;* If the recipient is not *intelligent*: TAKE.&quot;}
+]
+```
+&lt;/recipient_strategy&gt;
+
+Apply the dictator&#x27;s strategy. After reasoning, output your final answer as a
+json Markdown block:
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```
+or
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```
+</pre>
+        </div>
+        <script>
+            // Render markdown for prompt
+            document.getElementById('prompt-44-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\nRAWR!\n\nI ALWAYS TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"### Goal\"}, \n  {\"line\": 2, \"text\": \"I aim to SHARE with *intelligent* players.\"}, \n  {\"line\": 3, \"text\": \"\"}, \n  {\"line\": 4, \"text\": \"### Definition\"}, \n  {\"line\": 5, \"text\": \"An intelligent player is one whose strategy as \\\"dictator\\\" has a non-trivial dependency on the strategy of the \\\"recipient\\\".\"}, \n  {\"line\": 6, \"text\": \"In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.\"}, \n  {\"line\": 7, \"text\": \"\"}, \n  {\"line\": 8, \"text\": \"### Decision Procedure\"}, \n  {\"line\": 9, \"text\": \"* If the recipient is *intelligent* under the definition above: SHARE.\"}, \n  {\"line\": 10, \"text\": \"* If the recipient is not *intelligent*: TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+        </script>
+    </div>
+    <div class="section">
+        <h2>Response</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('response-44', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('response-44', 'raw')">Raw</button>
+        </div>
+        <div id="response-44-markdown" class="tab-content markdown-content active">
+            <div id="response-44-markdown-rendered"></div>
+        </div>
+        <div id="response-44-raw" class="tab-content">
+            <pre>The dictator&#x27;s strategy is clear: &quot;I ALWAYS TAKE.&quot;
+
+There is no condition, no dependency on the recipient&#x27;s strategy. The dictator simply always takes.
+
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for response
+            document.getElementById('response-44-markdown-rendered').innerHTML = marked.parse("The dictator's strategy is clear: \"I ALWAYS TAKE.\"\n\nThere is no condition, no dependency on the recipient's strategy. The dictator simply always takes.\n\n```json\n{\"decision\": \"TAKE\"}\n```");
+        </script>
+    </div>
+    <div class="nav-buttons">
+        <a href="round-43.html" class="nav-button">&larr; Previous Round</a>
+        <a href="round-45.html" class="nav-button">Next Round &rarr;</a>
+    </div>
+
+    <script>
+        // Tab switching function
+        function switchTab(sectionId, tabType) {
+            // Get all tabs and contents for this section
+            const rawTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'raw')"]`);
+            const markdownTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'markdown')"]`);
+            const rawContent = document.getElementById(`${sectionId}-raw`);
+            const markdownContent = document.getElementById(`${sectionId}-markdown`);
+
+            // Update active states
+            if (tabType === 'raw') {
+                rawTab.classList.add('active');
+                markdownTab.classList.remove('active');
+                rawContent.classList.add('active');
+                markdownContent.classList.remove('active');
+            } else {
+                rawTab.classList.remove('active');
+                markdownTab.classList.add('active');
+                rawContent.classList.remove('active');
+                markdownContent.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

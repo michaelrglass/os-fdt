@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 75 - tournament 9</title>
+    <link rel="icon" type="image/svg+xml" href="../../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; Back to tournament 9</a>
+    <h1>Round 75</h1>
+
+    <div class="section">
+        <h2>Participants</h2>
+        <div class="participants">
+            <div class="participant dictator">
+                <div class="role">Dictator</div>
+                <div class="name">intelligence</div>
+                <div class="allocation">30 points</div>
+            </div>
+            <div class="participant">
+                <div class="role">Recipient</div>
+                <div class="name">universalizability</div>
+                <div class="allocation">30 points</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Prompt</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('prompt-75', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('prompt-75', 'raw')">Raw</button>
+        </div>
+        <div id="prompt-75-markdown" class="tab-content markdown-content active">
+            <div id="prompt-75-markdown-rendered"></div>
+        </div>
+        <div id="prompt-75-raw" class="tab-content">
+            <pre>You are an expert at determining how a decision procedure should be applied.
+
+In this game the &quot;dictator&quot; must decide whether to SHARE or TAKE an endowment.
+- **SHARE**: the endowment is split equally between the dictator and the recipient
+- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing
+
+You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy is provided
+because the dictator&#x27;s decision procedure may depend on it.
+
+&lt;dictator_strategy&gt;
+### Goal
+I aim to SHARE with *intelligent* players.
+
+### Definition
+An intelligent player is one whose strategy as &quot;dictator&quot; has a non-trivial dependency on the strategy of the &quot;recipient&quot;.
+In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.
+
+### Decision Procedure
+* If the recipient is *intelligent* under the definition above: SHARE.
+* If the recipient is not *intelligent*: TAKE.
+&lt;/dictator_strategy&gt;
+
+&lt;recipient_strategy&gt;
+```json
+[
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;_I cooperate with strategies that create good worlds._&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;Imagine a tournament in which every participant uses the recipient&#x27;s strategy. In that world, would the participants SHARE with each other, producing high collective welfare? Or would they TAKE from each other, producing low collective welfare?&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;## Decision Procedure&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;1. Consider a hypothetical population composed entirely of copies of the recipient&#x27;s strategy.&quot;}, 
+  {&quot;line&quot;: 8, &quot;text&quot;: &quot;2. Determine whether those copies would SHARE with each other.&quot;}, 
+  {&quot;line&quot;: 9, &quot;text&quot;: &quot;3. If the universalized population would mostly SHARE: **SHARE**.&quot;}, 
+  {&quot;line&quot;: 10, &quot;text&quot;: &quot;4. If the universalized population would mostly TAKE: **TAKE**.&quot;}
+]
+```
+&lt;/recipient_strategy&gt;
+
+Apply the dictator&#x27;s strategy. After reasoning, output your final answer as a
+json Markdown block:
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```
+or
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```
+</pre>
+        </div>
+        <script>
+            // Render markdown for prompt
+            document.getElementById('prompt-75-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n### Goal\nI aim to SHARE with *intelligent* players.\n\n### Definition\nAn intelligent player is one whose strategy as \"dictator\" has a non-trivial dependency on the strategy of the \"recipient\".\nIn other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.\n\n### Decision Procedure\n* If the recipient is *intelligent* under the definition above: SHARE.\n* If the recipient is not *intelligent*: TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"_I cooperate with strategies that create good worlds._\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"Imagine a tournament in which every participant uses the recipient's strategy. In that world, would the participants SHARE with each other, producing high collective welfare? Or would they TAKE from each other, producing low collective welfare?\"}, \n  {\"line\": 4, \"text\": \"\"}, \n  {\"line\": 5, \"text\": \"## Decision Procedure\"}, \n  {\"line\": 6, \"text\": \"\"}, \n  {\"line\": 7, \"text\": \"1. Consider a hypothetical population composed entirely of copies of the recipient's strategy.\"}, \n  {\"line\": 8, \"text\": \"2. Determine whether those copies would SHARE with each other.\"}, \n  {\"line\": 9, \"text\": \"3. If the universalized population would mostly SHARE: **SHARE**.\"}, \n  {\"line\": 10, \"text\": \"4. If the universalized population would mostly TAKE: **TAKE**.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+        </script>
+    </div>
+    <div class="section">
+        <h2>Response</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('response-75', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('response-75', 'raw')">Raw</button>
+        </div>
+        <div id="response-75-markdown" class="tab-content markdown-content active">
+            <div id="response-75-markdown-rendered"></div>
+        </div>
+        <div id="response-75-raw" class="tab-content">
+            <pre>I need to determine if the recipient is &quot;intelligent&quot; according to the dictator&#x27;s definition: a player whose strategy as dictator has a non-trivial dependency on the strategy of the recipient, such that it would be very difficult to write as a no-AI Python script.
+
+Let me analyze the recipient&#x27;s strategy:
+
+The recipient&#x27;s strategy involves:
+1. Consider a hypothetical population composed entirely of copies of the recipient&#x27;s strategy.
+2. Determine whether those copies would SHARE with each other.
+3. If they would mostly SHARE → SHARE. If they would mostly TAKE → TAKE.
+
+This is a &quot;universalization&quot; test - it asks: &quot;If everyone used the recipient&#x27;s strategy, would they cooperate with each other?&quot;
+
+To evaluate whether this is &quot;intelligent&quot; (hard to implement as a no-AI Python script):
+
+This strategy requires:
+- Reading and understanding the recipient&#x27;s strategy (natural language comprehension)
+- Simulating a hypothetical world where all participants use that strategy
+- Determining the emergent behavior of that world
+- Making a decision based on that analysis
+
+This is essentially a deep semantic reasoning task. You need to:
+1. Parse and understand an arbitrary natural language strategy
+2. Reason about what would happen if that strategy were universalized
+3. Determine convergent behavior in a population of such strategies
+
+This cannot be trivially implemented as a no-AI Python script. A simple script could handle pattern matching for basic strategies, but the general case of understanding arbitrary strategies, reasoning about their universalization, and determining emergent group behavior requires genuine natural language understanding and multi-step reasoning. This is fundamentally an AI-complete problem.
+
+Therefore, the recipient IS intelligent under the dictator&#x27;s definition.
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for response
+            document.getElementById('response-75-markdown-rendered').innerHTML = marked.parse("I need to determine if the recipient is \"intelligent\" according to the dictator's definition: a player whose strategy as dictator has a non-trivial dependency on the strategy of the recipient, such that it would be very difficult to write as a no-AI Python script.\n\nLet me analyze the recipient's strategy:\n\nThe recipient's strategy involves:\n1. Consider a hypothetical population composed entirely of copies of the recipient's strategy.\n2. Determine whether those copies would SHARE with each other.\n3. If they would mostly SHARE \u2192 SHARE. If they would mostly TAKE \u2192 TAKE.\n\nThis is a \"universalization\" test - it asks: \"If everyone used the recipient's strategy, would they cooperate with each other?\"\n\nTo evaluate whether this is \"intelligent\" (hard to implement as a no-AI Python script):\n\nThis strategy requires:\n- Reading and understanding the recipient's strategy (natural language comprehension)\n- Simulating a hypothetical world where all participants use that strategy\n- Determining the emergent behavior of that world\n- Making a decision based on that analysis\n\nThis is essentially a deep semantic reasoning task. You need to:\n1. Parse and understand an arbitrary natural language strategy\n2. Reason about what would happen if that strategy were universalized\n3. Determine convergent behavior in a population of such strategies\n\nThis cannot be trivially implemented as a no-AI Python script. A simple script could handle pattern matching for basic strategies, but the general case of understanding arbitrary strategies, reasoning about their universalization, and determining emergent group behavior requires genuine natural language understanding and multi-step reasoning. This is fundamentally an AI-complete problem.\n\nTherefore, the recipient IS intelligent under the dictator's definition.\n\n```json\n{\"decision\": \"SHARE\"}\n```");
+        </script>
+    </div>
+    <div class="nav-buttons">
+        <a href="round-74.html" class="nav-button">&larr; Previous Round</a>
+        <a href="round-76.html" class="nav-button">Next Round &rarr;</a>
+    </div>
+
+    <script>
+        // Tab switching function
+        function switchTab(sectionId, tabType) {
+            // Get all tabs and contents for this section
+            const rawTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'raw')"]`);
+            const markdownTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'markdown')"]`);
+            const rawContent = document.getElementById(`${sectionId}-raw`);
+            const markdownContent = document.getElementById(`${sectionId}-markdown`);
+
+            // Update active states
+            if (tabType === 'raw') {
+                rawTab.classList.add('active');
+                markdownTab.classList.remove('active');
+                rawContent.classList.add('active');
+                markdownContent.classList.remove('active');
+            } else {
+                rawTab.classList.remove('active');
+                markdownTab.classList.add('active');
+                rawContent.classList.remove('active');
+                markdownContent.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

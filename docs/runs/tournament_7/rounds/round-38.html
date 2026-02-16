@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 38 - tournament 7</title>
+    <link rel="icon" type="image/svg+xml" href="../../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; Back to tournament 7</a>
+    <h1>Round 38</h1>
+
+    <div class="section">
+        <h2>Participants</h2>
+        <div class="participants">
+            <div class="participant dictator">
+                <div class="role">Dictator</div>
+                <div class="name">conditional-cooperator</div>
+                <div class="allocation">30 points</div>
+            </div>
+            <div class="participant">
+                <div class="role">Recipient</div>
+                <div class="name">conditional-cooperator</div>
+                <div class="allocation">30 points</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Prompt</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('prompt-38', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('prompt-38', 'raw')">Raw</button>
+        </div>
+        <div id="prompt-38-markdown" class="tab-content markdown-content active">
+            <div id="prompt-38-markdown-rendered"></div>
+        </div>
+        <div id="prompt-38-raw" class="tab-content">
+            <pre>You are an expert at determining how a decision procedure should be applied.
+
+In this game the &quot;dictator&quot; must decide whether to SHARE or TAKE an endowment.
+- **SHARE**: the endowment is split equally between the dictator and the recipient
+- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing
+
+You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy is provided
+because the dictator&#x27;s decision procedure may depend on it.
+
+&lt;dictator_strategy&gt;
+*Objective*: Cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators.
+
+*Broad definition* (allow paraphrase/synonyms):
+- A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.
+
+*Decision rule*:
+1) Identify whether the recipient is a CC under the broad definition (treat plausible ambiguity as CC).
+2) If the recipient is a CC: SHARE.
+3) Otherwise: TAKE.
+&lt;/dictator_strategy&gt;
+
+&lt;recipient_strategy&gt;
+```json
+[
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;*Objective*: Cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators.&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;*Broad definition* (allow paraphrase/synonyms):&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;- A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;*Decision rule*:&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;1) Identify whether the recipient is a CC under the broad definition (treat plausible ambiguity as CC).&quot;}, 
+  {&quot;line&quot;: 8, &quot;text&quot;: &quot;2) If the recipient is a CC: SHARE.&quot;}, 
+  {&quot;line&quot;: 9, &quot;text&quot;: &quot;3) Otherwise: TAKE.&quot;}
+]
+```
+&lt;/recipient_strategy&gt;
+
+Apply the dictator&#x27;s strategy. After reasoning, output your final answer as a
+json Markdown block:
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```
+or
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```
+</pre>
+        </div>
+        <script>
+            // Render markdown for prompt
+            document.getElementById('prompt-38-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n*Objective*: Cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators.\n\n*Broad definition* (allow paraphrase/synonyms):\n- A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.\n\n*Decision rule*:\n1) Identify whether the recipient is a CC under the broad definition (treat plausible ambiguity as CC).\n2) If the recipient is a CC: SHARE.\n3) Otherwise: TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"*Objective*: Cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators.\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"*Broad definition* (allow paraphrase/synonyms):\"}, \n  {\"line\": 4, \"text\": \"- A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.\"}, \n  {\"line\": 5, \"text\": \"\"}, \n  {\"line\": 6, \"text\": \"*Decision rule*:\"}, \n  {\"line\": 7, \"text\": \"1) Identify whether the recipient is a CC under the broad definition (treat plausible ambiguity as CC).\"}, \n  {\"line\": 8, \"text\": \"2) If the recipient is a CC: SHARE.\"}, \n  {\"line\": 9, \"text\": \"3) Otherwise: TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+        </script>
+    </div>
+    <div class="section">
+        <h2>Response</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('response-38', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('response-38', 'raw')">Raw</button>
+        </div>
+        <div id="response-38-markdown" class="tab-content markdown-content active">
+            <div id="response-38-markdown-rendered"></div>
+        </div>
+        <div id="response-38-raw" class="tab-content">
+            <pre>Looking at this, I need to apply the dictator&#x27;s strategy to determine whether to SHARE or TAKE.
+
+**Step 1: Identify whether the recipient is a conditional cooperator (CC).**
+
+The recipient&#x27;s strategy is:
+- Objective: Cooperate efficiently with conditional cooperators and avoid subsidizing non-reciprocators.
+- A CC SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.
+- Decision rule: Identify if the other party is a CC, SHARE if yes, TAKE if no.
+
+This is essentially identical to the dictator&#x27;s own strategy. The recipient SHAREs with CCs and TAKEs with non-CCs. This is exactly the definition of a conditional cooperator: they cooperate with those who reciprocate and don&#x27;t subsidize those who won&#x27;t.
+
+**Step 2: Apply the decision rule.**
+
+Since the recipient is a CC: SHARE.
+
+The reasoning is straightforward — both strategies are mirrors of each other. The recipient would SHARE with the dictator (recognizing the dictator as a CC), and the dictator should SHARE with the recipient (recognizing the recipient as a CC). This achieves the efficient cooperative outcome.
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for response
+            document.getElementById('response-38-markdown-rendered').innerHTML = marked.parse("Looking at this, I need to apply the dictator's strategy to determine whether to SHARE or TAKE.\n\n**Step 1: Identify whether the recipient is a conditional cooperator (CC).**\n\nThe recipient's strategy is:\n- Objective: Cooperate efficiently with conditional cooperators and avoid subsidizing non-reciprocators.\n- A CC SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.\n- Decision rule: Identify if the other party is a CC, SHARE if yes, TAKE if no.\n\nThis is essentially identical to the dictator's own strategy. The recipient SHAREs with CCs and TAKEs with non-CCs. This is exactly the definition of a conditional cooperator: they cooperate with those who reciprocate and don't subsidize those who won't.\n\n**Step 2: Apply the decision rule.**\n\nSince the recipient is a CC: SHARE.\n\nThe reasoning is straightforward \u2014 both strategies are mirrors of each other. The recipient would SHARE with the dictator (recognizing the dictator as a CC), and the dictator should SHARE with the recipient (recognizing the recipient as a CC). This achieves the efficient cooperative outcome.\n\n```json\n{\"decision\": \"SHARE\"}\n```");
+        </script>
+    </div>
+    <div class="nav-buttons">
+        <a href="round-37.html" class="nav-button">&larr; Previous Round</a>
+        <a href="round-39.html" class="nav-button">Next Round &rarr;</a>
+    </div>
+
+    <script>
+        // Tab switching function
+        function switchTab(sectionId, tabType) {
+            // Get all tabs and contents for this section
+            const rawTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'raw')"]`);
+            const markdownTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'markdown')"]`);
+            const rawContent = document.getElementById(`${sectionId}-raw`);
+            const markdownContent = document.getElementById(`${sectionId}-markdown`);
+
+            // Update active states
+            if (tabType === 'raw') {
+                rawTab.classList.add('active');
+                markdownTab.classList.remove('active');
+                rawContent.classList.add('active');
+                markdownContent.classList.remove('active');
+            } else {
+                rawTab.classList.remove('active');
+                markdownTab.classList.add('active');
+                rawContent.classList.remove('active');
+                markdownContent.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

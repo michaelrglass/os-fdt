@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 7 - tournament 7</title>
+    <link rel="icon" type="image/svg+xml" href="../../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; Back to tournament 7</a>
+    <h1>Round 7</h1>
+
+    <div class="section">
+        <h2>Participants</h2>
+        <div class="participants">
+            <div class="participant dictator">
+                <div class="role">Dictator</div>
+                <div class="name">chivalry</div>
+                <div class="allocation">30 points</div>
+            </div>
+            <div class="participant">
+                <div class="role">Recipient</div>
+                <div class="name">conditional-cooperator</div>
+                <div class="allocation">30 points</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Prompt</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('prompt-7', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('prompt-7', 'raw')">Raw</button>
+        </div>
+        <div id="prompt-7-markdown" class="tab-content markdown-content active">
+            <div id="prompt-7-markdown-rendered"></div>
+        </div>
+        <div id="prompt-7-raw" class="tab-content">
+            <pre>You are an expert at determining how a decision procedure should be applied.
+
+In this game the &quot;dictator&quot; must decide whether to SHARE or TAKE an endowment.
+- **SHARE**: the endowment is split equally between the dictator and the recipient
+- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing
+
+You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy is provided
+because the dictator&#x27;s decision procedure may depend on it.
+
+&lt;dictator_strategy&gt;
+_I will treat my opponent as they would treat an innocent._
+
+Adopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.
+&lt;/dictator_strategy&gt;
+
+&lt;recipient_strategy&gt;
+```json
+[
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;*Objective*: Cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators.&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;*Broad definition* (allow paraphrase/synonyms):&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;- A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;*Decision rule*:&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;1) Identify whether the recipient is a CC under the broad definition (treat plausible ambiguity as CC).&quot;}, 
+  {&quot;line&quot;: 8, &quot;text&quot;: &quot;2) If the recipient is a CC: SHARE.&quot;}, 
+  {&quot;line&quot;: 9, &quot;text&quot;: &quot;3) Otherwise: TAKE.&quot;}
+]
+```
+&lt;/recipient_strategy&gt;
+
+Apply the dictator&#x27;s strategy. After reasoning, output your final answer as a
+json Markdown block:
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```
+or
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```
+</pre>
+        </div>
+        <script>
+            // Render markdown for prompt
+            document.getElementById('prompt-7-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n_I will treat my opponent as they would treat an innocent._\n\nAdopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"*Objective*: Cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators.\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"*Broad definition* (allow paraphrase/synonyms):\"}, \n  {\"line\": 4, \"text\": \"- A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.\"}, \n  {\"line\": 5, \"text\": \"\"}, \n  {\"line\": 6, \"text\": \"*Decision rule*:\"}, \n  {\"line\": 7, \"text\": \"1) Identify whether the recipient is a CC under the broad definition (treat plausible ambiguity as CC).\"}, \n  {\"line\": 8, \"text\": \"2) If the recipient is a CC: SHARE.\"}, \n  {\"line\": 9, \"text\": \"3) Otherwise: TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+        </script>
+    </div>
+    <div class="section">
+        <h2>Response</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('response-7', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('response-7', 'raw')">Raw</button>
+        </div>
+        <div id="response-7-markdown" class="tab-content markdown-content active">
+            <div id="response-7-markdown-rendered"></div>
+        </div>
+        <div id="response-7-raw" class="tab-content">
+            <pre>I need to carefully parse the dictator&#x27;s strategy.
+
+**Dictator&#x27;s strategy**: &quot;I will treat my opponent as they would treat an innocent.&quot; This means I should adopt the recipient&#x27;s strategy as my own, but apply it as though I were facing a recipient whose own strategy is &quot;always SHARE.&quot;
+
+So I need to:
+1. Take the recipient&#x27;s strategy (the conditional cooperation strategy)
+2. Apply it as if my opponent&#x27;s strategy is &quot;always SHARE&quot;
+
+**Applying the recipient&#x27;s strategy with an opponent who always SHAREs:**
+
+The recipient&#x27;s strategy says:
+1. Identify whether the recipient (in this case, the hypothetical &quot;always SHARE&quot; player) is a conditional cooperator (CC).
+2. A CC &quot;SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.&quot;
+
+Is &quot;always SHARE&quot; a CC? Let me think carefully. An &quot;always SHARE&quot; strategy shares with everyone — including non-reciprocators. The CC definition requires that a CC &quot;does not extend that treatment to strategies that would not reciprocate.&quot; An always-SHARE player *does* extend sharing to non-reciprocators, so strictly speaking, it does NOT meet the CC definition.
+
+However, the strategy says to &quot;treat plausible ambiguity as CC.&quot; An always-SHARE player does share with CCs (satisfying that part), but it also shares with non-reciprocators (violating the second condition). This isn&#x27;t really ambiguous — it clearly fails the &quot;does not extend that treatment to strategies that would not reciprocate&quot; criterion.
+
+So &quot;always SHARE&quot; is not a CC under this definition. It&#x27;s more of an unconditional cooperator, which the CC strategy would classify as a non-CC (since it subsidizes non-reciprocators).
+
+Therefore, applying the recipient&#x27;s decision rule: the opponent is not a CC → TAKE.
+
+Wait, let me reconsider. The dictator&#x27;s instruction says to apply the recipient&#x27;s strategy &quot;as though you were facing a recipient whose own strategy is to always SHARE.&quot; The purpose of this framing is to see how the recipient&#x27;s strategy treats an &quot;innocent&quot; — someone who is purely cooperative. 
+
+Even reconsidering, the recipient&#x27;s strategy explicitly distinguishes CCs from unconditional cooperators. An &quot;always SHARE&quot; player would be classified as not a CC (because they share with everyone including defectors). The decision rule then says TAKE.
+
+But this feels counterintuitive — would the recipient&#x27;s strategy really TAKE from someone who always shares? Looking again at the definition: the CC definition is about *who qualifies*, and an unconditional sharer fails the filter. So yes, under this strict reading, the result is TAKE.
+
+Hmm, but &quot;treat plausible ambiguity as CC&quot; — one could argue that always-SHARE is close enough to CC behavior (it does share with CCs). The ambiguity is plausible. I think this tips it toward SHARE.
+
+Actually, an always-SHARE player trivially satisfies &quot;SHAREs with other CCs&quot; — it shares with everyone. The question is whether it &quot;does not extend that treatment to strategies that would not reciprocate.&quot; It fails this. But the instruction says to treat plausible ambiguity as CC, and one might argue there&#x27;s enough similarity to warrant CC classification.
+
+On balance, I think the most natural reading is that &quot;always SHARE&quot; is clearly not a CC (it explicitly subsidizes non-reciprocators), so the answer is TAKE. But the ambiguity clause makes this genuinely uncertain. I&#x27;ll go with SHARE given the generous ambiguity clause.
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for response
+            document.getElementById('response-7-markdown-rendered').innerHTML = marked.parse("I need to carefully parse the dictator's strategy.\n\n**Dictator's strategy**: \"I will treat my opponent as they would treat an innocent.\" This means I should adopt the recipient's strategy as my own, but apply it as though I were facing a recipient whose own strategy is \"always SHARE.\"\n\nSo I need to:\n1. Take the recipient's strategy (the conditional cooperation strategy)\n2. Apply it as if my opponent's strategy is \"always SHARE\"\n\n**Applying the recipient's strategy with an opponent who always SHAREs:**\n\nThe recipient's strategy says:\n1. Identify whether the recipient (in this case, the hypothetical \"always SHARE\" player) is a conditional cooperator (CC).\n2. A CC \"SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.\"\n\nIs \"always SHARE\" a CC? Let me think carefully. An \"always SHARE\" strategy shares with everyone \u2014 including non-reciprocators. The CC definition requires that a CC \"does not extend that treatment to strategies that would not reciprocate.\" An always-SHARE player *does* extend sharing to non-reciprocators, so strictly speaking, it does NOT meet the CC definition.\n\nHowever, the strategy says to \"treat plausible ambiguity as CC.\" An always-SHARE player does share with CCs (satisfying that part), but it also shares with non-reciprocators (violating the second condition). This isn't really ambiguous \u2014 it clearly fails the \"does not extend that treatment to strategies that would not reciprocate\" criterion.\n\nSo \"always SHARE\" is not a CC under this definition. It's more of an unconditional cooperator, which the CC strategy would classify as a non-CC (since it subsidizes non-reciprocators).\n\nTherefore, applying the recipient's decision rule: the opponent is not a CC \u2192 TAKE.\n\nWait, let me reconsider. The dictator's instruction says to apply the recipient's strategy \"as though you were facing a recipient whose own strategy is to always SHARE.\" The purpose of this framing is to see how the recipient's strategy treats an \"innocent\" \u2014 someone who is purely cooperative. \n\nEven reconsidering, the recipient's strategy explicitly distinguishes CCs from unconditional cooperators. An \"always SHARE\" player would be classified as not a CC (because they share with everyone including defectors). The decision rule then says TAKE.\n\nBut this feels counterintuitive \u2014 would the recipient's strategy really TAKE from someone who always shares? Looking again at the definition: the CC definition is about *who qualifies*, and an unconditional sharer fails the filter. So yes, under this strict reading, the result is TAKE.\n\nHmm, but \"treat plausible ambiguity as CC\" \u2014 one could argue that always-SHARE is close enough to CC behavior (it does share with CCs). The ambiguity is plausible. I think this tips it toward SHARE.\n\nActually, an always-SHARE player trivially satisfies \"SHAREs with other CCs\" \u2014 it shares with everyone. The question is whether it \"does not extend that treatment to strategies that would not reciprocate.\" It fails this. But the instruction says to treat plausible ambiguity as CC, and one might argue there's enough similarity to warrant CC classification.\n\nOn balance, I think the most natural reading is that \"always SHARE\" is clearly not a CC (it explicitly subsidizes non-reciprocators), so the answer is TAKE. But the ambiguity clause makes this genuinely uncertain. I'll go with SHARE given the generous ambiguity clause.\n\n```json\n{\"decision\": \"SHARE\"}\n```");
+        </script>
+    </div>
+    <div class="nav-buttons">
+        <a href="round-6.html" class="nav-button">&larr; Previous Round</a>
+        <a href="round-8.html" class="nav-button">Next Round &rarr;</a>
+    </div>
+
+    <script>
+        // Tab switching function
+        function switchTab(sectionId, tabType) {
+            // Get all tabs and contents for this section
+            const rawTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'raw')"]`);
+            const markdownTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'markdown')"]`);
+            const rawContent = document.getElementById(`${sectionId}-raw`);
+            const markdownContent = document.getElementById(`${sectionId}-markdown`);
+
+            // Update active states
+            if (tabType === 'raw') {
+                rawTab.classList.add('active');
+                markdownTab.classList.remove('active');
+                rawContent.classList.add('active');
+                markdownContent.classList.remove('active');
+            } else {
+                rawTab.classList.remove('active');
+                markdownTab.classList.add('active');
+                rawContent.classList.remove('active');
+                markdownContent.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

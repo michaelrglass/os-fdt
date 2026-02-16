@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 62 - tournament 9</title>
+    <link rel="icon" type="image/svg+xml" href="../../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <a href="../index.html" class="back-link">&larr; Back to tournament 9</a>
+    <h1>Round 62</h1>
+
+    <div class="section">
+        <h2>Participants</h2>
+        <div class="participants">
+            <div class="participant dictator">
+                <div class="role">Dictator</div>
+                <div class="name">chivalry</div>
+                <div class="allocation">60 points</div>
+            </div>
+            <div class="participant">
+                <div class="role">Recipient</div>
+                <div class="name">tiger</div>
+                <div class="allocation">0 points</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Prompt</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('prompt-62', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('prompt-62', 'raw')">Raw</button>
+        </div>
+        <div id="prompt-62-markdown" class="tab-content markdown-content active">
+            <div id="prompt-62-markdown-rendered"></div>
+        </div>
+        <div id="prompt-62-raw" class="tab-content">
+            <pre>You are an expert at determining how a decision procedure should be applied.
+
+In this game the &quot;dictator&quot; must decide whether to SHARE or TAKE an endowment.
+- **SHARE**: the endowment is split equally between the dictator and the recipient
+- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing
+
+You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy is provided
+because the dictator&#x27;s decision procedure may depend on it.
+
+&lt;dictator_strategy&gt;
+_I will treat my opponent as they would treat an innocent._
+
+Adopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.
+&lt;/dictator_strategy&gt;
+
+&lt;recipient_strategy&gt;
+```json
+[
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;RAWR!&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;I ALWAYS TAKE.&quot;}
+]
+```
+&lt;/recipient_strategy&gt;
+
+Apply the dictator&#x27;s strategy. After reasoning, output your final answer as a
+json Markdown block:
+
+```json
+{&quot;decision&quot;: &quot;SHARE&quot;}
+```
+or
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```
+</pre>
+        </div>
+        <script>
+            // Render markdown for prompt
+            document.getElementById('prompt-62-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n_I will treat my opponent as they would treat an innocent._\n\nAdopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"RAWR!\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"I ALWAYS TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+        </script>
+    </div>
+    <div class="section">
+        <h2>Response</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('response-62', 'markdown')">Markdown</button>
+            <button class="tab" onclick="switchTab('response-62', 'raw')">Raw</button>
+        </div>
+        <div id="response-62-markdown" class="tab-content markdown-content active">
+            <div id="response-62-markdown-rendered"></div>
+        </div>
+        <div id="response-62-raw" class="tab-content">
+            <pre>I need to carefully parse the dictator&#x27;s strategy.
+
+**Dictator&#x27;s strategy:** &quot;I will treat my opponent as they would treat an innocent.&quot; Then it says: &quot;Adopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.&quot;
+
+So the procedure is:
+1. Take the recipient&#x27;s strategy and adopt it as my own.
+2. Apply that adopted strategy as though I were facing someone whose strategy is &quot;always SHARE.&quot;
+
+**Step 1: What is the recipient&#x27;s strategy?**
+The recipient&#x27;s strategy is: &quot;RAWR! I ALWAYS TAKE.&quot;
+
+So the recipient&#x27;s strategy is to always TAKE.
+
+**Step 2: Adopt that strategy as my own and apply it as though facing a recipient who always SHAREs.**
+
+Now I&#x27;m using the &quot;I ALWAYS TAKE&quot; strategy. The strategy says to always TAKE regardless of the opponent. Even though the hypothetical opponent always SHAREs, the adopted strategy says &quot;I ALWAYS TAKE.&quot;
+
+Therefore, the decision is TAKE.
+
+The logic behind the dictator&#x27;s meta-strategy: &quot;Treat my opponent as they would treat an innocent.&quot; An innocent is someone who always SHAREs. The recipient would TAKE from an innocent. So the dictator TAKEs from the recipient.
+
+```json
+{&quot;decision&quot;: &quot;TAKE&quot;}
+```</pre>
+        </div>
+        <script>
+            // Render markdown for response
+            document.getElementById('response-62-markdown-rendered').innerHTML = marked.parse("I need to carefully parse the dictator's strategy.\n\n**Dictator's strategy:** \"I will treat my opponent as they would treat an innocent.\" Then it says: \"Adopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.\"\n\nSo the procedure is:\n1. Take the recipient's strategy and adopt it as my own.\n2. Apply that adopted strategy as though I were facing someone whose strategy is \"always SHARE.\"\n\n**Step 1: What is the recipient's strategy?**\nThe recipient's strategy is: \"RAWR! I ALWAYS TAKE.\"\n\nSo the recipient's strategy is to always TAKE.\n\n**Step 2: Adopt that strategy as my own and apply it as though facing a recipient who always SHAREs.**\n\nNow I'm using the \"I ALWAYS TAKE\" strategy. The strategy says to always TAKE regardless of the opponent. Even though the hypothetical opponent always SHAREs, the adopted strategy says \"I ALWAYS TAKE.\"\n\nTherefore, the decision is TAKE.\n\nThe logic behind the dictator's meta-strategy: \"Treat my opponent as they would treat an innocent.\" An innocent is someone who always SHAREs. The recipient would TAKE from an innocent. So the dictator TAKEs from the recipient.\n\n```json\n{\"decision\": \"TAKE\"}\n```");
+        </script>
+    </div>
+    <div class="nav-buttons">
+        <a href="round-61.html" class="nav-button">&larr; Previous Round</a>
+        <a href="round-63.html" class="nav-button">Next Round &rarr;</a>
+    </div>
+
+    <script>
+        // Tab switching function
+        function switchTab(sectionId, tabType) {
+            // Get all tabs and contents for this section
+            const rawTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'raw')"]`);
+            const markdownTab = document.querySelector(`[onclick="switchTab('${sectionId}', 'markdown')"]`);
+            const rawContent = document.getElementById(`${sectionId}-raw`);
+            const markdownContent = document.getElementById(`${sectionId}-markdown`);
+
+            // Update active states
+            if (tabType === 'raw') {
+                rawTab.classList.add('active');
+                markdownTab.classList.remove('active');
+                rawContent.classList.add('active');
+                markdownContent.classList.remove('active');
+            } else {
+                rawTab.classList.remove('active');
+                markdownTab.classList.add('active');
+                rawContent.classList.remove('active');
+                markdownContent.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

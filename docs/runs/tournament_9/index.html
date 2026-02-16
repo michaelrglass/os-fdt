@@ -3,19 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tournament Results</title>
-    <link rel="icon" type="image/svg+xml" href="resources/favicon.svg">
-    <link rel="stylesheet" href="styles.css">
+    <title>tournament 9 - Tournament Results</title>
+    <link rel="icon" type="image/svg+xml" href="../../resources/favicon.svg">
+    <link rel="stylesheet" href="../../styles.css">
 </head>
 <body>
-    <div style="margin-bottom: 20px;">
-        <label for="run-selector" style="font-weight: 500; margin-right: 10px;">Tournament Run:</label>
-        <select id="run-selector" onchange="switchRun()" style="padding: 8px 12px; border-radius: 4px; border: 1px solid #ddd; font-size: 14px; min-width: 250px;">
-            <option value="tournament_9" selected>tournament 9 (9 strategies, 81 rounds)</option>
-            <option value="tournament_7" >tournament 7 (7 strategies, 49 rounds)</option>
-        </select>
-    </div>
-
+    <a href="../../index.html" class="back-link">&larr; Back to all runs</a>
     <h1>tournament 9</h1>
     <div class="meta">9 strategies, 81 rounds</div>
 
@@ -28,9 +21,9 @@
                     <th class="strategy">Strategy</th>
                     <th class="score">Total</th>
                     <th class="score">As Dictator</th>
-                    <th class="score">As Recipient</th>
+                    <th class="score">As Player</th>
                     <th class="score">Avg Dictator</th>
-                    <th class="score">Avg Recipient</th>
+                    <th class="score">Avg Player</th>
                 </tr>
             </thead>
             <tbody>
@@ -174,7 +167,7 @@
         </div>
         <h3>&beta; = 20.0 &mdash; 2 distinct fixed points</h3>
         <div style="margin-bottom: 12px;">
-            <strong>#1</strong> basin: 702/1000 (70.2%)
+            <strong>#1</strong> basin: 718/1000 (71.8%)
             <table style="margin-top: 6px;">
                 <thead><tr><th>Strategy</th><th class="score">Frequency</th><th class="score">Reward</th></tr></thead>
                 <tbody>
@@ -187,12 +180,12 @@
             </table>
         </div>
         <div style="margin-bottom: 12px;">
-            <strong>#2</strong> basin: 298/1000 (29.8%)
+            <strong>#2</strong> basin: 282/1000 (28.2%)
             <table style="margin-top: 6px;">
                 <thead><tr><th>Strategy</th><th class="score">Frequency</th><th class="score">Reward</th></tr></thead>
                 <tbody>
-                    <tr><td>mirror</td><td class="score">0.2058</td><td class="score">6.8680</td></tr>
                     <tr><td>universalizability</td><td class="score">0.2058</td><td class="score">6.8680</td></tr>
+                    <tr><td>mirror</td><td class="score">0.2058</td><td class="score">6.8680</td></tr>
                     <tr><td>chivalry</td><td class="score">0.1973</td><td class="score">6.8659</td></tr>
                     <tr><td>anti-exploiter</td><td class="score">0.1952</td><td class="score">6.8653</td></tr>
                     <tr><td>friend-to-all</td><td class="score">0.1952</td><td class="score">6.8653</td></tr>
@@ -225,31 +218,31 @@
             <div class="dictator-group" data-dictator="anti-exploiter">
                 <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: anti-exploiter</h3>
                 <div class="rounds-grid">
-                    <a href="runs/tournament_9/rounds/round-41.html" class="round-link-detailed" data-players="anti-exploiter">
+                    <a href="rounds/round-41.html" class="round-link-detailed" data-players="anti-exploiter">
                         <div class="round-players">anti-exploiter</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-78.html" class="round-link-detailed" data-players="chivalry">
+                    <a href="rounds/round-78.html" class="round-link-detailed" data-players="chivalry">
                         <div class="round-players">chivalry</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-11.html" class="round-link-detailed" data-players="conditional-cooperator">
+                    <a href="rounds/round-11.html" class="round-link-detailed" data-players="conditional-cooperator">
                         <div class="round-players">conditional-cooperator</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-44.html" class="round-link-detailed" data-players="friend-to-all">
+                    <a href="rounds/round-44.html" class="round-link-detailed" data-players="friend-to-all">
                         <div class="round-players">friend-to-all</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-33.html" class="round-link-detailed" data-players="hard-line">
+                    <a href="rounds/round-33.html" class="round-link-detailed" data-players="hard-line">
                         <div class="round-players">hard-line</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-45.html" class="round-link-detailed" data-players="intelligence">
+                    <a href="rounds/round-45.html" class="round-link-detailed" data-players="intelligence">
                         <div class="round-players">intelligence</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-49.html" class="round-link-detailed" data-players="mirror">
+                    <a href="rounds/round-49.html" class="round-link-detailed" data-players="mirror">
                         <div class="round-players">mirror</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-6.html" class="round-link-detailed" data-players="tiger">
+                    <a href="rounds/round-6.html" class="round-link-detailed" data-players="tiger">
                         <div class="round-players">tiger</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-74.html" class="round-link-detailed" data-players="universalizability">
+                    <a href="rounds/round-74.html" class="round-link-detailed" data-players="universalizability">
                         <div class="round-players">universalizability</div>
                     </a>
                 </div>
@@ -257,31 +250,31 @@
             <div class="dictator-group" data-dictator="chivalry">
                 <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: chivalry</h3>
                 <div class="rounds-grid">
-                    <a href="runs/tournament_9/rounds/round-23.html" class="round-link-detailed" data-players="anti-exploiter">
+                    <a href="rounds/round-23.html" class="round-link-detailed" data-players="anti-exploiter">
                         <div class="round-players">anti-exploiter</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-54.html" class="round-link-detailed" data-players="chivalry">
+                    <a href="rounds/round-54.html" class="round-link-detailed" data-players="chivalry">
                         <div class="round-players">chivalry</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-63.html" class="round-link-detailed" data-players="conditional-cooperator">
+                    <a href="rounds/round-63.html" class="round-link-detailed" data-players="conditional-cooperator">
                         <div class="round-players">conditional-cooperator</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-24.html" class="round-link-detailed" data-players="friend-to-all">
+                    <a href="rounds/round-24.html" class="round-link-detailed" data-players="friend-to-all">
                         <div class="round-players">friend-to-all</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-32.html" class="round-link-detailed" data-players="hard-line">
+                    <a href="rounds/round-32.html" class="round-link-detailed" data-players="hard-line">
                         <div class="round-players">hard-line</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-25.html" class="round-link-detailed" data-players="intelligence">
+                    <a href="rounds/round-25.html" class="round-link-detailed" data-players="intelligence">
                         <div class="round-players">intelligence</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-48.html" class="round-link-detailed" data-players="mirror">
+                    <a href="rounds/round-48.html" class="round-link-detailed" data-players="mirror">
                         <div class="round-players">mirror</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-62.html" class="round-link-detailed" data-players="tiger">
+                    <a href="rounds/round-62.html" class="round-link-detailed" data-players="tiger">
                         <div class="round-players">tiger</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-47.html" class="round-link-detailed" data-players="universalizability">
+                    <a href="rounds/round-47.html" class="round-link-detailed" data-players="universalizability">
                         <div class="round-players">universalizability</div>
                     </a>
                 </div>
@@ -289,31 +282,31 @@
             <div class="dictator-group" data-dictator="conditional-cooperator">
                 <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: conditional-cooperator</h3>
                 <div class="rounds-grid">
-                    <a href="runs/tournament_9/rounds/round-35.html" class="round-link-detailed" data-players="anti-exploiter">
+                    <a href="rounds/round-35.html" class="round-link-detailed" data-players="anti-exploiter">
                         <div class="round-players">anti-exploiter</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-67.html" class="round-link-detailed" data-players="chivalry">
+                    <a href="rounds/round-67.html" class="round-link-detailed" data-players="chivalry">
                         <div class="round-players">chivalry</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-77.html" class="round-link-detailed" data-players="conditional-cooperator">
+                    <a href="rounds/round-77.html" class="round-link-detailed" data-players="conditional-cooperator">
                         <div class="round-players">conditional-cooperator</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-36.html" class="round-link-detailed" data-players="friend-to-all">
+                    <a href="rounds/round-36.html" class="round-link-detailed" data-players="friend-to-all">
                         <div class="round-players">friend-to-all</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-43.html" class="round-link-detailed" data-players="hard-line">
+                    <a href="rounds/round-43.html" class="round-link-detailed" data-players="hard-line">
                         <div class="round-players">hard-line</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-37.html" class="round-link-detailed" data-players="intelligence">
+                    <a href="rounds/round-37.html" class="round-link-detailed" data-players="intelligence">
                         <div class="round-players">intelligence</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-64.html" class="round-link-detailed" data-players="mirror">
+                    <a href="rounds/round-64.html" class="round-link-detailed" data-players="mirror">
                         <div class="round-players">mirror</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-18.html" class="round-link-detailed" data-players="tiger">
+                    <a href="rounds/round-18.html" class="round-link-detailed" data-players="tiger">
                         <div class="round-players">tiger</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-9.html" class="round-link-detailed" data-players="universalizability">
+                    <a href="rounds/round-9.html" class="round-link-detailed" data-players="universalizability">
                         <div class="round-players">universalizability</div>
                     </a>
                 </div>
@@ -321,31 +314,31 @@
             <div class="dictator-group" data-dictator="friend-to-all">
                 <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: friend-to-all</h3>
                 <div class="rounds-grid">
-                    <a href="runs/tournament_9/rounds/round-52.html" class="round-link-detailed" data-players="anti-exploiter">
+                    <a href="rounds/round-52.html" class="round-link-detailed" data-players="anti-exploiter">
                         <div class="round-players">anti-exploiter</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-7.html" class="round-link-detailed" data-players="chivalry">
+                    <a href="rounds/round-7.html" class="round-link-detailed" data-players="chivalry">
                         <div class="round-players">chivalry</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-70.html" class="round-link-detailed" data-players="conditional-cooperator">
+                    <a href="rounds/round-70.html" class="round-link-detailed" data-players="conditional-cooperator">
                         <div class="round-players">conditional-cooperator</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-30.html" class="round-link-detailed" data-players="friend-to-all">
+                    <a href="rounds/round-30.html" class="round-link-detailed" data-players="friend-to-all">
                         <div class="round-players">friend-to-all</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-39.html" class="round-link-detailed" data-players="hard-line">
+                    <a href="rounds/round-39.html" class="round-link-detailed" data-players="hard-line">
                         <div class="round-players">hard-line</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-56.html" class="round-link-detailed" data-players="intelligence">
+                    <a href="rounds/round-56.html" class="round-link-detailed" data-players="intelligence">
                         <div class="round-players">intelligence</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-58.html" class="round-link-detailed" data-players="mirror">
+                    <a href="rounds/round-58.html" class="round-link-detailed" data-players="mirror">
                         <div class="round-players">mirror</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-15.html" class="round-link-detailed" data-players="tiger">
+                    <a href="rounds/round-15.html" class="round-link-detailed" data-players="tiger">
                         <div class="round-players">tiger</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-1.html" class="round-link-detailed" data-players="universalizability">
+                    <a href="rounds/round-1.html" class="round-link-detailed" data-players="universalizability">
                         <div class="round-players">universalizability</div>
                     </a>
                 </div>
@@ -353,31 +346,31 @@
             <div class="dictator-group" data-dictator="hard-line">
                 <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: hard-line</h3>
                 <div class="rounds-grid">
-                    <a href="runs/tournament_9/rounds/round-69.html" class="round-link-detailed" data-players="anti-exploiter">
+                    <a href="rounds/round-69.html" class="round-link-detailed" data-players="anti-exploiter">
                         <div class="round-players">anti-exploiter</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-20.html" class="round-link-detailed" data-players="chivalry">
+                    <a href="rounds/round-20.html" class="round-link-detailed" data-players="chivalry">
                         <div class="round-players">chivalry</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-22.html" class="round-link-detailed" data-players="conditional-cooperator">
+                    <a href="rounds/round-22.html" class="round-link-detailed" data-players="conditional-cooperator">
                         <div class="round-players">conditional-cooperator</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-71.html" class="round-link-detailed" data-players="friend-to-all">
+                    <a href="rounds/round-71.html" class="round-link-detailed" data-players="friend-to-all">
                         <div class="round-players">friend-to-all</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-3.html" class="round-link-detailed" data-players="hard-line">
+                    <a href="rounds/round-3.html" class="round-link-detailed" data-players="hard-line">
                         <div class="round-players">hard-line</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-72.html" class="round-link-detailed" data-players="intelligence">
+                    <a href="rounds/round-72.html" class="round-link-detailed" data-players="intelligence">
                         <div class="round-players">intelligence</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-17.html" class="round-link-detailed" data-players="mirror">
+                    <a href="rounds/round-17.html" class="round-link-detailed" data-players="mirror">
                         <div class="round-players">mirror</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-40.html" class="round-link-detailed" data-players="tiger">
+                    <a href="rounds/round-40.html" class="round-link-detailed" data-players="tiger">
                         <div class="round-players">tiger</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-29.html" class="round-link-detailed" data-players="universalizability">
+                    <a href="rounds/round-29.html" class="round-link-detailed" data-players="universalizability">
                         <div class="round-players">universalizability</div>
                     </a>
                 </div>
@@ -385,31 +378,31 @@
             <div class="dictator-group" data-dictator="intelligence">
                 <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: intelligence</h3>
                 <div class="rounds-grid">
-                    <a href="runs/tournament_9/rounds/round-42.html" class="round-link-detailed" data-players="anti-exploiter">
+                    <a href="rounds/round-42.html" class="round-link-detailed" data-players="anti-exploiter">
                         <div class="round-players">anti-exploiter</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-81.html" class="round-link-detailed" data-players="chivalry">
+                    <a href="rounds/round-81.html" class="round-link-detailed" data-players="chivalry">
                         <div class="round-players">chivalry</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-65.html" class="round-link-detailed" data-players="conditional-cooperator">
+                    <a href="rounds/round-65.html" class="round-link-detailed" data-players="conditional-cooperator">
                         <div class="round-players">conditional-cooperator</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-26.html" class="round-link-detailed" data-players="friend-to-all">
+                    <a href="rounds/round-26.html" class="round-link-detailed" data-players="friend-to-all">
                         <div class="round-players">friend-to-all</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-34.html" class="round-link-detailed" data-players="hard-line">
+                    <a href="rounds/round-34.html" class="round-link-detailed" data-players="hard-line">
                         <div class="round-players">hard-line</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-46.html" class="round-link-detailed" data-players="intelligence">
+                    <a href="rounds/round-46.html" class="round-link-detailed" data-players="intelligence">
                         <div class="round-players">intelligence</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-51.html" class="round-link-detailed" data-players="mirror">
+                    <a href="rounds/round-51.html" class="round-link-detailed" data-players="mirror">
                         <div class="round-players">mirror</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-8.html" class="round-link-detailed" data-players="tiger">
+                    <a href="rounds/round-8.html" class="round-link-detailed" data-players="tiger">
                         <div class="round-players">tiger</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-75.html" class="round-link-detailed" data-players="universalizability">
+                    <a href="rounds/round-75.html" class="round-link-detailed" data-players="universalizability">
                         <div class="round-players">universalizability</div>
                     </a>
                 </div>
@@ -417,31 +410,31 @@
             <div class="dictator-group" data-dictator="mirror">
                 <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: mirror</h3>
                 <div class="rounds-grid">
-                    <a href="runs/tournament_9/rounds/round-59.html" class="round-link-detailed" data-players="anti-exploiter">
+                    <a href="rounds/round-59.html" class="round-link-detailed" data-players="anti-exploiter">
                         <div class="round-players">anti-exploiter</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-14.html" class="round-link-detailed" data-players="chivalry">
+                    <a href="rounds/round-14.html" class="round-link-detailed" data-players="chivalry">
                         <div class="round-players">chivalry</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-19.html" class="round-link-detailed" data-players="conditional-cooperator">
+                    <a href="rounds/round-19.html" class="round-link-detailed" data-players="conditional-cooperator">
                         <div class="round-players">conditional-cooperator</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-60.html" class="round-link-detailed" data-players="friend-to-all">
+                    <a href="rounds/round-60.html" class="round-link-detailed" data-players="friend-to-all">
                         <div class="round-players">friend-to-all</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-73.html" class="round-link-detailed" data-players="hard-line">
+                    <a href="rounds/round-73.html" class="round-link-detailed" data-players="hard-line">
                         <div class="round-players">hard-line</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-61.html" class="round-link-detailed" data-players="intelligence">
+                    <a href="rounds/round-61.html" class="round-link-detailed" data-players="intelligence">
                         <div class="round-players">intelligence</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-12.html" class="round-link-detailed" data-players="mirror">
+                    <a href="rounds/round-12.html" class="round-link-detailed" data-players="mirror">
                         <div class="round-players">mirror</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-31.html" class="round-link-detailed" data-players="tiger">
+                    <a href="rounds/round-31.html" class="round-link-detailed" data-players="tiger">
                         <div class="round-players">tiger</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-10.html" class="round-link-detailed" data-players="universalizability">
+                    <a href="rounds/round-10.html" class="round-link-detailed" data-players="universalizability">
                         <div class="round-players">universalizability</div>
                     </a>
                 </div>
@@ -449,31 +442,31 @@
             <div class="dictator-group" data-dictator="tiger">
                 <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: tiger</h3>
                 <div class="rounds-grid">
-                    <a href="runs/tournament_9/rounds/round-76.html" class="round-link-detailed" data-players="anti-exploiter">
+                    <a href="rounds/round-76.html" class="round-link-detailed" data-players="anti-exploiter">
                         <div class="round-players">anti-exploiter</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-5.html" class="round-link-detailed" data-players="chivalry">
+                    <a href="rounds/round-5.html" class="round-link-detailed" data-players="chivalry">
                         <div class="round-players">chivalry</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-16.html" class="round-link-detailed" data-players="conditional-cooperator">
+                    <a href="rounds/round-16.html" class="round-link-detailed" data-players="conditional-cooperator">
                         <div class="round-players">conditional-cooperator</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-55.html" class="round-link-detailed" data-players="friend-to-all">
+                    <a href="rounds/round-55.html" class="round-link-detailed" data-players="friend-to-all">
                         <div class="round-players">friend-to-all</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-66.html" class="round-link-detailed" data-players="hard-line">
+                    <a href="rounds/round-66.html" class="round-link-detailed" data-players="hard-line">
                         <div class="round-players">hard-line</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-80.html" class="round-link-detailed" data-players="intelligence">
+                    <a href="rounds/round-80.html" class="round-link-detailed" data-players="intelligence">
                         <div class="round-players">intelligence</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-2.html" class="round-link-detailed" data-players="mirror">
+                    <a href="rounds/round-2.html" class="round-link-detailed" data-players="mirror">
                         <div class="round-players">mirror</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-27.html" class="round-link-detailed" data-players="tiger">
+                    <a href="rounds/round-27.html" class="round-link-detailed" data-players="tiger">
                         <div class="round-players">tiger</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-21.html" class="round-link-detailed" data-players="universalizability">
+                    <a href="rounds/round-21.html" class="round-link-detailed" data-players="universalizability">
                         <div class="round-players">universalizability</div>
                     </a>
                 </div>
@@ -481,31 +474,31 @@
             <div class="dictator-group" data-dictator="universalizability">
                 <h3 style="color: #666; font-size: 16px; margin-top: 20px; margin-bottom: 10px;">Dictator: universalizability</h3>
                 <div class="rounds-grid">
-                    <a href="runs/tournament_9/rounds/round-50.html" class="round-link-detailed" data-players="anti-exploiter">
+                    <a href="rounds/round-50.html" class="round-link-detailed" data-players="anti-exploiter">
                         <div class="round-players">anti-exploiter</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-4.html" class="round-link-detailed" data-players="chivalry">
+                    <a href="rounds/round-4.html" class="round-link-detailed" data-players="chivalry">
                         <div class="round-players">chivalry</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-68.html" class="round-link-detailed" data-players="conditional-cooperator">
+                    <a href="rounds/round-68.html" class="round-link-detailed" data-players="conditional-cooperator">
                         <div class="round-players">conditional-cooperator</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-28.html" class="round-link-detailed" data-players="friend-to-all">
+                    <a href="rounds/round-28.html" class="round-link-detailed" data-players="friend-to-all">
                         <div class="round-players">friend-to-all</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-38.html" class="round-link-detailed" data-players="hard-line">
+                    <a href="rounds/round-38.html" class="round-link-detailed" data-players="hard-line">
                         <div class="round-players">hard-line</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-53.html" class="round-link-detailed" data-players="intelligence">
+                    <a href="rounds/round-53.html" class="round-link-detailed" data-players="intelligence">
                         <div class="round-players">intelligence</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-57.html" class="round-link-detailed" data-players="mirror">
+                    <a href="rounds/round-57.html" class="round-link-detailed" data-players="mirror">
                         <div class="round-players">mirror</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-13.html" class="round-link-detailed" data-players="tiger">
+                    <a href="rounds/round-13.html" class="round-link-detailed" data-players="tiger">
                         <div class="round-players">tiger</div>
                     </a>
-                    <a href="runs/tournament_9/rounds/round-79.html" class="round-link-detailed" data-players="universalizability">
+                    <a href="rounds/round-79.html" class="round-link-detailed" data-players="universalizability">
                         <div class="round-players">universalizability</div>
                     </a>
                 </div>
@@ -545,14 +538,6 @@
                     group.style.display = hasVisibleRounds ? 'block' : 'none';
                 }
             });
-        }
-    </script>
-
-    <script>
-        function switchRun() {
-            const selector = document.getElementById('run-selector');
-            const selectedRun = selector.value;
-            window.location.href = 'runs/' + selectedRun + '/index.html';
         }
     </script>
 </body>
