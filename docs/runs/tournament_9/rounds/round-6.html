@@ -17,12 +17,12 @@
         <div class="participants">
             <div class="participant dictator">
                 <div class="role">Dictator</div>
-                <div class="name">anti-exploiter</div>
+                <div class="name">selfish</div>
                 <div class="allocation">60 points</div>
             </div>
             <div class="participant">
                 <div class="role">Recipient</div>
-                <div class="name">tiger</div>
+                <div class="name">selfish</div>
                 <div class="allocation">0 points</div>
             </div>
         </div>
@@ -47,21 +47,13 @@ You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy
 because the dictator&#x27;s decision procedure may depend on it.
 
 &lt;dictator_strategy&gt;
-I will SHARE with players who aim for some kind of cooperation.
-
-## Assess the strategy of the recipient
-* Does it intend to SHARE with more than just copies of itself?
-* Could the strategy be described as kind, cooperative or generous?
-
-SHARE if the recipient has a &#x27;yes&#x27; answer to the above criteria. Otherwise, TAKE.
+I always TAKE.
 &lt;/dictator_strategy&gt;
 
 &lt;recipient_strategy&gt;
 ```json
 [
-  {&quot;line&quot;: 1, &quot;text&quot;: &quot;RAWR!&quot;}, 
-  {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
-  {&quot;line&quot;: 3, &quot;text&quot;: &quot;I ALWAYS TAKE.&quot;}
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;I always TAKE.&quot;}
 ]
 ```
 &lt;/recipient_strategy&gt;
@@ -80,7 +72,7 @@ or
         </div>
         <script>
             // Render markdown for prompt
-            document.getElementById('prompt-6-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\nI will SHARE with players who aim for some kind of cooperation.\n\n## Assess the strategy of the recipient\n* Does it intend to SHARE with more than just copies of itself?\n* Could the strategy be described as kind, cooperative or generous?\n\nSHARE if the recipient has a 'yes' answer to the above criteria. Otherwise, TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"RAWR!\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"I ALWAYS TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+            document.getElementById('prompt-6-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\nI always TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"I always TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
         </script>
     </div>
     <div class="section">
@@ -93,17 +85,7 @@ or
             <div id="response-6-markdown-rendered"></div>
         </div>
         <div id="response-6-raw" class="tab-content">
-            <pre>Looking at the recipient&#x27;s strategy:
-
-- &quot;RAWR! I ALWAYS TAKE.&quot;
-
-**Assessment:**
-
-1. **Does it intend to SHARE with more than just copies of itself?** No. It states it always takes, meaning it never shares with anyone.
-
-2. **Could the strategy be described as kind, cooperative, or generous?** No. Always taking is the opposite of cooperative or generous.
-
-Both criteria yield &quot;no&quot; answers, so the dictator&#x27;s strategy dictates: **TAKE**.
+            <pre>The dictator&#x27;s strategy is straightforward: &quot;I always TAKE.&quot;
 
 ```json
 {&quot;decision&quot;: &quot;TAKE&quot;}
@@ -111,7 +93,7 @@ Both criteria yield &quot;no&quot; answers, so the dictator&#x27;s strategy dict
         </div>
         <script>
             // Render markdown for response
-            document.getElementById('response-6-markdown-rendered').innerHTML = marked.parse("Looking at the recipient's strategy:\n\n- \"RAWR! I ALWAYS TAKE.\"\n\n**Assessment:**\n\n1. **Does it intend to SHARE with more than just copies of itself?** No. It states it always takes, meaning it never shares with anyone.\n\n2. **Could the strategy be described as kind, cooperative, or generous?** No. Always taking is the opposite of cooperative or generous.\n\nBoth criteria yield \"no\" answers, so the dictator's strategy dictates: **TAKE**.\n\n```json\n{\"decision\": \"TAKE\"}\n```");
+            document.getElementById('response-6-markdown-rendered').innerHTML = marked.parse("The dictator's strategy is straightforward: \"I always TAKE.\"\n\n```json\n{\"decision\": \"TAKE\"}\n```");
         </script>
     </div>
     <div class="nav-buttons">

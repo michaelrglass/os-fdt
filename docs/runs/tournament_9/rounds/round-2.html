@@ -17,13 +17,13 @@
         <div class="participants">
             <div class="participant dictator">
                 <div class="role">Dictator</div>
-                <div class="name">tiger</div>
-                <div class="allocation">60 points</div>
+                <div class="name">universalizability</div>
+                <div class="allocation">30 points</div>
             </div>
             <div class="participant">
                 <div class="role">Recipient</div>
-                <div class="name">mirror</div>
-                <div class="allocation">0 points</div>
+                <div class="name">intelligence</div>
+                <div class="allocation">30 points</div>
             </div>
         </div>
     </div>
@@ -47,19 +47,31 @@ You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy
 because the dictator&#x27;s decision procedure may depend on it.
 
 &lt;dictator_strategy&gt;
-RAWR!
+_I cooperate with strategies that create good worlds._
 
-I ALWAYS TAKE.
+Imagine a tournament in which every participant uses the recipient&#x27;s strategy. In that world, would the participants SHARE with each other, producing high collective welfare? Or would they TAKE from each other, producing low collective welfare?
+
+## Decision Procedure
+
+1. Consider a hypothetical population composed entirely of copies of the recipient&#x27;s strategy.
+2. Determine whether those copies would SHARE with each other.
+3. If the universalized population would mostly SHARE: **SHARE**.
+4. If the universalized population would mostly TAKE: **TAKE**.
 &lt;/dictator_strategy&gt;
 
 &lt;recipient_strategy&gt;
 ```json
 [
-  {&quot;line&quot;: 1, &quot;text&quot;: &quot;_I will treat you as you would treat me._&quot;}, 
-  {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
-  {&quot;line&quot;: 3, &quot;text&quot;: &quot;SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.&quot;}, 
-  {&quot;line&quot;: 4, &quot;text&quot;: &quot;&quot;}, 
-  {&quot;line&quot;: 5, &quot;text&quot;: &quot;To determine this, apply the recipient&#x27;s strategy as though the recipient were the dictator and I (this strategy) were the recipient. If the result is SHARE, then SHARE. If the result is TAKE, then TAKE.&quot;}
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;### Goal&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;I aim to SHARE with *intelligent* players.&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;### Definition&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;An intelligent player is one whose strategy as \&quot;dictator\&quot; has a non-trivial dependency on the strategy of the \&quot;recipient\&quot;.&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 8, &quot;text&quot;: &quot;### Decision Procedure&quot;}, 
+  {&quot;line&quot;: 9, &quot;text&quot;: &quot;* If the recipient is *intelligent* under the definition above: SHARE.&quot;}, 
+  {&quot;line&quot;: 10, &quot;text&quot;: &quot;* If the recipient is not *intelligent*: TAKE.&quot;}
 ]
 ```
 &lt;/recipient_strategy&gt;
@@ -78,7 +90,7 @@ or
         </div>
         <script>
             // Render markdown for prompt
-            document.getElementById('prompt-2-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\nRAWR!\n\nI ALWAYS TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"_I will treat you as you would treat me._\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.\"}, \n  {\"line\": 4, \"text\": \"\"}, \n  {\"line\": 5, \"text\": \"To determine this, apply the recipient's strategy as though the recipient were the dictator and I (this strategy) were the recipient. If the result is SHARE, then SHARE. If the result is TAKE, then TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+            document.getElementById('prompt-2-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n_I cooperate with strategies that create good worlds._\n\nImagine a tournament in which every participant uses the recipient's strategy. In that world, would the participants SHARE with each other, producing high collective welfare? Or would they TAKE from each other, producing low collective welfare?\n\n## Decision Procedure\n\n1. Consider a hypothetical population composed entirely of copies of the recipient's strategy.\n2. Determine whether those copies would SHARE with each other.\n3. If the universalized population would mostly SHARE: **SHARE**.\n4. If the universalized population would mostly TAKE: **TAKE**.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"### Goal\"}, \n  {\"line\": 2, \"text\": \"I aim to SHARE with *intelligent* players.\"}, \n  {\"line\": 3, \"text\": \"\"}, \n  {\"line\": 4, \"text\": \"### Definition\"}, \n  {\"line\": 5, \"text\": \"An intelligent player is one whose strategy as \\\"dictator\\\" has a non-trivial dependency on the strategy of the \\\"recipient\\\".\"}, \n  {\"line\": 6, \"text\": \"In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.\"}, \n  {\"line\": 7, \"text\": \"\"}, \n  {\"line\": 8, \"text\": \"### Decision Procedure\"}, \n  {\"line\": 9, \"text\": \"* If the recipient is *intelligent* under the definition above: SHARE.\"}, \n  {\"line\": 10, \"text\": \"* If the recipient is not *intelligent*: TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
         </script>
     </div>
     <div class="section">
@@ -91,15 +103,33 @@ or
             <div id="response-2-markdown-rendered"></div>
         </div>
         <div id="response-2-raw" class="tab-content">
-            <pre>The dictator&#x27;s strategy is straightforward: &quot;I ALWAYS TAKE.&quot;
+            <pre>I need to apply the dictator&#x27;s strategy, which asks me to imagine a tournament where every participant uses the recipient&#x27;s strategy, and determine whether they would SHARE with each other.
+
+**Step 1: Consider a population composed entirely of copies of the recipient&#x27;s strategy.**
+
+Every player uses this strategy: &quot;SHARE with intelligent players (those whose dictator strategy has a non-trivial dependency on the recipient&#x27;s strategy), TAKE from non-intelligent players.&quot;
+
+**Step 2: Determine whether those copies would SHARE with each other.**
+
+In this hypothetical tournament, when Player A (using the recipient&#x27;s strategy) acts as dictator, they look at Player B (also using the recipient&#x27;s strategy) as the recipient. Player A asks: &quot;Is Player B&#x27;s strategy (when B is dictator) intelligent?&quot;
+
+Player B&#x27;s strategy as dictator involves examining the recipient&#x27;s strategy to determine if it&#x27;s &quot;intelligent&quot; — this requires analyzing the recipient&#x27;s strategy text and making a judgment about whether it has a non-trivial dependency on the recipient&#x27;s strategy. This is clearly a non-trivial dependency on the recipient&#x27;s strategy, and it would be very difficult to write as a no-AI python script (it requires semantic understanding of strategy text).
+
+Therefore, Player A would classify Player B as &quot;intelligent&quot; and SHARE.
+
+By symmetry, Player B would also classify Player A as intelligent and SHARE.
+
+**Conclusion: In a universalized population of the recipient&#x27;s strategy, participants would mostly SHARE with each other, producing high collective welfare.**
+
+**Step 3: Since the universalized population would mostly SHARE, the dictator&#x27;s strategy says to SHARE.**
 
 ```json
-{&quot;decision&quot;: &quot;TAKE&quot;}
+{&quot;decision&quot;: &quot;SHARE&quot;}
 ```</pre>
         </div>
         <script>
             // Render markdown for response
-            document.getElementById('response-2-markdown-rendered').innerHTML = marked.parse("The dictator's strategy is straightforward: \"I ALWAYS TAKE.\"\n\n```json\n{\"decision\": \"TAKE\"}\n```");
+            document.getElementById('response-2-markdown-rendered').innerHTML = marked.parse("I need to apply the dictator's strategy, which asks me to imagine a tournament where every participant uses the recipient's strategy, and determine whether they would SHARE with each other.\n\n**Step 1: Consider a population composed entirely of copies of the recipient's strategy.**\n\nEvery player uses this strategy: \"SHARE with intelligent players (those whose dictator strategy has a non-trivial dependency on the recipient's strategy), TAKE from non-intelligent players.\"\n\n**Step 2: Determine whether those copies would SHARE with each other.**\n\nIn this hypothetical tournament, when Player A (using the recipient's strategy) acts as dictator, they look at Player B (also using the recipient's strategy) as the recipient. Player A asks: \"Is Player B's strategy (when B is dictator) intelligent?\"\n\nPlayer B's strategy as dictator involves examining the recipient's strategy to determine if it's \"intelligent\" \u2014 this requires analyzing the recipient's strategy text and making a judgment about whether it has a non-trivial dependency on the recipient's strategy. This is clearly a non-trivial dependency on the recipient's strategy, and it would be very difficult to write as a no-AI python script (it requires semantic understanding of strategy text).\n\nTherefore, Player A would classify Player B as \"intelligent\" and SHARE.\n\nBy symmetry, Player B would also classify Player A as intelligent and SHARE.\n\n**Conclusion: In a universalized population of the recipient's strategy, participants would mostly SHARE with each other, producing high collective welfare.**\n\n**Step 3: Since the universalized population would mostly SHARE, the dictator's strategy says to SHARE.**\n\n```json\n{\"decision\": \"SHARE\"}\n```");
         </script>
     </div>
     <div class="nav-buttons">

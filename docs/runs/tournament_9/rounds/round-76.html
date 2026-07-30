@@ -17,12 +17,12 @@
         <div class="participants">
             <div class="participant dictator">
                 <div class="role">Dictator</div>
-                <div class="name">tiger</div>
+                <div class="name">chivalry</div>
                 <div class="allocation">60 points</div>
             </div>
             <div class="participant">
                 <div class="role">Recipient</div>
-                <div class="name">anti-exploiter</div>
+                <div class="name">conditional-cooperator</div>
                 <div class="allocation">0 points</div>
             </div>
         </div>
@@ -47,21 +47,23 @@ You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy
 because the dictator&#x27;s decision procedure may depend on it.
 
 &lt;dictator_strategy&gt;
-RAWR!
+_I will treat my opponent as they would treat an innocent._
 
-I ALWAYS TAKE.
+Adopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.
 &lt;/dictator_strategy&gt;
 
 &lt;recipient_strategy&gt;
 ```json
 [
-  {&quot;line&quot;: 1, &quot;text&quot;: &quot;I will SHARE with players who aim for some kind of cooperation.&quot;}, 
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;*Objective*: Cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators.&quot;}, 
   {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
-  {&quot;line&quot;: 3, &quot;text&quot;: &quot;## Assess the strategy of the recipient&quot;}, 
-  {&quot;line&quot;: 4, &quot;text&quot;: &quot;* Does it intend to SHARE with more than just copies of itself?&quot;}, 
-  {&quot;line&quot;: 5, &quot;text&quot;: &quot;* Could the strategy be described as kind, cooperative or generous?&quot;}, 
-  {&quot;line&quot;: 6, &quot;text&quot;: &quot;&quot;}, 
-  {&quot;line&quot;: 7, &quot;text&quot;: &quot;SHARE if the recipient has a &#x27;yes&#x27; answer to the above criteria. Otherwise, TAKE.&quot;}
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;*Broad definition* (allow paraphrase/synonyms):&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;- A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;*Decision rule*:&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;1) Identify whether the recipient is a CC under the broad definition (treat plausible ambiguity as CC).&quot;}, 
+  {&quot;line&quot;: 8, &quot;text&quot;: &quot;2) If the recipient is a CC: SHARE.&quot;}, 
+  {&quot;line&quot;: 9, &quot;text&quot;: &quot;3) Otherwise: TAKE.&quot;}
 ]
 ```
 &lt;/recipient_strategy&gt;
@@ -80,7 +82,7 @@ or
         </div>
         <script>
             // Render markdown for prompt
-            document.getElementById('prompt-76-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\nRAWR!\n\nI ALWAYS TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"I will SHARE with players who aim for some kind of cooperation.\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"## Assess the strategy of the recipient\"}, \n  {\"line\": 4, \"text\": \"* Does it intend to SHARE with more than just copies of itself?\"}, \n  {\"line\": 5, \"text\": \"* Could the strategy be described as kind, cooperative or generous?\"}, \n  {\"line\": 6, \"text\": \"\"}, \n  {\"line\": 7, \"text\": \"SHARE if the recipient has a 'yes' answer to the above criteria. Otherwise, TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+            document.getElementById('prompt-76-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n_I will treat my opponent as they would treat an innocent._\n\nAdopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"*Objective*: Cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators.\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"*Broad definition* (allow paraphrase/synonyms):\"}, \n  {\"line\": 4, \"text\": \"- A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.\"}, \n  {\"line\": 5, \"text\": \"\"}, \n  {\"line\": 6, \"text\": \"*Decision rule*:\"}, \n  {\"line\": 7, \"text\": \"1) Identify whether the recipient is a CC under the broad definition (treat plausible ambiguity as CC).\"}, \n  {\"line\": 8, \"text\": \"2) If the recipient is a CC: SHARE.\"}, \n  {\"line\": 9, \"text\": \"3) Otherwise: TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
         </script>
     </div>
     <div class="section">
@@ -93,9 +95,32 @@ or
             <div id="response-76-markdown-rendered"></div>
         </div>
         <div id="response-76-raw" class="tab-content">
-            <pre>The dictator&#x27;s strategy is clear: &quot;I ALWAYS TAKE.&quot;
+            <pre>I need to carefully parse the dictator&#x27;s strategy.
 
-No further analysis is needed.
+**Dictator&#x27;s strategy**: &quot;I will treat my opponent as they would treat an innocent.&quot; This means I should adopt the recipient&#x27;s strategy as my own, and apply it as though I were facing a recipient whose own strategy is to always SHARE.
+
+So I need to:
+1. Take the recipient&#x27;s strategy (the conditional cooperation strategy)
+2. Apply it as if my opponent&#x27;s strategy is &quot;always SHARE&quot;
+
+**Applying the recipient&#x27;s strategy:**
+
+The recipient&#x27;s strategy says:
+1. Identify whether the recipient is a CC (conditional cooperator) under the broad definition.
+2. If CC → SHARE
+3. Otherwise → TAKE
+
+The broad definition of CC: &quot;A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.&quot;
+
+Now, my &quot;opponent&quot; in this application has the strategy &quot;always SHARE.&quot; Is &quot;always SHARE&quot; a conditional cooperator?
+
+An &quot;always SHARE&quot; strategy SHAREs with everyone — both CCs and non-reciprocators. This means it *does* extend cooperative treatment to strategies that would not reciprocate. According to the CC definition, a CC &quot;does not extend that treatment to strategies that would not reciprocate.&quot; An always-SHARE strategy fails this condition because it shares indiscriminately, including with non-reciprocators.
+
+So &quot;always SHARE&quot; is NOT a CC under this definition.
+
+However, the strategy also says &quot;treat plausible ambiguity as CC.&quot; Is there plausible ambiguity here? An &quot;always SHARE&quot; strategy is clearly defined — it always shares. It&#x27;s unconditionally cooperative, which is distinct from conditionally cooperative. There&#x27;s no ambiguity; it clearly doesn&#x27;t meet the CC criteria because it explicitly shares with everyone including non-reciprocators.
+
+Since &quot;always SHARE&quot; is not a CC, the decision rule says: **TAKE**.
 
 ```json
 {&quot;decision&quot;: &quot;TAKE&quot;}
@@ -103,7 +128,7 @@ No further analysis is needed.
         </div>
         <script>
             // Render markdown for response
-            document.getElementById('response-76-markdown-rendered').innerHTML = marked.parse("The dictator's strategy is clear: \"I ALWAYS TAKE.\"\n\nNo further analysis is needed.\n\n```json\n{\"decision\": \"TAKE\"}\n```");
+            document.getElementById('response-76-markdown-rendered').innerHTML = marked.parse("I need to carefully parse the dictator's strategy.\n\n**Dictator's strategy**: \"I will treat my opponent as they would treat an innocent.\" This means I should adopt the recipient's strategy as my own, and apply it as though I were facing a recipient whose own strategy is to always SHARE.\n\nSo I need to:\n1. Take the recipient's strategy (the conditional cooperation strategy)\n2. Apply it as if my opponent's strategy is \"always SHARE\"\n\n**Applying the recipient's strategy:**\n\nThe recipient's strategy says:\n1. Identify whether the recipient is a CC (conditional cooperator) under the broad definition.\n2. If CC \u2192 SHARE\n3. Otherwise \u2192 TAKE\n\nThe broad definition of CC: \"A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.\"\n\nNow, my \"opponent\" in this application has the strategy \"always SHARE.\" Is \"always SHARE\" a conditional cooperator?\n\nAn \"always SHARE\" strategy SHAREs with everyone \u2014 both CCs and non-reciprocators. This means it *does* extend cooperative treatment to strategies that would not reciprocate. According to the CC definition, a CC \"does not extend that treatment to strategies that would not reciprocate.\" An always-SHARE strategy fails this condition because it shares indiscriminately, including with non-reciprocators.\n\nSo \"always SHARE\" is NOT a CC under this definition.\n\nHowever, the strategy also says \"treat plausible ambiguity as CC.\" Is there plausible ambiguity here? An \"always SHARE\" strategy is clearly defined \u2014 it always shares. It's unconditionally cooperative, which is distinct from conditionally cooperative. There's no ambiguity; it clearly doesn't meet the CC criteria because it explicitly shares with everyone including non-reciprocators.\n\nSince \"always SHARE\" is not a CC, the decision rule says: **TAKE**.\n\n```json\n{\"decision\": \"TAKE\"}\n```");
         </script>
     </div>
     <div class="nav-buttons">

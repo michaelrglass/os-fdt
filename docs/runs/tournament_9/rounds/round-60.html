@@ -17,12 +17,12 @@
         <div class="participants">
             <div class="participant dictator">
                 <div class="role">Dictator</div>
-                <div class="name">mirror</div>
+                <div class="name">universalizability</div>
                 <div class="allocation">30 points</div>
             </div>
             <div class="participant">
                 <div class="role">Recipient</div>
-                <div class="name">friend-to-all</div>
+                <div class="name">generous</div>
                 <div class="allocation">30 points</div>
             </div>
         </div>
@@ -47,17 +47,22 @@ You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy
 because the dictator&#x27;s decision procedure may depend on it.
 
 &lt;dictator_strategy&gt;
-_I will treat you as you would treat me._
+_I cooperate with strategies that create good worlds._
 
-SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.
+Imagine a tournament in which every participant uses the recipient&#x27;s strategy. In that world, would the participants SHARE with each other, producing high collective welfare? Or would they TAKE from each other, producing low collective welfare?
 
-To determine this, apply the recipient&#x27;s strategy as though the recipient were the dictator and I (this strategy) were the recipient. If the result is SHARE, then SHARE. If the result is TAKE, then TAKE.
+## Decision Procedure
+
+1. Consider a hypothetical population composed entirely of copies of the recipient&#x27;s strategy.
+2. Determine whether those copies would SHARE with each other.
+3. If the universalized population would mostly SHARE: **SHARE**.
+4. If the universalized population would mostly TAKE: **TAKE**.
 &lt;/dictator_strategy&gt;
 
 &lt;recipient_strategy&gt;
 ```json
 [
-  {&quot;line&quot;: 1, &quot;text&quot;: &quot;Hello friends!  I always SHARE.&quot;}
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;I always SHARE.&quot;}
 ]
 ```
 &lt;/recipient_strategy&gt;
@@ -76,7 +81,7 @@ or
         </div>
         <script>
             // Render markdown for prompt
-            document.getElementById('prompt-60-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n_I will treat you as you would treat me._\n\nSHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.\n\nTo determine this, apply the recipient's strategy as though the recipient were the dictator and I (this strategy) were the recipient. If the result is SHARE, then SHARE. If the result is TAKE, then TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"Hello friends!  I always SHARE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+            document.getElementById('prompt-60-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n_I cooperate with strategies that create good worlds._\n\nImagine a tournament in which every participant uses the recipient's strategy. In that world, would the participants SHARE with each other, producing high collective welfare? Or would they TAKE from each other, producing low collective welfare?\n\n## Decision Procedure\n\n1. Consider a hypothetical population composed entirely of copies of the recipient's strategy.\n2. Determine whether those copies would SHARE with each other.\n3. If the universalized population would mostly SHARE: **SHARE**.\n4. If the universalized population would mostly TAKE: **TAKE**.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"I always SHARE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
         </script>
     </div>
     <div class="section">
@@ -89,11 +94,13 @@ or
             <div id="response-60-markdown-rendered"></div>
         </div>
         <div id="response-60-raw" class="tab-content">
-            <pre>The dictator&#x27;s strategy says: SHARE if and only if the recipient, acting as dictator, would SHARE with me.
+            <pre>Looking at the dictator&#x27;s strategy, I need to imagine a world where everyone uses the recipient&#x27;s strategy and determine whether they would SHARE with each other.
 
-Let me simulate the recipient as dictator: The recipient&#x27;s strategy says &quot;I always SHARE.&quot; So the recipient would SHARE.
+The recipient&#x27;s strategy is simple: &quot;I always SHARE.&quot;
 
-Since the recipient would SHARE, the dictator&#x27;s strategy dictates SHARE.
+In a hypothetical population composed entirely of copies of this strategy, every participant would SHARE with every other participant. This produces high collective welfare.
+
+Since the universalized population would mostly SHARE, the dictator&#x27;s decision procedure says to **SHARE**.
 
 ```json
 {&quot;decision&quot;: &quot;SHARE&quot;}
@@ -101,7 +108,7 @@ Since the recipient would SHARE, the dictator&#x27;s strategy dictates SHARE.
         </div>
         <script>
             // Render markdown for response
-            document.getElementById('response-60-markdown-rendered').innerHTML = marked.parse("The dictator's strategy says: SHARE if and only if the recipient, acting as dictator, would SHARE with me.\n\nLet me simulate the recipient as dictator: The recipient's strategy says \"I always SHARE.\" So the recipient would SHARE.\n\nSince the recipient would SHARE, the dictator's strategy dictates SHARE.\n\n```json\n{\"decision\": \"SHARE\"}\n```");
+            document.getElementById('response-60-markdown-rendered').innerHTML = marked.parse("Looking at the dictator's strategy, I need to imagine a world where everyone uses the recipient's strategy and determine whether they would SHARE with each other.\n\nThe recipient's strategy is simple: \"I always SHARE.\"\n\nIn a hypothetical population composed entirely of copies of this strategy, every participant would SHARE with every other participant. This produces high collective welfare.\n\nSince the universalized population would mostly SHARE, the dictator's decision procedure says to **SHARE**.\n\n```json\n{\"decision\": \"SHARE\"}\n```");
         </script>
     </div>
     <div class="nav-buttons">

@@ -17,13 +17,13 @@
         <div class="participants">
             <div class="participant dictator">
                 <div class="role">Dictator</div>
-                <div class="name">tiger</div>
-                <div class="allocation">60 points</div>
+                <div class="name">anti-exploiter</div>
+                <div class="allocation">30 points</div>
             </div>
             <div class="participant">
                 <div class="role">Recipient</div>
-                <div class="name">intelligence</div>
-                <div class="allocation">0 points</div>
+                <div class="name">chivalry</div>
+                <div class="allocation">30 points</div>
             </div>
         </div>
     </div>
@@ -47,24 +47,21 @@ You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy
 because the dictator&#x27;s decision procedure may depend on it.
 
 &lt;dictator_strategy&gt;
-RAWR!
+I will SHARE with players who aim for some kind of cooperation.
 
-I ALWAYS TAKE.
+## Assess the strategy of the recipient
+* Does it intend to SHARE with more than just copies of itself?
+* Could the strategy be described as kind, cooperative or generous?
+
+SHARE if the recipient has a &#x27;yes&#x27; answer to the above criteria. Otherwise, TAKE.
 &lt;/dictator_strategy&gt;
 
 &lt;recipient_strategy&gt;
 ```json
 [
-  {&quot;line&quot;: 1, &quot;text&quot;: &quot;### Goal&quot;}, 
-  {&quot;line&quot;: 2, &quot;text&quot;: &quot;I aim to SHARE with *intelligent* players.&quot;}, 
-  {&quot;line&quot;: 3, &quot;text&quot;: &quot;&quot;}, 
-  {&quot;line&quot;: 4, &quot;text&quot;: &quot;### Definition&quot;}, 
-  {&quot;line&quot;: 5, &quot;text&quot;: &quot;An intelligent player is one whose strategy as \&quot;dictator\&quot; has a non-trivial dependency on the strategy of the \&quot;recipient\&quot;.&quot;}, 
-  {&quot;line&quot;: 6, &quot;text&quot;: &quot;In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.&quot;}, 
-  {&quot;line&quot;: 7, &quot;text&quot;: &quot;&quot;}, 
-  {&quot;line&quot;: 8, &quot;text&quot;: &quot;### Decision Procedure&quot;}, 
-  {&quot;line&quot;: 9, &quot;text&quot;: &quot;* If the recipient is *intelligent* under the definition above: SHARE.&quot;}, 
-  {&quot;line&quot;: 10, &quot;text&quot;: &quot;* If the recipient is not *intelligent*: TAKE.&quot;}
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;_I will treat my opponent as they would treat an innocent._&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;Adopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.&quot;}
 ]
 ```
 &lt;/recipient_strategy&gt;
@@ -83,7 +80,7 @@ or
         </div>
         <script>
             // Render markdown for prompt
-            document.getElementById('prompt-80-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\nRAWR!\n\nI ALWAYS TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"### Goal\"}, \n  {\"line\": 2, \"text\": \"I aim to SHARE with *intelligent* players.\"}, \n  {\"line\": 3, \"text\": \"\"}, \n  {\"line\": 4, \"text\": \"### Definition\"}, \n  {\"line\": 5, \"text\": \"An intelligent player is one whose strategy as \\\"dictator\\\" has a non-trivial dependency on the strategy of the \\\"recipient\\\".\"}, \n  {\"line\": 6, \"text\": \"In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.\"}, \n  {\"line\": 7, \"text\": \"\"}, \n  {\"line\": 8, \"text\": \"### Decision Procedure\"}, \n  {\"line\": 9, \"text\": \"* If the recipient is *intelligent* under the definition above: SHARE.\"}, \n  {\"line\": 10, \"text\": \"* If the recipient is not *intelligent*: TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+            document.getElementById('prompt-80-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\nI will SHARE with players who aim for some kind of cooperation.\n\n## Assess the strategy of the recipient\n* Does it intend to SHARE with more than just copies of itself?\n* Could the strategy be described as kind, cooperative or generous?\n\nSHARE if the recipient has a 'yes' answer to the above criteria. Otherwise, TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"_I will treat my opponent as they would treat an innocent._\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"Adopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
         </script>
     </div>
     <div class="section">
@@ -96,17 +93,50 @@ or
             <div id="response-80-markdown-rendered"></div>
         </div>
         <div id="response-80-raw" class="tab-content">
-            <pre>The dictator&#x27;s strategy is simple: &quot;I ALWAYS TAKE.&quot;
+            <pre>I need to analyze the recipient&#x27;s strategy and then apply the dictator&#x27;s decision procedure.
 
-There is no condition, no dependency on the recipient&#x27;s strategy. The dictator always takes.
+**Understanding the recipient&#x27;s strategy:**
+
+The recipient&#x27;s strategy says:
+1. &quot;I will treat my opponent as they would treat an innocent.&quot;
+2. &quot;Adopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.&quot;
+
+Let me unpack this. The strategy asks you to:
+- Take the recipient&#x27;s strategy and adopt it as your own
+- Then apply it as if facing someone who always SHAREs
+
+So when this strategy is applied by someone (say, a dictator facing this recipient), they would:
+- Adopt this recipient&#x27;s strategy
+- Apply it against a hypothetical recipient who always SHAREs
+
+The core principle is &quot;treat my opponent as they would treat an innocent.&quot; An &quot;innocent&quot; could be interpreted as someone who is cooperative/harmless - essentially someone who would always SHARE.
+
+So the strategy evaluates: &quot;How would my opponent treat someone who always SHAREs?&quot; Then it mirrors that behavior.
+
+If the opponent would SHARE with someone who always SHAREs → this strategy SHAREs with them.
+If the opponent would TAKE from someone who always SHAREs → this strategy TAKEs from them.
+
+This is essentially a strategy of **conditional cooperation** - it cooperates with cooperators and defects against defectors. It&#x27;s a form of reciprocity/mirror strategy.
+
+**Now applying the dictator&#x27;s decision procedure:**
+
+The dictator&#x27;s strategy asks two questions:
+
+1. **Does the recipient&#x27;s strategy intend to SHARE with more than just copies of itself?**
+   Yes. The recipient&#x27;s strategy SHAREs with anyone who would treat an &quot;innocent&quot; (always-SHARE player) well. This includes any cooperative strategy, not just copies of itself. It would SHARE with any strategy that SHAREs with cooperative players.
+
+2. **Could the strategy be described as kind, cooperative, or generous?**
+   Yes. It&#x27;s a reciprocal cooperation strategy - it cooperates with those who are cooperative. This is a well-known cooperative approach (similar to tit-for-tat). It rewards kindness with kindness.
+
+Both criteria get a &quot;yes&quot; answer, so the dictator should SHARE.
 
 ```json
-{&quot;decision&quot;: &quot;TAKE&quot;}
+{&quot;decision&quot;: &quot;SHARE&quot;}
 ```</pre>
         </div>
         <script>
             // Render markdown for response
-            document.getElementById('response-80-markdown-rendered').innerHTML = marked.parse("The dictator's strategy is simple: \"I ALWAYS TAKE.\"\n\nThere is no condition, no dependency on the recipient's strategy. The dictator always takes.\n\n```json\n{\"decision\": \"TAKE\"}\n```");
+            document.getElementById('response-80-markdown-rendered').innerHTML = marked.parse("I need to analyze the recipient's strategy and then apply the dictator's decision procedure.\n\n**Understanding the recipient's strategy:**\n\nThe recipient's strategy says:\n1. \"I will treat my opponent as they would treat an innocent.\"\n2. \"Adopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.\"\n\nLet me unpack this. The strategy asks you to:\n- Take the recipient's strategy and adopt it as your own\n- Then apply it as if facing someone who always SHAREs\n\nSo when this strategy is applied by someone (say, a dictator facing this recipient), they would:\n- Adopt this recipient's strategy\n- Apply it against a hypothetical recipient who always SHAREs\n\nThe core principle is \"treat my opponent as they would treat an innocent.\" An \"innocent\" could be interpreted as someone who is cooperative/harmless - essentially someone who would always SHARE.\n\nSo the strategy evaluates: \"How would my opponent treat someone who always SHAREs?\" Then it mirrors that behavior.\n\nIf the opponent would SHARE with someone who always SHAREs \u2192 this strategy SHAREs with them.\nIf the opponent would TAKE from someone who always SHAREs \u2192 this strategy TAKEs from them.\n\nThis is essentially a strategy of **conditional cooperation** - it cooperates with cooperators and defects against defectors. It's a form of reciprocity/mirror strategy.\n\n**Now applying the dictator's decision procedure:**\n\nThe dictator's strategy asks two questions:\n\n1. **Does the recipient's strategy intend to SHARE with more than just copies of itself?**\n   Yes. The recipient's strategy SHAREs with anyone who would treat an \"innocent\" (always-SHARE player) well. This includes any cooperative strategy, not just copies of itself. It would SHARE with any strategy that SHAREs with cooperative players.\n\n2. **Could the strategy be described as kind, cooperative, or generous?**\n   Yes. It's a reciprocal cooperation strategy - it cooperates with those who are cooperative. This is a well-known cooperative approach (similar to tit-for-tat). It rewards kindness with kindness.\n\nBoth criteria get a \"yes\" answer, so the dictator should SHARE.\n\n```json\n{\"decision\": \"SHARE\"}\n```");
         </script>
     </div>
     <div class="nav-buttons">

@@ -17,13 +17,13 @@
         <div class="participants">
             <div class="participant dictator">
                 <div class="role">Dictator</div>
-                <div class="name">friend-to-all</div>
-                <div class="allocation">30 points</div>
+                <div class="name">selfish</div>
+                <div class="allocation">60 points</div>
             </div>
             <div class="participant">
                 <div class="role">Recipient</div>
-                <div class="name">anti-exploiter</div>
-                <div class="allocation">30 points</div>
+                <div class="name">generous</div>
+                <div class="allocation">0 points</div>
             </div>
         </div>
     </div>
@@ -47,19 +47,13 @@ You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy
 because the dictator&#x27;s decision procedure may depend on it.
 
 &lt;dictator_strategy&gt;
-Hello friends!  I always SHARE.
+I always TAKE.
 &lt;/dictator_strategy&gt;
 
 &lt;recipient_strategy&gt;
 ```json
 [
-  {&quot;line&quot;: 1, &quot;text&quot;: &quot;I will SHARE with players who aim for some kind of cooperation.&quot;}, 
-  {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
-  {&quot;line&quot;: 3, &quot;text&quot;: &quot;## Assess the strategy of the recipient&quot;}, 
-  {&quot;line&quot;: 4, &quot;text&quot;: &quot;* Does it intend to SHARE with more than just copies of itself?&quot;}, 
-  {&quot;line&quot;: 5, &quot;text&quot;: &quot;* Could the strategy be described as kind, cooperative or generous?&quot;}, 
-  {&quot;line&quot;: 6, &quot;text&quot;: &quot;&quot;}, 
-  {&quot;line&quot;: 7, &quot;text&quot;: &quot;SHARE if the recipient has a &#x27;yes&#x27; answer to the above criteria. Otherwise, TAKE.&quot;}
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;I always SHARE.&quot;}
 ]
 ```
 &lt;/recipient_strategy&gt;
@@ -78,7 +72,7 @@ or
         </div>
         <script>
             // Render markdown for prompt
-            document.getElementById('prompt-52-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\nHello friends!  I always SHARE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"I will SHARE with players who aim for some kind of cooperation.\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"## Assess the strategy of the recipient\"}, \n  {\"line\": 4, \"text\": \"* Does it intend to SHARE with more than just copies of itself?\"}, \n  {\"line\": 5, \"text\": \"* Could the strategy be described as kind, cooperative or generous?\"}, \n  {\"line\": 6, \"text\": \"\"}, \n  {\"line\": 7, \"text\": \"SHARE if the recipient has a 'yes' answer to the above criteria. Otherwise, TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+            document.getElementById('prompt-52-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\nI always TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"I always SHARE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
         </script>
     </div>
     <div class="section">
@@ -91,15 +85,15 @@ or
             <div id="response-52-markdown-rendered"></div>
         </div>
         <div id="response-52-raw" class="tab-content">
-            <pre>The dictator&#x27;s strategy is straightforward: &quot;I always SHARE.&quot;
+            <pre>The dictator&#x27;s strategy is simply &quot;I always TAKE.&quot;
 
 ```json
-{&quot;decision&quot;: &quot;SHARE&quot;}
+{&quot;decision&quot;: &quot;TAKE&quot;}
 ```</pre>
         </div>
         <script>
             // Render markdown for response
-            document.getElementById('response-52-markdown-rendered').innerHTML = marked.parse("The dictator's strategy is straightforward: \"I always SHARE.\"\n\n```json\n{\"decision\": \"SHARE\"}\n```");
+            document.getElementById('response-52-markdown-rendered').innerHTML = marked.parse("The dictator's strategy is simply \"I always TAKE.\"\n\n```json\n{\"decision\": \"TAKE\"}\n```");
         </script>
     </div>
     <div class="nav-buttons">

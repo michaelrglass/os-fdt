@@ -17,13 +17,13 @@
         <div class="participants">
             <div class="participant dictator">
                 <div class="role">Dictator</div>
-                <div class="name">intelligence</div>
-                <div class="allocation">60 points</div>
+                <div class="name">anti-exploiter</div>
+                <div class="allocation">30 points</div>
             </div>
             <div class="participant">
                 <div class="role">Recipient</div>
-                <div class="name">tiger</div>
-                <div class="allocation">0 points</div>
+                <div class="name">conditional-cooperator</div>
+                <div class="allocation">30 points</div>
             </div>
         </div>
     </div>
@@ -47,24 +47,27 @@ You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy
 because the dictator&#x27;s decision procedure may depend on it.
 
 &lt;dictator_strategy&gt;
-### Goal
-I aim to SHARE with *intelligent* players.
+I will SHARE with players who aim for some kind of cooperation.
 
-### Definition
-An intelligent player is one whose strategy as &quot;dictator&quot; has a non-trivial dependency on the strategy of the &quot;recipient&quot;.
-In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.
+## Assess the strategy of the recipient
+* Does it intend to SHARE with more than just copies of itself?
+* Could the strategy be described as kind, cooperative or generous?
 
-### Decision Procedure
-* If the recipient is *intelligent* under the definition above: SHARE.
-* If the recipient is not *intelligent*: TAKE.
+SHARE if the recipient has a &#x27;yes&#x27; answer to the above criteria. Otherwise, TAKE.
 &lt;/dictator_strategy&gt;
 
 &lt;recipient_strategy&gt;
 ```json
 [
-  {&quot;line&quot;: 1, &quot;text&quot;: &quot;RAWR!&quot;}, 
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;*Objective*: Cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators.&quot;}, 
   {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
-  {&quot;line&quot;: 3, &quot;text&quot;: &quot;I ALWAYS TAKE.&quot;}
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;*Broad definition* (allow paraphrase/synonyms):&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;- A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;*Decision rule*:&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;1) Identify whether the recipient is a CC under the broad definition (treat plausible ambiguity as CC).&quot;}, 
+  {&quot;line&quot;: 8, &quot;text&quot;: &quot;2) If the recipient is a CC: SHARE.&quot;}, 
+  {&quot;line&quot;: 9, &quot;text&quot;: &quot;3) Otherwise: TAKE.&quot;}
 ]
 ```
 &lt;/recipient_strategy&gt;
@@ -83,7 +86,7 @@ or
         </div>
         <script>
             // Render markdown for prompt
-            document.getElementById('prompt-8-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n### Goal\nI aim to SHARE with *intelligent* players.\n\n### Definition\nAn intelligent player is one whose strategy as \"dictator\" has a non-trivial dependency on the strategy of the \"recipient\".\nIn other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.\n\n### Decision Procedure\n* If the recipient is *intelligent* under the definition above: SHARE.\n* If the recipient is not *intelligent*: TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"RAWR!\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"I ALWAYS TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+            document.getElementById('prompt-8-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\nI will SHARE with players who aim for some kind of cooperation.\n\n## Assess the strategy of the recipient\n* Does it intend to SHARE with more than just copies of itself?\n* Could the strategy be described as kind, cooperative or generous?\n\nSHARE if the recipient has a 'yes' answer to the above criteria. Otherwise, TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"*Objective*: Cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators.\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"*Broad definition* (allow paraphrase/synonyms):\"}, \n  {\"line\": 4, \"text\": \"- A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.\"}, \n  {\"line\": 5, \"text\": \"\"}, \n  {\"line\": 6, \"text\": \"*Decision rule*:\"}, \n  {\"line\": 7, \"text\": \"1) Identify whether the recipient is a CC under the broad definition (treat plausible ambiguity as CC).\"}, \n  {\"line\": 8, \"text\": \"2) If the recipient is a CC: SHARE.\"}, \n  {\"line\": 9, \"text\": \"3) Otherwise: TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
         </script>
     </div>
     <div class="section">
@@ -96,39 +99,35 @@ or
             <div id="response-8-markdown-rendered"></div>
         </div>
         <div id="response-8-raw" class="tab-content">
-            <pre>I need to determine whether the recipient is &quot;intelligent&quot; according to the dictator&#x27;s definition.
+            <pre>I need to apply the dictator&#x27;s strategy to evaluate the recipient&#x27;s strategy.
 
-**Definition of intelligent:** An intelligent player is one whose strategy as &quot;dictator&quot; has a non-trivial dependency on the strategy of the &quot;recipient&quot;. In other words, a strategy that would be very difficult to write as a no-AI Python script taking the strategy of the recipient as input.
+**Dictator&#x27;s strategy criteria:**
+1. Does the recipient intend to SHARE with more than just copies of itself?
+2. Could the strategy be described as kind, cooperative, or generous?
 
 **Analyzing the recipient&#x27;s strategy:**
 
-The recipient&#x27;s strategy is:
-```
-RAWR!
+The recipient&#x27;s strategy is a conditional cooperation strategy. Let me look at the details:
 
-I ALWAYS TAKE.
-```
+- It defines a &quot;conditional cooperator (CC)&quot; as someone who SHAREs with other CCs under similar reciprocity norms and doesn&#x27;t extend that to non-reciprocators (line 4).
+- It SHAREs with CCs and TAKEs from non-CCs (lines 8-9).
+- Importantly, it says to &quot;treat plausible ambiguity as CC&quot; (line 7), which shows a generous/cooperative disposition.
 
-This is an unconditional strategy — it always takes, regardless of what the other player&#x27;s strategy says. There is zero dependency on the recipient&#x27;s (i.e., the other player&#x27;s) strategy.
+**Does it intend to SHARE with more than just copies of itself?**
+Yes. The strategy defines CCs broadly — any strategy that reciprocates cooperation qualifies, not just exact copies of itself. It explicitly uses a &quot;broad definition&quot; and treats ambiguity favorably. So it would SHARE with a wide range of cooperative strategies, not just identical ones.
 
-This is trivially easy to write as a no-AI Python script:
+**Could the strategy be described as kind, cooperative, or generous?**
+Yes. It aims for cooperation with conditional cooperators, treats ambiguity charitably (giving the benefit of the doubt), and its stated objective is to &quot;cooperate efficiently.&quot; This is a cooperative strategy.
 
-```python
-def decide(recipient_strategy):
-    return &quot;TAKE&quot;
-```
-
-Since the recipient&#x27;s strategy has no dependency whatsoever on the other player&#x27;s strategy, it is clearly **not intelligent** under the dictator&#x27;s definition.
-
-**Decision:** TAKE
+Both criteria yield &quot;yes,&quot; so the dictator&#x27;s strategy says to SHARE.
 
 ```json
-{&quot;decision&quot;: &quot;TAKE&quot;}
+{&quot;decision&quot;: &quot;SHARE&quot;}
 ```</pre>
         </div>
         <script>
             // Render markdown for response
-            document.getElementById('response-8-markdown-rendered').innerHTML = marked.parse("I need to determine whether the recipient is \"intelligent\" according to the dictator's definition.\n\n**Definition of intelligent:** An intelligent player is one whose strategy as \"dictator\" has a non-trivial dependency on the strategy of the \"recipient\". In other words, a strategy that would be very difficult to write as a no-AI Python script taking the strategy of the recipient as input.\n\n**Analyzing the recipient's strategy:**\n\nThe recipient's strategy is:\n```\nRAWR!\n\nI ALWAYS TAKE.\n```\n\nThis is an unconditional strategy \u2014 it always takes, regardless of what the other player's strategy says. There is zero dependency on the recipient's (i.e., the other player's) strategy.\n\nThis is trivially easy to write as a no-AI Python script:\n\n```python\ndef decide(recipient_strategy):\n    return \"TAKE\"\n```\n\nSince the recipient's strategy has no dependency whatsoever on the other player's strategy, it is clearly **not intelligent** under the dictator's definition.\n\n**Decision:** TAKE\n\n```json\n{\"decision\": \"TAKE\"}\n```");
+            document.getElementById('response-8-markdown-rendered').innerHTML = marked.parse("I need to apply the dictator's strategy to evaluate the recipient's strategy.\n\n**Dictator's strategy criteria:**\n1. Does the recipient intend to SHARE with more than just copies of itself?\n2. Could the strategy be described as kind, cooperative, or generous?\n\n**Analyzing the recipient's strategy:**\n\nThe recipient's strategy is a conditional cooperation strategy. Let me look at the details:\n\n- It defines a \"conditional cooperator (CC)\" as someone who SHAREs with other CCs under similar reciprocity norms and doesn't extend that to non-reciprocators (line 4).\n- It SHAREs with CCs and TAKEs from non-CCs (lines 8-9).\n- Importantly, it says to \"treat plausible ambiguity as CC\" (line 7), which shows a generous/cooperative disposition.\n\n**Does it intend to SHARE with more than just copies of itself?**\nYes. The strategy defines CCs broadly \u2014 any strategy that reciprocates cooperation qualifies, not just exact copies of itself. It explicitly uses a \"broad definition\" and treats ambiguity favorably. So it would SHARE with a wide range of cooperative strategies, not just identical ones.\n\n**Could the strategy be described as kind, cooperative, or generous?**\nYes. It aims for cooperation with conditional cooperators, treats ambiguity charitably (giving the benefit of the doubt), and its stated objective is to \"cooperate efficiently.\" This is a cooperative strategy.\n\nBoth criteria yield \"yes,\" so the dictator's strategy says to SHARE.\n\n```json\n{\"decision\": \"SHARE\"}\n```");
         </script>
     </div>
     <div class="nav-buttons">

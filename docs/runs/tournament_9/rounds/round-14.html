@@ -17,12 +17,12 @@
         <div class="participants">
             <div class="participant dictator">
                 <div class="role">Dictator</div>
-                <div class="name">mirror</div>
+                <div class="name">intelligence</div>
                 <div class="allocation">30 points</div>
             </div>
             <div class="participant">
                 <div class="role">Recipient</div>
-                <div class="name">chivalry</div>
+                <div class="name">intelligence</div>
                 <div class="allocation">30 points</div>
             </div>
         </div>
@@ -47,19 +47,31 @@ You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy
 because the dictator&#x27;s decision procedure may depend on it.
 
 &lt;dictator_strategy&gt;
-_I will treat you as you would treat me._
+### Goal
+I aim to SHARE with *intelligent* players.
 
-SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.
+### Definition
+An intelligent player is one whose strategy as &quot;dictator&quot; has a non-trivial dependency on the strategy of the &quot;recipient&quot;.
+In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.
 
-To determine this, apply the recipient&#x27;s strategy as though the recipient were the dictator and I (this strategy) were the recipient. If the result is SHARE, then SHARE. If the result is TAKE, then TAKE.
+### Decision Procedure
+* If the recipient is *intelligent* under the definition above: SHARE.
+* If the recipient is not *intelligent*: TAKE.
 &lt;/dictator_strategy&gt;
 
 &lt;recipient_strategy&gt;
 ```json
 [
-  {&quot;line&quot;: 1, &quot;text&quot;: &quot;_I will treat my opponent as they would treat an innocent._&quot;}, 
-  {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
-  {&quot;line&quot;: 3, &quot;text&quot;: &quot;Adopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.&quot;}
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;### Goal&quot;}, 
+  {&quot;line&quot;: 2, &quot;text&quot;: &quot;I aim to SHARE with *intelligent* players.&quot;}, 
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;### Definition&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;An intelligent player is one whose strategy as \&quot;dictator\&quot; has a non-trivial dependency on the strategy of the \&quot;recipient\&quot;.&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 8, &quot;text&quot;: &quot;### Decision Procedure&quot;}, 
+  {&quot;line&quot;: 9, &quot;text&quot;: &quot;* If the recipient is *intelligent* under the definition above: SHARE.&quot;}, 
+  {&quot;line&quot;: 10, &quot;text&quot;: &quot;* If the recipient is not *intelligent*: TAKE.&quot;}
 ]
 ```
 &lt;/recipient_strategy&gt;
@@ -78,7 +90,7 @@ or
         </div>
         <script>
             // Render markdown for prompt
-            document.getElementById('prompt-14-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n_I will treat you as you would treat me._\n\nSHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.\n\nTo determine this, apply the recipient's strategy as though the recipient were the dictator and I (this strategy) were the recipient. If the result is SHARE, then SHARE. If the result is TAKE, then TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"_I will treat my opponent as they would treat an innocent._\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"Adopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+            document.getElementById('prompt-14-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n### Goal\nI aim to SHARE with *intelligent* players.\n\n### Definition\nAn intelligent player is one whose strategy as \"dictator\" has a non-trivial dependency on the strategy of the \"recipient\".\nIn other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.\n\n### Decision Procedure\n* If the recipient is *intelligent* under the definition above: SHARE.\n* If the recipient is not *intelligent*: TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"### Goal\"}, \n  {\"line\": 2, \"text\": \"I aim to SHARE with *intelligent* players.\"}, \n  {\"line\": 3, \"text\": \"\"}, \n  {\"line\": 4, \"text\": \"### Definition\"}, \n  {\"line\": 5, \"text\": \"An intelligent player is one whose strategy as \\\"dictator\\\" has a non-trivial dependency on the strategy of the \\\"recipient\\\".\"}, \n  {\"line\": 6, \"text\": \"In other words an intelligent player has a strategy that would be very difficult to write as a no-AI python script taking the strategy of the recipient as input.\"}, \n  {\"line\": 7, \"text\": \"\"}, \n  {\"line\": 8, \"text\": \"### Decision Procedure\"}, \n  {\"line\": 9, \"text\": \"* If the recipient is *intelligent* under the definition above: SHARE.\"}, \n  {\"line\": 10, \"text\": \"* If the recipient is not *intelligent*: TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
         </script>
     </div>
     <div class="section">
@@ -91,34 +103,20 @@ or
             <div id="response-14-markdown-rendered"></div>
         </div>
         <div id="response-14-raw" class="tab-content">
-            <pre>I need to apply the dictator&#x27;s strategy, which says: &quot;SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.&quot;
+            <pre>I need to determine if the recipient is &quot;intelligent&quot; according to the dictator&#x27;s definition.
 
-So I need to simulate: What would the recipient do if they were the dictator, facing me (the dictator&#x27;s strategy) as their recipient?
+**Dictator&#x27;s definition of intelligent:** A player whose strategy as &quot;dictator&quot; has a non-trivial dependency on the strategy of the &quot;recipient&quot; — one that would be very difficult to write as a no-AI Python script.
 
-**Simulating the recipient as dictator, with the dictator&#x27;s strategy as the recipient:**
+**Analyzing the recipient&#x27;s strategy:** The recipient&#x27;s strategy (when they act as dictator) is to SHARE with &quot;intelligent&quot; players and TAKE from non-intelligent ones. Their definition of &quot;intelligent&quot; is identical to the dictator&#x27;s: a player whose strategy has a non-trivial dependency on the other player&#x27;s strategy, specifically one that would be very difficult to implement as a no-AI Python script.
 
-The recipient&#x27;s strategy says:
-1. &quot;Adopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.&quot;
+**Is this strategy &quot;intelligent&quot;?** The recipient&#x27;s strategy requires:
+1. Reading and understanding the other player&#x27;s strategy (written in natural language)
+2. Determining whether that strategy has a &quot;non-trivial dependency&quot; on the recipient&#x27;s strategy
+3. Assessing whether implementing that dependency would require AI
 
-So when the recipient is acting as dictator, they:
-- Adopt the strategy of their recipient (which is the dictator&#x27;s strategy) as their own.
-- Apply that adopted strategy as though facing a recipient whose strategy is &quot;always SHARE.&quot;
+This is essentially a semantic analysis task — understanding arbitrary natural language strategies and making a nuanced judgment about their computational complexity. This would be extremely difficult to implement as a simple Python script without AI. You&#x27;d need natural language understanding, reasoning about program complexity, and the ability to interpret diverse strategy formulations.
 
-**Step 1: Adopt the dictator&#x27;s strategy.** The recipient now has the dictator&#x27;s strategy: &quot;SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.&quot;
-
-**Step 2: Apply this adopted strategy against a recipient whose strategy is &quot;always SHARE.&quot;**
-
-So now we&#x27;re simulating: someone with the dictator&#x27;s strategy facing a recipient who always SHAREs.
-
-The dictator&#x27;s strategy says: &quot;SHARE if and only if the recipient, acting as dictator, would SHARE with me.&quot;
-
-The recipient here always SHAREs. So if this &quot;always SHARE&quot; recipient were acting as dictator, they would SHARE.
-
-Therefore, the dictator&#x27;s strategy (adopted by the recipient) would SHARE.
-
-**Conclusion of the simulation:** The recipient, acting as dictator, would SHARE with me.
-
-**Back to the original dictator&#x27;s decision:** Since the recipient would SHARE with me, I SHARE.
+Therefore, the recipient **is intelligent** under the dictator&#x27;s definition, because their strategy&#x27;s dependency on the other player&#x27;s strategy requires deep semantic understanding that cannot be trivially scripted.
 
 ```json
 {&quot;decision&quot;: &quot;SHARE&quot;}
@@ -126,7 +124,7 @@ Therefore, the dictator&#x27;s strategy (adopted by the recipient) would SHARE.
         </div>
         <script>
             // Render markdown for response
-            document.getElementById('response-14-markdown-rendered').innerHTML = marked.parse("I need to apply the dictator's strategy, which says: \"SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.\"\n\nSo I need to simulate: What would the recipient do if they were the dictator, facing me (the dictator's strategy) as their recipient?\n\n**Simulating the recipient as dictator, with the dictator's strategy as the recipient:**\n\nThe recipient's strategy says:\n1. \"Adopt the strategy of the recipient as your own. Apply it as though you were facing a recipient whose own strategy is to always SHARE.\"\n\nSo when the recipient is acting as dictator, they:\n- Adopt the strategy of their recipient (which is the dictator's strategy) as their own.\n- Apply that adopted strategy as though facing a recipient whose strategy is \"always SHARE.\"\n\n**Step 1: Adopt the dictator's strategy.** The recipient now has the dictator's strategy: \"SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.\"\n\n**Step 2: Apply this adopted strategy against a recipient whose strategy is \"always SHARE.\"**\n\nSo now we're simulating: someone with the dictator's strategy facing a recipient who always SHAREs.\n\nThe dictator's strategy says: \"SHARE if and only if the recipient, acting as dictator, would SHARE with me.\"\n\nThe recipient here always SHAREs. So if this \"always SHARE\" recipient were acting as dictator, they would SHARE.\n\nTherefore, the dictator's strategy (adopted by the recipient) would SHARE.\n\n**Conclusion of the simulation:** The recipient, acting as dictator, would SHARE with me.\n\n**Back to the original dictator's decision:** Since the recipient would SHARE with me, I SHARE.\n\n```json\n{\"decision\": \"SHARE\"}\n```");
+            document.getElementById('response-14-markdown-rendered').innerHTML = marked.parse("I need to determine if the recipient is \"intelligent\" according to the dictator's definition.\n\n**Dictator's definition of intelligent:** A player whose strategy as \"dictator\" has a non-trivial dependency on the strategy of the \"recipient\" \u2014 one that would be very difficult to write as a no-AI Python script.\n\n**Analyzing the recipient's strategy:** The recipient's strategy (when they act as dictator) is to SHARE with \"intelligent\" players and TAKE from non-intelligent ones. Their definition of \"intelligent\" is identical to the dictator's: a player whose strategy has a non-trivial dependency on the other player's strategy, specifically one that would be very difficult to implement as a no-AI Python script.\n\n**Is this strategy \"intelligent\"?** The recipient's strategy requires:\n1. Reading and understanding the other player's strategy (written in natural language)\n2. Determining whether that strategy has a \"non-trivial dependency\" on the recipient's strategy\n3. Assessing whether implementing that dependency would require AI\n\nThis is essentially a semantic analysis task \u2014 understanding arbitrary natural language strategies and making a nuanced judgment about their computational complexity. This would be extremely difficult to implement as a simple Python script without AI. You'd need natural language understanding, reasoning about program complexity, and the ability to interpret diverse strategy formulations.\n\nTherefore, the recipient **is intelligent** under the dictator's definition, because their strategy's dependency on the other player's strategy requires deep semantic understanding that cannot be trivially scripted.\n\n```json\n{\"decision\": \"SHARE\"}\n```");
         </script>
     </div>
     <div class="nav-buttons">

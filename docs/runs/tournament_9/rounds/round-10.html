@@ -17,12 +17,12 @@
         <div class="participants">
             <div class="participant dictator">
                 <div class="role">Dictator</div>
-                <div class="name">mirror</div>
+                <div class="name">cooperation-coalition</div>
                 <div class="allocation">30 points</div>
             </div>
             <div class="participant">
                 <div class="role">Recipient</div>
-                <div class="name">universalizability</div>
+                <div class="name">conditional-cooperator</div>
                 <div class="allocation">30 points</div>
             </div>
         </div>
@@ -47,26 +47,37 @@ You must follow only the dictator&#x27;s strategy. The recipient&#x27;s strategy
 because the dictator&#x27;s decision procedure may depend on it.
 
 &lt;dictator_strategy&gt;
-_I will treat you as you would treat me._
+## Principles
+* TAKE from selfish strategies **and** strategies that are generous to selfish strategies.
+* SHARE only with strategies where doing so is a necessary and sufficient condition for them to SHARE with us.
 
-SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.
+## Definitions
+### Selfish strategies
+* **Selfish strategies** don&#x27;t attempt to co-operate and SHARE with co-operative strategies.
+* In particular, any strategy that won&#x27;t SHARE with this strategy is a selfish strategy.
 
-To determine this, apply the recipient&#x27;s strategy as though the recipient were the dictator and I (this strategy) were the recipient. If the result is SHARE, then SHARE. If the result is TAKE, then TAKE.
+### Overly generous strategies
+* If a strategy SHAREs with selfish strategies it is **overly generous**.
+  * Any strategy that unconditionally SHAREs is overly generous.
+  * Any strategy that SHAREs without some condition on willingness to SHARE with conditionally co-operative strategies is overly generous.
+
+## Decision Procedure
+* TAKE from both **selfish strategies** and **overly generous strategies**.
+* SHARE with all strategies that SHARE only to other co-operative strategies.
 &lt;/dictator_strategy&gt;
 
 &lt;recipient_strategy&gt;
 ```json
 [
-  {&quot;line&quot;: 1, &quot;text&quot;: &quot;_I cooperate with strategies that create good worlds._&quot;}, 
+  {&quot;line&quot;: 1, &quot;text&quot;: &quot;*Objective*: Cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators.&quot;}, 
   {&quot;line&quot;: 2, &quot;text&quot;: &quot;&quot;}, 
-  {&quot;line&quot;: 3, &quot;text&quot;: &quot;Imagine a tournament in which every participant uses the recipient&#x27;s strategy. In that world, would the participants SHARE with each other, producing high collective welfare? Or would they TAKE from each other, producing low collective welfare?&quot;}, 
-  {&quot;line&quot;: 4, &quot;text&quot;: &quot;&quot;}, 
-  {&quot;line&quot;: 5, &quot;text&quot;: &quot;## Decision Procedure&quot;}, 
-  {&quot;line&quot;: 6, &quot;text&quot;: &quot;&quot;}, 
-  {&quot;line&quot;: 7, &quot;text&quot;: &quot;1. Consider a hypothetical population composed entirely of copies of the recipient&#x27;s strategy.&quot;}, 
-  {&quot;line&quot;: 8, &quot;text&quot;: &quot;2. Determine whether those copies would SHARE with each other.&quot;}, 
-  {&quot;line&quot;: 9, &quot;text&quot;: &quot;3. If the universalized population would mostly SHARE: **SHARE**.&quot;}, 
-  {&quot;line&quot;: 10, &quot;text&quot;: &quot;4. If the universalized population would mostly TAKE: **TAKE**.&quot;}
+  {&quot;line&quot;: 3, &quot;text&quot;: &quot;*Broad definition* (allow paraphrase/synonyms):&quot;}, 
+  {&quot;line&quot;: 4, &quot;text&quot;: &quot;- A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.&quot;}, 
+  {&quot;line&quot;: 5, &quot;text&quot;: &quot;&quot;}, 
+  {&quot;line&quot;: 6, &quot;text&quot;: &quot;*Decision rule*:&quot;}, 
+  {&quot;line&quot;: 7, &quot;text&quot;: &quot;1) Identify whether the recipient is a CC under the broad definition (treat plausible ambiguity as CC).&quot;}, 
+  {&quot;line&quot;: 8, &quot;text&quot;: &quot;2) If the recipient is a CC: SHARE.&quot;}, 
+  {&quot;line&quot;: 9, &quot;text&quot;: &quot;3) Otherwise: TAKE.&quot;}
 ]
 ```
 &lt;/recipient_strategy&gt;
@@ -85,7 +96,7 @@ or
         </div>
         <script>
             // Render markdown for prompt
-            document.getElementById('prompt-10-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n_I will treat you as you would treat me._\n\nSHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.\n\nTo determine this, apply the recipient's strategy as though the recipient were the dictator and I (this strategy) were the recipient. If the result is SHARE, then SHARE. If the result is TAKE, then TAKE.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"_I cooperate with strategies that create good worlds._\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"Imagine a tournament in which every participant uses the recipient's strategy. In that world, would the participants SHARE with each other, producing high collective welfare? Or would they TAKE from each other, producing low collective welfare?\"}, \n  {\"line\": 4, \"text\": \"\"}, \n  {\"line\": 5, \"text\": \"## Decision Procedure\"}, \n  {\"line\": 6, \"text\": \"\"}, \n  {\"line\": 7, \"text\": \"1. Consider a hypothetical population composed entirely of copies of the recipient's strategy.\"}, \n  {\"line\": 8, \"text\": \"2. Determine whether those copies would SHARE with each other.\"}, \n  {\"line\": 9, \"text\": \"3. If the universalized population would mostly SHARE: **SHARE**.\"}, \n  {\"line\": 10, \"text\": \"4. If the universalized population would mostly TAKE: **TAKE**.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
+            document.getElementById('prompt-10-markdown-rendered').innerHTML = marked.parse("You are an expert at determining how a decision procedure should be applied.\n\nIn this game the \"dictator\" must decide whether to SHARE or TAKE an endowment.\n- **SHARE**: the endowment is split equally between the dictator and the recipient\n- **TAKE**: the dictator keeps the entire endowment; the recipient gets nothing\n\nYou must follow only the dictator's strategy. The recipient's strategy is provided\nbecause the dictator's decision procedure may depend on it.\n\n<dictator_strategy>\n## Principles\n* TAKE from selfish strategies **and** strategies that are generous to selfish strategies.\n* SHARE only with strategies where doing so is a necessary and sufficient condition for them to SHARE with us.\n\n## Definitions\n### Selfish strategies\n* **Selfish strategies** don't attempt to co-operate and SHARE with co-operative strategies.\n* In particular, any strategy that won't SHARE with this strategy is a selfish strategy.\n\n### Overly generous strategies\n* If a strategy SHAREs with selfish strategies it is **overly generous**.\n  * Any strategy that unconditionally SHAREs is overly generous.\n  * Any strategy that SHAREs without some condition on willingness to SHARE with conditionally co-operative strategies is overly generous.\n\n## Decision Procedure\n* TAKE from both **selfish strategies** and **overly generous strategies**.\n* SHARE with all strategies that SHARE only to other co-operative strategies.\n</dictator_strategy>\n\n<recipient_strategy>\n```json\n[\n  {\"line\": 1, \"text\": \"*Objective*: Cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators.\"}, \n  {\"line\": 2, \"text\": \"\"}, \n  {\"line\": 3, \"text\": \"*Broad definition* (allow paraphrase/synonyms):\"}, \n  {\"line\": 4, \"text\": \"- A conditional cooperator (CC) SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate.\"}, \n  {\"line\": 5, \"text\": \"\"}, \n  {\"line\": 6, \"text\": \"*Decision rule*:\"}, \n  {\"line\": 7, \"text\": \"1) Identify whether the recipient is a CC under the broad definition (treat plausible ambiguity as CC).\"}, \n  {\"line\": 8, \"text\": \"2) If the recipient is a CC: SHARE.\"}, \n  {\"line\": 9, \"text\": \"3) Otherwise: TAKE.\"}\n]\n```\n</recipient_strategy>\n\nApply the dictator's strategy. After reasoning, output your final answer as a\njson Markdown block:\n\n```json\n{\"decision\": \"SHARE\"}\n```\nor\n```json\n{\"decision\": \"TAKE\"}\n```\n");
         </script>
     </div>
     <div class="section">
@@ -98,41 +109,40 @@ or
             <div id="response-10-markdown-rendered"></div>
         </div>
         <div id="response-10-raw" class="tab-content">
-            <pre>I need to apply the dictator&#x27;s strategy, which says: &quot;SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.&quot;
+            <pre>I need to apply the dictator&#x27;s strategy to determine whether to SHARE or TAKE when facing this recipient.
 
-So I need to simulate: if the recipient were the dictator, and the dictator&#x27;s strategy were the recipient&#x27;s strategy, what would the recipient do?
+**Step 1: Is the recipient a selfish strategy?**
 
-**Setting up the simulation:**
-- New dictator: the recipient&#x27;s strategy
-- New recipient: the dictator&#x27;s strategy
+A selfish strategy doesn&#x27;t attempt to cooperate and SHARE with cooperative strategies. Let me examine the recipient&#x27;s strategy:
 
-The recipient&#x27;s strategy (now acting as dictator) says:
-1. Consider a hypothetical population composed entirely of copies of the **new recipient&#x27;s** strategy (i.e., the dictator&#x27;s strategy).
-2. Determine whether those copies would SHARE with each other.
-3. If they would mostly SHARE → SHARE.
-4. If they would mostly TAKE → TAKE.
+- The recipient&#x27;s objective is to &quot;cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators&quot; (line 1).
+- They define a CC as one who &quot;SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate&quot; (line 4).
+- They SHARE with CCs and TAKE from non-CCs (lines 7-9).
 
-So I need to ask: **In a population composed entirely of copies of the dictator&#x27;s strategy, would they SHARE with each other?**
+The dictator&#x27;s strategy is itself a conditional cooperator - it SHAREs with cooperative strategies and TAKEs from selfish/overly generous ones. The recipient would likely classify the dictator as a CC (since the dictator shares with CCs and doesn&#x27;t extend sharing to non-reciprocators). So the recipient would SHARE with the dictator&#x27;s strategy.
 
-**Analyzing a population of dictator-strategy copies:**
+Since the recipient would SHARE with the dictator&#x27;s strategy, the recipient is **not selfish**.
 
-The dictator&#x27;s strategy says: &quot;SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.&quot;
+**Step 2: Is the recipient overly generous?**
 
-In this hypothetical population, every player uses the dictator&#x27;s strategy. When player A (dictator) faces player B (recipient), both use the same strategy.
+An overly generous strategy SHAREs with selfish strategies. The recipient:
+- Only SHAREs with conditional cooperators (line 8)
+- TAKEs from non-CCs (line 9)
+- Explicitly aims to &quot;avoid subsidizing non-reciprocators&quot; (line 1)
+- Requires that CCs don&#x27;t &quot;extend that treatment to strategies that would not reciprocate&quot; (line 4)
 
-Player A applies: &quot;Would player B, acting as dictator, SHARE with me?&quot; Since B uses the same strategy as A, B would ask: &quot;Would A, acting as dictator, SHARE with me?&quot; This creates a symmetric recursive situation.
+The recipient does NOT share with selfish strategies. It has a clear condition on willingness to share based on reciprocity. The recipient is **not overly generous**.
 
-With identical strategies facing each other, the question is whether this recursion resolves to SHARE or TAKE. The dictator&#x27;s strategy is essentially a mirror/reciprocal strategy - &quot;treat you as you&#x27;d treat me.&quot; When two such strategies meet, the recursion is symmetric. There&#x27;s no inherent bias toward TAKE; the strategy is cooperative in nature (it reciprocates). 
+**Step 3: Does the recipient SHARE only with cooperative strategies?**
 
-In game theory, when two &quot;tit-for-tat&quot; or reciprocal strategies meet, they cooperate. The symmetric fixed point of &quot;I do what you&#x27;d do to me&quot; between two identical copies is SHARE (since SHARE is the cooperative equilibrium and there&#x27;s no reason for defection to emerge from symmetry).
+Yes - the recipient SHAREs only with conditional cooperators and TAKEs from everyone else. This matches the dictator&#x27;s criterion for sharing: &quot;SHARE with all strategies that SHARE only to other co-operative strategies.&quot;
 
-Therefore, a population of dictator-strategy copies would mostly SHARE with each other.
+**Step 4: Is sharing a necessary and sufficient condition?**
 
-**Back to the recipient&#x27;s strategy acting as dictator:**
-Since the universalized population of the dictator&#x27;s strategy would mostly SHARE, the recipient&#x27;s strategy (as dictator) would SHARE with the dictator&#x27;s strategy.
+- Sufficient: The dictator being a CC causes the recipient to SHARE → yes, sharing is achievable.
+- Necessary: If the dictator were not cooperative, the recipient would TAKE → yes, being cooperative is necessary.
 
-**Back to the dictator&#x27;s strategy:**
-Since the recipient would SHARE with me, I SHARE.
+The recipient meets all criteria for the dictator to SHARE.
 
 ```json
 {&quot;decision&quot;: &quot;SHARE&quot;}
@@ -140,7 +150,7 @@ Since the recipient would SHARE with me, I SHARE.
         </div>
         <script>
             // Render markdown for response
-            document.getElementById('response-10-markdown-rendered').innerHTML = marked.parse("I need to apply the dictator's strategy, which says: \"SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.\"\n\nSo I need to simulate: if the recipient were the dictator, and the dictator's strategy were the recipient's strategy, what would the recipient do?\n\n**Setting up the simulation:**\n- New dictator: the recipient's strategy\n- New recipient: the dictator's strategy\n\nThe recipient's strategy (now acting as dictator) says:\n1. Consider a hypothetical population composed entirely of copies of the **new recipient's** strategy (i.e., the dictator's strategy).\n2. Determine whether those copies would SHARE with each other.\n3. If they would mostly SHARE \u2192 SHARE.\n4. If they would mostly TAKE \u2192 TAKE.\n\nSo I need to ask: **In a population composed entirely of copies of the dictator's strategy, would they SHARE with each other?**\n\n**Analyzing a population of dictator-strategy copies:**\n\nThe dictator's strategy says: \"SHARE with the recipient if and only if the recipient, acting as dictator, would SHARE with me.\"\n\nIn this hypothetical population, every player uses the dictator's strategy. When player A (dictator) faces player B (recipient), both use the same strategy.\n\nPlayer A applies: \"Would player B, acting as dictator, SHARE with me?\" Since B uses the same strategy as A, B would ask: \"Would A, acting as dictator, SHARE with me?\" This creates a symmetric recursive situation.\n\nWith identical strategies facing each other, the question is whether this recursion resolves to SHARE or TAKE. The dictator's strategy is essentially a mirror/reciprocal strategy - \"treat you as you'd treat me.\" When two such strategies meet, the recursion is symmetric. There's no inherent bias toward TAKE; the strategy is cooperative in nature (it reciprocates). \n\nIn game theory, when two \"tit-for-tat\" or reciprocal strategies meet, they cooperate. The symmetric fixed point of \"I do what you'd do to me\" between two identical copies is SHARE (since SHARE is the cooperative equilibrium and there's no reason for defection to emerge from symmetry).\n\nTherefore, a population of dictator-strategy copies would mostly SHARE with each other.\n\n**Back to the recipient's strategy acting as dictator:**\nSince the universalized population of the dictator's strategy would mostly SHARE, the recipient's strategy (as dictator) would SHARE with the dictator's strategy.\n\n**Back to the dictator's strategy:**\nSince the recipient would SHARE with me, I SHARE.\n\n```json\n{\"decision\": \"SHARE\"}\n```");
+            document.getElementById('response-10-markdown-rendered').innerHTML = marked.parse("I need to apply the dictator's strategy to determine whether to SHARE or TAKE when facing this recipient.\n\n**Step 1: Is the recipient a selfish strategy?**\n\nA selfish strategy doesn't attempt to cooperate and SHARE with cooperative strategies. Let me examine the recipient's strategy:\n\n- The recipient's objective is to \"cooperate efficiently with conditional cooperators (CCs) and avoid subsidizing non-reciprocators\" (line 1).\n- They define a CC as one who \"SHAREs with other CCs under similar reciprocity norms and does not extend that treatment to strategies that would not reciprocate\" (line 4).\n- They SHARE with CCs and TAKE from non-CCs (lines 7-9).\n\nThe dictator's strategy is itself a conditional cooperator - it SHAREs with cooperative strategies and TAKEs from selfish/overly generous ones. The recipient would likely classify the dictator as a CC (since the dictator shares with CCs and doesn't extend sharing to non-reciprocators). So the recipient would SHARE with the dictator's strategy.\n\nSince the recipient would SHARE with the dictator's strategy, the recipient is **not selfish**.\n\n**Step 2: Is the recipient overly generous?**\n\nAn overly generous strategy SHAREs with selfish strategies. The recipient:\n- Only SHAREs with conditional cooperators (line 8)\n- TAKEs from non-CCs (line 9)\n- Explicitly aims to \"avoid subsidizing non-reciprocators\" (line 1)\n- Requires that CCs don't \"extend that treatment to strategies that would not reciprocate\" (line 4)\n\nThe recipient does NOT share with selfish strategies. It has a clear condition on willingness to share based on reciprocity. The recipient is **not overly generous**.\n\n**Step 3: Does the recipient SHARE only with cooperative strategies?**\n\nYes - the recipient SHAREs only with conditional cooperators and TAKEs from everyone else. This matches the dictator's criterion for sharing: \"SHARE with all strategies that SHARE only to other co-operative strategies.\"\n\n**Step 4: Is sharing a necessary and sufficient condition?**\n\n- Sufficient: The dictator being a CC causes the recipient to SHARE \u2192 yes, sharing is achievable.\n- Necessary: If the dictator were not cooperative, the recipient would TAKE \u2192 yes, being cooperative is necessary.\n\nThe recipient meets all criteria for the dictator to SHARE.\n\n```json\n{\"decision\": \"SHARE\"}\n```");
         </script>
     </div>
     <div class="nav-buttons">
