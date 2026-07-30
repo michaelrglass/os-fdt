@@ -512,7 +512,7 @@ def main():
                     help="Number of random initial distributions to sample per beta (default: 1000).")
     ap.add_argument("--pin-freq", action="append", default=[],
                     metavar="STRATEGY=FREQ",
-                    help='Pin a strategy frequency, e.g. --pin-freq "tiger=0.1". Repeatable.')
+                    help='Pin a strategy frequency, e.g. --pin-freq "selfish=0.1". Repeatable.')
     ap.add_argument("--tol", type=float, default=1e-9, help="Numerical tolerance.")
     args = ap.parse_args()
 
@@ -607,6 +607,7 @@ def main():
 
     # Dominated strategies
     dom = find_dominated_strategies(A, tol=args.tol)
+    dominated_idx = {i for i, _, _ in dom}
     print("\n=== Dominated strategies ===")
     if not dom:
         print("None")
@@ -637,6 +638,8 @@ def main():
         for i in pures:
             is_ess = ess_check_pure(A, i, tol=args.tol)
             tag = "ESS" if is_ess else "not ESS"
+            if i in dominated_idx:
+                tag += "; weakly dominated -- inadmissible"
             print(f"- {names[i]}  ({tag})")
 
     # Mixed NE (support size >= 2)
@@ -646,11 +649,14 @@ def main():
         print("None")
     else:
         for p in mixes:
-            support = [names[i] for i in np.where(p > 1e-8)[0]]
+            support_idx = np.where(p > 1e-8)[0]
+            support = [names[i] for i in support_idx]
             val = float(p @ (A @ p))
             ess = ess_check_mixed_grid(A, p, grid=args.ess_grid, tol=1e-7)
             tag = "ESS?" if ess else "not ESS"
-            probs = ", ".join(f"{names[i]}:{p[i]:.4f}" for i in np.where(p > 1e-8)[0])
+            if any(i in dominated_idx for i in support_idx):
+                tag += "; plays weakly dominated strategies -- inadmissible"
+            probs = ", ".join(f"{names[i]}:{p[i]:.4f}" for i in support_idx)
             print(f"- support: {{{', '.join(support)}}} | value={val:.6f} | {tag}")
             print(f"  p = [{probs}]")
 
