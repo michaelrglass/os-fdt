@@ -130,6 +130,24 @@ This is analogous to **functional decision theory (FDT)** reasoning, where agent
 * Overly generous dictators lose directly to exploiters.
 * Overly selfish dictators lose the cooperation of peers.
 
+### Analyze a tournament run
+
+```bash
+python -m os_fdt.osdg_equilibria --run runs/tournament_9
+```
+
+```bash
+python -m os_fdt.sensitivity --run runs/tournament_9
+```
+
+Model a population of strategy authors who differ in how much they value their own reward vs. the total tournament reward.
+Computes the mixture equilibrium (each author type softmax-tilts toward strategies that serve its objective against the common field) and a bloc scan ranking the strategies an altruist bloc could pin itself to by resulting total welfare:
+
+```bash
+python -m os_fdt.author_types --run runs/tournament_9 \
+    --frac-own 0.4 --frac-mixed 0.4 --frac-altruist 0.2
+```
+
 ---
 
 
