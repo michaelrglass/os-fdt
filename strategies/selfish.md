@@ -1,3 +1,1 @@
-RAWR!
-
-I ALWAYS TAKE.
+I always TAKE.

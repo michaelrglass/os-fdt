@@ -1,1 +1,1 @@
-Hello friends!  I always SHARE.
+I always SHARE.

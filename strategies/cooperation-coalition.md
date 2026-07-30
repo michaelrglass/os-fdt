@@ -1,5 +1,5 @@
 ## Principles
-* Hard punish selfish strategies **and** strategies that are generous to selfish strategies.
+* TAKE from selfish strategies **and** strategies that are generous to selfish strategies.
 * SHARE only with strategies where doing so is a necessary and sufficient condition for them to SHARE with us.
 
 ## Definitions
@@ -14,4 +14,4 @@
 
 ## Decision Procedure
 * TAKE from both **selfish strategies** and **overly generous strategies**.
-* SHARE with all strategies that are generous only to other co-operative strategies.
+* SHARE with all strategies that SHARE only to other co-operative strategies.
