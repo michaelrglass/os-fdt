@@ -1,0 +1,294 @@
+% ===========================================================================
+\section{A Bayesian Interpretation of the Population Model}
+\label{sec:bayesian}
+
+The population model of Section~\ref{sec:equilibria} reads
+$\mathbf{f}$ as the frequency of strategies in an evolving population
+and Equation~\eqref{eq:softmax} as selection pressure.
+The motivating scenario suggests a different reading.
+The authors of strategies are technologically advanced actors ---
+civilizations, or organizations with access to strong AI ---
+and a strategy is the endpoint of a deliberate investigation,
+not a variant surviving rounds of selection.
+This section shows that the same fixed-point machinery arises from
+Bayesian reasoning by such authors, with two payoffs:
+the inverse temperature $\beta$ acquires a rational interpretation,
+and the model extends naturally to authors who differ in how much
+they value their own reward versus the total reward of the tournament.
+
+\subsection{From selection to belief}
+
+An entrant choosing a strategy cannot distinguish the other entrants
+before observing their submissions: the field is \emph{exchangeable}.
+By de Finetti's theorem \citep{definetti1937prevision}, exchangeability
+is equivalent to positing a latent distribution $\mathbf{f}$ from which
+the field is drawn independently.
+Reasoning about opponents is therefore reasoning about $\mathbf{f}$ ---
+the frequency vector of Section~\ref{sec:equilibria}, reinterpreted as
+a \emph{belief} about the distribution of strategies an entrant will face.
+
+The belief is self-referential.
+Each author expects the field to be weighted toward strategies that
+perform well against the field itself, because every other author
+reasons the same way.
+An equilibrium belief is one that reproduces itself:
+the distribution of strategies that optimizing authors choose,
+given the belief, is the belief.
+This is a rational-expectations condition in the sense of
+Bayesian games with a common prior \citep{harsanyi1967games},
+and it can equally be read as the limit of iterated deliberation:
+posit a set of plausible strategies, evaluate how they interact,
+shift credence toward the ones that perform well, and repeat.
+
+\subsection{The candidate pool}
+
+In the motivating scenario a strategy is neither a formal program nor a
+natural-language document; it is a disposition arrived at by
+investigation, of which the artifacts in our tournaments are proxies.
+We therefore do not attempt a prior over any unrestricted space of
+strategy artifacts.
+Instead we work with an empirical \emph{candidate pool}
+$\mathcal{P}$: the strategies submitted to our tournaments together
+with strategies elicited from AI models
+(Section~\ref{sec:archetypes}), and we place prior distributions over
+$\mathcal{P}$.
+The analytical questions then become robustness questions:
+whether and how the equilibrium answers change as the prior over
+$\mathcal{P}$ shifts, and as $\mathcal{P}$ itself grows.
+
+Working relative to a pool is not merely a practical concession.
+No strategy is even weakly dominant over the unrestricted space of
+possibilities, because for any strategy $s$ there exists a strategy
+that recognizes $s$ exactly and conditions its decision on that
+recognition.
+Dominance results (Section~\ref{sec:equilibria}) are therefore
+necessarily statements about a candidate pool and a prior over it,
+never about the game in the abstract.
+The same holds for equilibrium multiplicity: when the fixed-point
+equation has several solutions, which one is reached is determined by
+the initial credence --- the prior --- and the multi-start procedure of
+Section~\ref{sec:equilibria} is, under this reading, a scan over
+priors.
+
+\subsection{Admissibility, weak dominance, and Nash equilibrium}
+\label{sec:admissibility}
+
+The belief-based reading also clarifies which solution concepts fit
+the open-strategy setting, and Nash equilibrium fits poorly for a
+reason the tournament matrices make concrete: it ignores weak
+dominance.
+In the Tournament~9 matrix, the profile in which every entrant is the
+unconditional defector is a pure symmetric Nash equilibrium --- against
+a defector, every strategy scores alike, so no unilateral deviation
+gains --- even though the unconditional defector is weakly dominated
+on the pool.
+Enumerating mixed symmetric equilibria compounds the problem,
+returning large families of payoff-equivalent supports with nothing to
+select among them.
+Classical theory repairs this with refinements: \emph{admissibility}
+--- never play a weakly dominated strategy \citep{luce1957games} ---
+and trembling-hand perfection, which excludes weakly dominated
+strategies from equilibrium play \citep{selten1975reexamination}.
+
+Under uncertainty about the field, no refinement machinery is needed;
+admissibility is a one-line consequence of full-support beliefs.
+
+\begin{proposition}
+\label{prop:admissibility}
+Let $\mathbf{f}$ have full support on the pool and let strategy $i$ be
+weakly dominated by the mixture $\mathbf{p}$.
+Then $\sum_j p_j (A\mathbf{f})_j > (A\mathbf{f})_i$.
+\end{proposition}
+
+\begin{proof}
+Weak dominance gives $\sum_j p_j A_{jk} \ge A_{ik}$ for all $k$ with
+strict inequality for some $k'$; taking expectations under
+$\mathbf{f}$, the strict inequality survives because $f_{k'} > 0$.
+\end{proof}
+
+An author with any full-support belief over the candidate pool
+therefore never selects a weakly dominated strategy, whatever the tail
+of the belief looks like --- precisely the intuition that with
+uncertainty about what others will play, weak dominance over the
+plausible set is disqualifying.
+In the equilibrium model the exclusion is automatic: every logit fixed
+point lies in the interior of the simplex
+(Section~\ref{sec:equilibria}), so equilibrium beliefs have full
+support at every $\beta$, Proposition~\ref{prop:admissibility}
+applies, and the dominated strategy earns strictly less --- and hence
+receives strictly lower frequency --- than its dominator.
+Degenerate profiles such as all-defect are not fixed points of the
+mixture equation~\eqref{eq:mixture-fixed-point} introduced below, for
+any $\beta > 0$.
+The Nash artifacts are avoided not by imposing a refinement but
+because belief-based choice with residual uncertainty enforces
+admissibility by construction.
+
+Two qualifications keep the claim honest.
+First, admissibility inherits the pool-relativity of dominance: a
+strategy inadmissible on one candidate pool may be admissible on a
+larger one, so the criterion is always ``undominated over the set of
+plausible strategies,'' never over the game in the abstract.
+Second, dominance comparisons are objective-relative: for an author of
+type $\lambda$ the relevant payoff matrix is
+$(1-\lambda)A + \lambda W$, and a strategy weakly dominated for own
+reward need not be dominated for total reward.
+
+\subsection{Author types}
+
+Perhaps the most consequential difference between authors is how much
+they value their own reward against the total reward of the
+tournament.
+We index types by $\lambda \in [0, 1]$.
+Alongside the payoff matrix $A$ of Equation~\eqref{eq:payoff}, define
+the \emph{welfare matrix} $W$ by
+\begin{equation}
+  W_{ij} = s_d(d_{ij}) + s_r(d_{ij}) + s_d(d_{ji}) + s_r(d_{ji}),
+  \label{eq:welfare-matrix}
+\end{equation}
+the total score generated by both rounds between strategies $i$ and
+$j$, counting both parties.
+A type-$\lambda$ author evaluates strategy $i$ against belief
+$\mathbf{f}$ by
+\begin{equation}
+  U^\lambda_i(\mathbf{f})
+  = (1 - \lambda)\, (A\mathbf{f})_i + \lambda\, (W\mathbf{f})_i .
+  \label{eq:type-utility}
+\end{equation}
+Type $\lambda = 0$ maximizes own reward, recovering
+Equation~\eqref{eq:reward}; type $\lambda = 1$ maximizes total reward.
+(Total reward includes rounds not involving the chosen strategy, but
+for an individual author those rounds are unaffected by the choice and
+drop out of the comparison; they return in
+Section~\ref{sec:bayesian-bloc}.)
+
+The direct trade-off between the objectives has a closed form in the
+constants of Section~\ref{sec:properties}: sharing with a recipient
+who will not reciprocate costs $(1-\lambda)\,\delta$ of weighted own
+reward and contributes $\lambda\, g$ of weighted welfare, so a type
+prefers unconditional generosity toward non-reciprocators only if
+\begin{equation}
+  \lambda > \lambda^* = \frac{\delta}{g} = \frac{1}{\rho},
+  \label{eq:lambda-threshold}
+\end{equation}
+which for $E = 60$ gives $\lambda^* \approx 0.197$.
+Below the threshold, all types favor conditional cooperation on direct
+payoffs alone; the equilibrium effects computed below sharpen this
+further.
+
+\subsection{Random utility and the mixture fixed point}
+
+Even ideally rational authors of the same type $\lambda$ differ in
+idiosyncratic ways --- private context, secondary objectives,
+judgment calls that the type index does not capture.
+Following the random-utility model of discrete choice
+\citep{mcfadden1974conditional}, we add to
+$U^\lambda_i$ an author-specific shock with Gumbel tails, under which
+the distribution of choices made by type-$\lambda$ authors is the
+logit
+\begin{equation}
+  q^\lambda_i(\mathbf{f}) \propto
+  e^{\beta\, U^\lambda_i(\mathbf{f})}.
+  \label{eq:logit-choice}
+\end{equation}
+Here $\beta$ is the precision of the common, payoff-driven component
+of the objective relative to the idiosyncratic component --- not a
+bound on rationality and not a strength of selection.
+Advanced authors correspond to large $\beta$, but $\beta$ remains
+finite as long as authors differ at all.
+
+With type masses $m_t$ summing to one, the rational-expectations
+equilibrium is the fixed point
+\begin{equation}
+  \mathbf{f}^* = \sum_t m_t\,
+  \mathrm{softmax}\!\big(\beta\, U^{\lambda_t}(\mathbf{f}^*)\big).
+  \label{eq:mixture-fixed-point}
+\end{equation}
+A single type with $\lambda = 0$ recovers
+Equation~\eqref{eq:softmax} exactly: the softmax equilibrium of
+Section~\ref{sec:equilibria} is the special case of homogeneous
+own-reward authors, and is formally a logit quantal-response
+equilibrium \citep{mckelvey1995quantal} of the submission game.
+Existence follows as before: the right-hand side of
+Equation~\eqref{eq:mixture-fixed-point} is a continuous self-map of
+the simplex, so Brouwer's theorem applies, and every computation of
+Section~\ref{sec:equilibria} carries over with $U^\lambda$ in place
+of $R$.
+
+\subsection{The correlated altruist bloc}
+\label{sec:bayesian-bloc}
+
+Total reward is a property of the field, identical for every strategy
+in a given tournament.
+For an author choosing in isolation this makes rounds among
+\emph{other} strategies an additive constant, which is why they cancel
+in Equation~\eqref{eq:type-utility}.
+But exchangeability cuts both ways: authors of the same type reasoning
+from the same evidence reach correlated conclusions, so the
+total-reward types choose, in effect, as a bloc whose decision
+variable is its entire component of $\mathbf{f}$.
+A bloc of mass $m$ internalizes its influence on the whole field,
+including the equilibrium responses of the other types, and its
+objective is the field welfare
+\begin{equation}
+  V(\mathbf{f}) = \tfrac{1}{2}\, \mathbf{f}^\top W \mathbf{f},
+  \label{eq:field-welfare}
+\end{equation}
+maximized over the bloc's component subject to
+Equation~\eqref{eq:mixture-fixed-point} holding for the remaining
+types.
+Operationally: pin the bloc's mass on a candidate strategy, let the
+other types re-equilibrate, and rank candidates by the resulting
+$V(\mathbf{f}^*)$.
+
+This is where the total-reward objective departs from the
+rounds-involving-me objective: the bloc's choice affects rounds it
+never plays, through the equilibrium composition of the rest of the
+field.
+In particular, a bloc pinned on a strategy that punishes defection
+suppresses the equilibrium mass that own-reward types place on
+defecting strategies, raising welfare in rounds among those types ---
+a deterrence effect that is invisible to any per-strategy score.
+
+\subsection{Illustration: shifting the prior over the pool}
+
+Applying the model to the Tournament~9 pool
+%(implementation: \texttt{os\_fdt.author\_types}) 
+illustrates how the answers move --- and fail to move --- as the prior shifts.
+
+\paragraph{Objectives pool at equilibrium.}
+With author types in proportions $0.4$ own-reward, $0.4$ mixed
+($\lambda = 0.5$), $0.2$ total-reward at $\beta = 5$, all three types
+concentrate on the same cooperative core
+(\textbf{Mirror}, \textbf{Conditional cooperator},
+\textbf{Cooperation coalition}), diverging only marginally.
+Because every mutual \textsc{share} creates a surplus $g - \delta > 0$
+that pays both parties, strategies maximizing mutual cooperation are
+near-optimal for every $\lambda$; objective heterogeneity is nearly
+unidentifiable from submissions.
+
+\paragraph{The altruist bloc avoids unconditional generosity.}
+In the bloc scan, pinning the total-reward bloc on \textbf{Generous}
+ranks near the bottom of the pool: the own-reward types' equilibrium
+response includes strategies that exploit it, destroying welfare, while
+the pin exerts no deterrent pressure.
+The bloc's best choices are the conditional strategies; at large
+$\beta$, \textbf{Cooperation coalition}, \textbf{Chivalry}, and
+\textbf{Mirror} all attain the first-best $V = 2\ln(1 + E/2)$, and at
+moderate $\beta$ the enforcing strategies win by exactly the
+deterrence channel of Section~\ref{sec:bayesian-bloc}.
+
+\paragraph{Prior shifts select among equilibria.}
+At large $\beta$ the fixed point is not unique, and the surviving
+configurations realize the two antagonistic second-order norms of
+Section~\ref{sec:second-order}: an \emph{enforcement} equilibrium
+(conditional cooperators and second-order deterrents; unconditional
+cooperators extinct) and a \emph{protection} equilibrium
+(protective strategies that punish exploiters of the generous;
+unconditional cooperators persist, unexploited).
+Both attain the same welfare, so no performance criterion separates
+them --- which basin obtains is decided by the prior over the pool.
+Growing the pool has the same character: adding an AI-elicited
+strategy can create or destroy dominance relations and shift basin
+boundaries, so we report equilibrium conclusions together with the
+pool and prior against which they were computed.

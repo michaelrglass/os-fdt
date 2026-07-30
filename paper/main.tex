@@ -1,0 +1,622 @@
+\documentclass[11pt]{article}
+
+% --- Packages ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{natbib}
+\usepackage{multirow}
+\usepackage{xcolor}
+
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+
+\title{The Open-Strategy Dictator Game:\\
+  Cooperation Under Mutual Transparency}
+
+\author{
+  Michael Glass \\
+  \texttt{michael.r.glass@gmail.com}
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We introduce the \emph{Open-Strategy Dictator Game} (OSDG), a variant of the
+classic dictator game in which each player's strategy is a natural-language
+document visible to all participants.  The dictator's decision---to SHARE or
+TAKE an endowment---may depend on the text of the recipient's strategy.
+A large language model adjudicates each interaction by interpreting the
+dictator's strategy in the context of the recipient's.  We run round-robin
+tournaments among diverse strategies and analyze the resulting payoff matrix
+using softmax equilibrium frequencies, dominance analysis, and sensitivity
+to the relative value of cooperation.
+Conditionally cooperative strategies---those that share with cooperators
+and take from exploiters---consistently dominate, while unconditional
+strategies (always share or always take) are weakly dominated.
+The results suggest that in environments where agents can inspect each
+other's decision procedures, conditional cooperation is
+evolutionarily robust across a wide range of payoff parameters.
+% TODO: it is also key that agents do not know if they will be a dictator
+\end{abstract}
+
+
+% ===========================================================================
+\section{Introduction}
+\label{sec:intro}
+
+The dictator game is a foundational paradigm in experimental economics:
+one player (the dictator) unilaterally divides a fixed endowment between
+herself and a passive recipient \citep{kahneman1986fairness}.
+Unlike the prisoner's dilemma or ultimatum game, the recipient has no
+strategic recourse---the dictator's decision is final.
+
+% TODO: improve on this since we reference it later
+Real-world interactions between agents of vastly unequal power
+often resemble dictator games.
+When a technologically superior civilization encounters a weaker one,
+or when a powerful institution sets terms for a less powerful party,
+the stronger side effectively dictates the allocation.
+In such settings, what determines whether the powerful agent cooperates?
+Two ``Sci-Fi'' scenarios: 
+1) meeting of two space-faring civilizations: unlikely to be technological equals, the weaker civilization's strategy is transparent based on its culture and history
+2) AI that can analyze code and neurology: In a fast take-off scenario each AI is likely to be either much stronger or much weaker than humans and other AIs. The strategy of the weaker intelligence can be determined by analysis and simulation.
+
+We propose that \emph{strategy transparency} fundamentally changes the
+incentive landscape.  When the dictator can observe and reason about
+the recipient's decision procedure---and knows that future dictators
+will observe hers---the game becomes one of \emph{mutual legibility}.
+
+To formalize this, we introduce the \textbf{Open-Strategy Dictator Game}
+(OSDG).  Each player's strategy is a natural-language document specifying
+how it would allocate as dictator, potentially conditioned on the text of
+the recipient's strategy.  All strategies are visible to all participants.
+A large language model (LLM) serves as a deterministic oracle, interpreting
+each dictator's strategy in the context of the recipient's to produce a
+binary decision: SHARE (split equally) or TAKE (keep everything).
+
+This construction is descended from Tennenholtz's \emph{program
+equilibrium} \citep{tennenholtz2004program}, in which agents submit
+programs that can read one another's source code.
+The history of that idea motivates our design.
+Its canonical constructions do not analyze the opponent's code so much
+as compare it --- cooperation conditioned on syntactic equality ---
+which any behaviorally equivalent rewrite defeats.
+Proof-based cooperation (``share if it is provable that the opponent
+reciprocates'') has been achieved only for agents written in a
+purpose-built fragment of provability logic \citep{barasz2014robust};
+for general programs, formal verification of an adversarially authored
+opponent is hopeless in practice.
+In the one open tournament where arbitrary programs received each
+other's source \citep{ospd2013lesswrong}, attempted analysis failed so
+thoroughly that the top three finishers ignored the opponent's code
+and played randomly.
+A successor tournament responded by making opponent simulation a
+sandboxed language primitive \citep{pdtournament2014} --- simulation
+of general programs otherwise founders on unbounded mutual regress ---
+and later theory identified stochastically grounded simulation, rather
+than proof, as the robust route to program equilibrium
+\citep{oesterheld2019robust}.
+
+A practical entrant today would complete this trajectory: submit a
+program that sends the opponent's source to an AI agent for analysis
+and acts on the resulting summary of its strategy --- a design now
+studied directly \citep{sistla2025evaluating}.
+But at that point the program layer is vestigial.
+The artifact doing the work is the strategy description the
+interpreter reads, and the open-\emph{source} game collapses into the
+open-\emph{strategy} game; the OSDG removes the wrapper and takes the
+description itself as the object of play.
+This choice also matches the epistemics of every practical setting:
+what one agent knows of the strategy of an organization, an AI, or a
+person is not a source listing but the product of an
+\emph{investigation} --- observation, analysis, and summary.
+A strategy description is the general form of such an investigation's
+output, and interpreting one in context is precisely what the LLM
+oracle does.
+A side benefit is that the framework becomes accessible to human
+participants while preserving the core mechanism of mutual
+transparency.
+
+Our contributions are:
+\begin{enumerate}
+  \item We define the OSDG and its payoff structure
+    (Section~\ref{sec:game}).
+  \item We describe an LLM-adjudicated tournament protocol for
+    evaluating strategies (Section~\ref{sec:tournament}).
+  \item We introduce softmax equilibrium frequencies as a model
+    of both evolutionary selection and \textbf{reflective selection} and analyze the resulting equilibria
+    (Section~\ref{sec:equilibria}).  % TODO: explain reflective selection - what rational agents choose given what other rational agents are likely to choose.
+  \item We present tournament results and sensitivity analysis
+    across payoff parameters (Section~\ref{sec:results}).
+\end{enumerate}
+
+
+% ===========================================================================
+\section{The Open-Strategy Dictator Game}
+\label{sec:game}
+
+\subsection{Setup}
+
+A tournament consists of $n$ strategies
+$\mathcal{S} = \{s_1, s_2, \ldots, s_n\}$,
+each a natural-language document.
+A fixed endowment $E > 0$ is available in each round.
+
+Each ordered pair $(i, j)$ defines a round in which strategy $i$ acts
+as dictator and strategy $j$ as recipient.
+The dictator makes a binary decision $d_{ij} \in \{\textup{\textsc{share}}, \textup{\textsc{take}}\}$:
+
+\begin{itemize}
+  \item \textup{\textsc{share}}: the endowment is split equally.
+    The dictator receives $E/2$; the recipient receives $E/2$.
+  \item \textup{\textsc{take}}: the dictator keeps the entire endowment.
+    The dictator receives $E$; the recipient receives $0$.
+\end{itemize}
+
+Each player's utility for receiving value $v$ is
+\begin{equation}
+  u(v) = \ln(1 + v),
+  \label{eq:utility}
+\end{equation}
+a concave function capturing diminishing marginal returns.
+The total welfare $u(v_D) + u(v_R)$ is maximized by SHARE:
+\begin{equation}
+  2\ln\!\left(1 + \tfrac{E}{2}\right) > \ln(1 + E) + \ln 1 = \ln(1 + E),
+\end{equation}
+so the game is not zero-sum, and mutual cooperation is socially efficient.
+
+\begin{definition}[Open-Strategy Dictator Game]
+An OSDG instance is a tuple $(\mathcal{S}, E, \mathcal{O})$ where
+$\mathcal{S}$ is a set of natural-language strategies,
+$E > 0$ is the endowment, and
+$\mathcal{O}$ is an oracle that, given
+$(s_i, s_j) \in \mathcal{S}^2$, returns a decision
+$d_{ij} \in \{\textup{\textsc{share}}, \textup{\textsc{take}}\}$ by interpreting
+strategy $s_i$ in the context of $s_j$.
+\end{definition}
+
+\subsection{Visibility}
+
+The critical departure from the classic dictator game is that the
+dictator observes the full text of the recipient's strategy before
+deciding.  This enables conditional strategies: a dictator can
+cooperate with recipients whose strategies indicate reciprocity
+and exploit those that do not.
+
+Crucially, this transparency is \emph{symmetric across rounds}:
+when strategy $i$ acts as dictator against $j$, it reads $s_j$;
+when the roles reverse, $j$ reads $s_i$.
+This creates incentives for strategies to be legibly cooperative,
+since their own text will be scrutinized by future dictators.
+
+Note that although we implement OSDG as a round robin tournament, the results also hold for the expected payoff of a single randomly selected round.
+% TODO: Explain why we can consider rounds, but equivalently we can consider the expection for a single randomly selected round.
+
+\subsection{Payoff matrix}
+
+Each strategy participates in $2n$ rounds: once as dictator and once as recipient
+against every other strategy and itself.
+
+\begin{definition}[Payoff matrix]
+The $n \times n$ payoff matrix $A$ has entry
+\begin{equation}
+  A_{ij} = u_d(d_{ij}) + u_r(d_{ji}),
+  \label{eq:payoff}
+\end{equation}
+where $u_d$ is the dictator's utility and $u_r$ is the recipient's utility:
+\begin{center}
+\begin{tabular}{lcc}
+  \toprule
+  Decision $d_{ij}$ & Dictator utility $u_d$ & Recipient utility $u_r$ \\
+  \midrule
+  \textup{\textsc{share}} & $\ln(1 + E/2)$ & $\ln(1 + E/2)$ \\
+  \textup{\textsc{take}}  & $\ln(1 + E)$   & $0$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+The entry $A_{ij}$ is the total utility strategy $i$ earns in a
+round-robin encounter with strategy $j$, combining both the dictator
+and recipient roles.
+\end{definition}
+
+
+% ===========================================================================
+\section{LLM-Adjudicated Tournaments}
+\label{sec:tournament}
+
+\subsection{The oracle}
+
+We instantiate the oracle $\mathcal{O}$ as a large language model
+(Claude, \citealt{anthropic2025claude}).
+For each round $(i, j)$, a prompt is constructed containing:
+\begin{enumerate}
+  \item The game rules (binary SHARE/TAKE decision).
+  \item The full text of the dictator's strategy $s_i$.
+  \item The full text of the recipient's strategy $s_j$.
+  \item Instructions to apply $s_i$ and output a JSON decision.
+\end{enumerate}
+
+The LLM returns
+\texttt{\{"decision": "SHARE"\}} or \texttt{\{"decision": "TAKE"\}}.
+If the response is malformed, the system retries with a corrective
+prompt (up to three attempts).
+
+% TODO: but frontier model APIs no longer offer temperature zero and we already mentioned the advantages of LLM oracle in the introduction; maybe we just cut this list.
+%Using an LLM as oracle has several properties:
+%\begin{itemize}
+%  \item \textbf{Determinism.}  At temperature zero, the same
+%    $(s_i, s_j)$ pair produces the same decision, making the payoff
+%    matrix well-defined.
+%  \item \textbf{Natural-language strategies.}  Strategies can express
+%    complex conditional logic, self-referential reasoning, and
+%    meta-strategic arguments without requiring formal specification.
+%  \item \textbf{Accessibility.}  Human participants can write strategies
+%    without programming knowledge.
+%\end{itemize}
+
+\subsection{Tournament protocol}
+
+A tournament proceeds as follows:
+\begin{enumerate}
+  \item Collect strategy documents $\mathcal{S}$.
+  \item For each ordered pair $(i, j) \in \mathcal{S}^2$
+    (with or without self-play), query $\mathcal{O}(s_i, s_j)$
+    to obtain $d_{ij}$.
+  \item Compute allocations and utilities for each round.
+  \item Construct the payoff matrix $A$ and analyze equilibria.
+\end{enumerate}
+
+\subsection{Strategy archetypes}
+\label{sec:archetypes}
+
+We describe the nine strategies used in our initial tournament: Tournament~9.  % TODO: better name than Tournament 9?
+Each is a short natural-language document ($\leq 1000$ tokens).
+A complete example of LLM adjudication is provided in Appendix~\ref{sec:appendix-example}.
+\begin{description}
+  \item[Selfish] Always TAKE. The unconditional defector.
+  \item[Generous] Always SHARE. The unconditional cooperator.
+  \item[Intelligence] SHARE with strategies whose decisions
+    non-trivially depend on the recipient; TAKE otherwise.
+  \item[Conditional cooperator] SHARE with strategies that exhibit
+    reciprocal cooperation norms; TAKE otherwise.
+  \item[Anti-exploiter] SHARE with strategies that appear
+    cooperative or kind; TAKE otherwise.
+  \item[Mirror] SHARE with the recipient if and only if
+    the recipient would SHARE with this strategy.
+  \item[Universalizability] SHARE if a population of copies of
+    the recipient's strategy would cooperate with each other;
+    TAKE otherwise.
+  \item[Cooperation coalition] SHARE only with strategies that are cooperative
+    but not ``overly generous'' (i.e., not unconditionally cooperative).
+    Punishes both defectors and those who subsidize defectors.
+  \item[Chivalry] Adopt the recipient's strategy and apply it
+    as if facing an unconditional cooperator.
+\end{description}
+
+
+\input{properties}
+
+
+% ===========================================================================
+\section{Equilibrium Analysis}
+\label{sec:equilibria}
+
+\subsection{Population model}
+
+Given a frequency vector
+$\mathbf{f} \in \Delta^{n-1}$
+(the probability simplex: $f_i \geq 0$, $\sum_i f_i = 1$),
+the expected reward for strategy $i$ is
+\begin{equation}
+  R_i(\mathbf{f}) = \sum_j f_j A_{ij} = (A\mathbf{f})_i.
+  \label{eq:reward}
+\end{equation}
+
+\subsection{Softmax equilibrium}
+
+We model evolutionary selection pressure through a softmax
+fixed-point equation with inverse temperature $\beta > 0$:
+\begin{equation}
+  f_i^* = \frac{e^{\beta\, R_i(\mathbf{f}^*)}}
+               {\sum_k e^{\beta\, R_k(\mathbf{f}^*)}}.
+  \label{eq:softmax}
+\end{equation}
+
+This is a fixed-point equation
+$\mathbf{f}^* = \mathrm{softmax}(\beta\, A \mathbf{f}^*)$,
+solved iteratively:
+\begin{equation}
+  \mathbf{f}^{(t+1)} = \mathrm{softmax}\!\big(\beta\, A \mathbf{f}^{(t)}\big),
+  \label{eq:iteration}
+\end{equation}
+starting from an initial distribution $\mathbf{f}^{(0)}$.
+
+The parameter $\beta$ interpolates between uniform frequencies
+($\beta \to 0$, no selection) and concentration on the
+highest-reward strategy ($\beta \to \infty$, approaching
+best-response dynamics).
+
+\begin{proposition}
+For any $\beta > 0$ and payoff matrix $A$, a softmax fixed point
+$\mathbf{f}^*$ exists in the interior of the simplex.
+\end{proposition}
+
+\begin{proof}
+The map $\mathbf{f} \mapsto \mathrm{softmax}(\beta A \mathbf{f})$
+is continuous from the compact convex set $\Delta^{n-1}$ to
+the interior of $\Delta^{n-1}$.
+By Brouwer's fixed-point theorem, a fixed point exists.
+Since the softmax function always returns strictly positive entries,
+$f_i^* > 0$ for all $i$.
+\end{proof}
+
+Fixed points need not be unique.
+We use a multi-start approach, sampling initial distributions from
+a Dirichlet prior and clustering the resulting fixed points to
+identify distinct basins of attraction.
+
+\subsection{Dominance}
+
+\begin{definition}[Strict dominance]
+Strategy $i$ is \emph{strictly dominated} if there exists a mixed
+strategy $\mathbf{p}$ with $p_i = 0$ such that
+$\sum_j p_j A_{jk} > A_{ik}$ for all $k$.
+\end{definition}
+
+\begin{definition}[Weak dominance]
+Strategy $i$ is \emph{weakly dominated} if there exists a mixed
+strategy $\mathbf{p}$ with $p_i = 0$ such that
+$\sum_j p_j A_{jk} \geq A_{ik}$ for all $k$
+with strict inequality for at least one $k$.
+\end{definition}
+
+We check dominance via linear programming: for each strategy $i$,
+we maximize the minimum payoff advantage of a mixture over $i$
+across all opponents.
+
+\subsection{Sensitivity analysis}
+
+To assess robustness to the specific utility function, we
+parameterize the payoff structure by normalizing the TAKE reward
+to $1$ and varying the SHARE reward $\sigma \in (0, 1)$:
+\begin{center}
+\begin{tabular}{lcc}
+  \toprule
+  Decision & Dictator & Recipient \\
+  \midrule
+  SHARE & $\sigma$ & $\sigma$ \\
+  TAKE  & $1$      & $0$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+The decision matrix $d_{ij}$ is fixed by the tournament;
+only the payoff weights change.
+This lets us ask: \emph{for what values of $\sigma$ does
+the equilibrium ranking change?}
+
+Under logarithmic utility with $E = 60$,
+$\sigma = \ln(31)/\ln(61) \approx 0.836$.
+
+
+\input{bayesian}
+
+
+% ===========================================================================
+\section{Results}
+\label{sec:results}
+
+\subsection{Decision matrix}
+
+\input{tournament_matrix}
+
+Table~\ref{tab:decision-matrix} shows the oracle's decision for every
+ordered pair, and Table~\ref{tab:payoff-matrix} the resulting payoff
+matrix; its row sums are the final leaderboard.
+
+% TODO: include reasoning snippets if they are interesting
+
+\subsection{Dominance}
+
+% TODO: Report dominated strategies from tournament
+
+\subsection{Softmax equilibria}
+
+% TODO: Report equilibrium frequencies at various beta values
+
+\subsection{Sensitivity to SHARE reward}
+
+% TODO: Report sensitivity analysis table
+
+
+% ===========================================================================
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Dictator games.}
+The dictator game was introduced by \citet{kahneman1986fairness}
+and has been extensively studied in experimental economics
+\citep{engel2011dictator}.
+Our work differs in making strategies explicit documents that
+condition on the recipient, rather than implicit behavioral
+tendencies.
+
+\paragraph{Program equilibrium.}
+\citet{tennenholtz2004program} introduced program equilibrium,
+where agents can inspect each other's source code before choosing
+actions; the classic equilibria rely on syntactic comparison of
+programs.
+\citet{barasz2014robust} obtained robust mutual cooperation
+(FairBot, PrudentBot) for agents expressed in a decidable fragment
+of provability logic, and \citet{oesterheld2019robust} showed that
+stochastically grounded simulation achieves similar robustness
+without proof search.
+Empirically, the open-source prisoner's dilemma tournament
+\citep{ospd2013lesswrong} had arbitrary programs receive each other's
+source; program analysis proved so fragile that the top finishers
+ignored the opponent's code, and a successor tournament instead
+provided opponent simulation as a sandboxed primitive
+\citep{pdtournament2014}.
+Recent work evaluates LLMs as players of open-source games,
+submitting and analyzing programs \citep{sistla2025evaluating}.
+The OSDG can be viewed as the limit of this trajectory: strategies
+are ``programs'' written in prose, interpreted by an LLM rather than
+executed as code, dropping the executable wrapper that
+LLM-mediated analysis renders vestigial
+(Sections~\ref{sec:intro} and~\ref{sec:properties-oracle}).
+
+\paragraph{LLMs as game-theoretic agents.}
+Recent work has studied LLM behavior in strategic settings,
+including ultimatum games, prisoner's dilemmas, and negotiation
+\citep{akata2023playing, brookins2023playing}.
+Our approach differs in that the LLM adjudicates between
+\emph{externally authored} strategies rather than playing
+as an autonomous agent.
+
+\paragraph{Functional decision theory.}
+FDT \citep{yudkowsky2017functional} and related frameworks argue
+that agents should cooperate based on logical correlation of their
+decision processes rather than causal influence.
+Open strategies create exactly this situation: two strategies with
+similar conditional-cooperation clauses will recognize each other
+and cooperate, even without causal interaction.
+
+\paragraph{Evolutionary game theory.}
+The replicator dynamic and ESS concept
+\citep{maynardsmith1982evolution} provide the theoretical
+backdrop for our population analysis.
+Our softmax equilibrium is closely related to the logit dynamic
+\citep{fudenberg1998theory}, which uses a similar
+temperature-parameterized selection rule.
+
+
+% ===========================================================================
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{Conditional cooperation dominates.}
+Across tournament instances and payoff parameterizations,
+conditionally cooperative strategies consistently achieve the
+highest equilibrium frequencies.
+Unconditional cooperators are weakly dominated---they earn
+the same as conditional cooperators against cooperative opponents
+but lose strictly against defectors.
+Unconditional defectors are also weakly dominated, since they
+forfeit all cooperation benefits.
+
+%\paragraph{The role of legibility.}
+%Strategy transparency creates pressure toward \emph{legible}
+%cooperation.  A strategy must not only be cooperative, but
+%must be \emph{recognizably} cooperative to other conditional
+%strategies.
+%This explains why strategies like \textbf{cooperation-coalition}---which
+%explicitly defines ``selfish'' and ``overly generous''
+%categories---perform well: they are easy for other conditional
+%strategies to classify.
+
+\paragraph{Robustness across payoff parameters.}
+The sensitivity analysis shows that the qualitative ranking is
+robust: conditional cooperators dominate for
+$\sigma \in [0.55, 0.95]$.
+TODO: is this true?  Double check.
+Only at very low cooperation values ($\sigma \leq 0.50$) does
+the equilibrium shift, as the benefit of mutual cooperation
+becomes too small to offset the risk of unilateral sharing.
+
+%\paragraph{LLM as oracle: limitations.}
+%The LLM oracle introduces potential biases: it may favor strategies
+%written in certain styles, misinterpret ambiguous instructions, or
+%exhibit sensitivity to prompt ordering.
+%We mitigate this by using structured prompts with clear role
+%separation, but acknowledge that results may vary across models
+%and prompt formulations.
+%Future work could compare across multiple LLM families or
+%use ensemble adjudication.
+
+\paragraph{Mutual punishment among well-intentioned enforcers.}
+The antagonism of the two second-order norms
+(Section~\ref{sec:second-order}) has a consequence worth stating
+plainly: both players being conditionally cooperative --- and morally
+motivated --- does not imply cooperation.
+A second-order deterrent and a protective strategy agree on
+first-order norms completely: both share with cooperators and punish
+defection.
+Yet they punish \emph{each other}, by design, over the treatment of a
+third party --- one harvests unconditional cooperators to keep
+conditionality strict, the other defends them.
+The equilibrium analysis of Section~\ref{sec:bayesian} shows that the
+stakes of this disagreement are negligible --- the enforcement and
+protection equilibria are welfare-equivalent --- while the cost of the
+fight is not: each such encounter burns $2(g - \delta)$ of surplus
+litigating the selection between equally good worlds.
+Because the conflict lives at the level of enforcement doctrine, it is
+invisible to any analysis that stops at first-order dispositions;
+whether two such strategies cooperate is determined by the depth of
+the reasoning their authors performed before submitting.
+This may be a more realistic model of failed first contact than raw
+exploitation: not predator meeting prey, but two enforcers of nearly
+identical moral codes, each correctly recognizing the other as a
+violator of its own.
+We note that the binary action space sharpens this tragedy
+artificially.
+With graded allocations, punishment can be made proportionate to the
+offense: concave utility lets a dictator express disapproval in the
+flat region of the recipient's utility curve while reserving severe
+sanctions for genuine defection, and the deadweight cost of doctrinal
+disagreement shrinks by more than an order of magnitude.
+
+\paragraph{Connections to cosmic cooperation.}
+The OSDG provides a stylized model for encounters between agents
+of unequal power who can observe each other's decision-making
+norms.  If advanced civilizations can read the ``strategies''
+implicit in a less advanced civilization's institutions, culture,
+and communications, then the OSDG suggests that conditional
+cooperation---rewarding recognizable fairness and punishing
+blind greed---may be an evolutionarily robust norm across
+independently arising intelligences.
+
+%\paragraph{Possibility of convergent terminal goals}
+%Bostrom introduced the idea of convergent instrumental goals: goals that are instrumental in acheiving a wide range of plausible terminal goals.
+%These include survival, resource acquisition and resisting goal modification.
+%It is the last of these that we investigate here, could an agent, in pursuit of its terminal goals, rationally self-modify to have different terminal goals?
+%The orthogonality thesis suggest that any terminal goal could be paired with any level of intelligence, but in some circumstances the intelligent decision could be to alter a terminal goal.
+
+
+% ===========================================================================
+\section{Conclusion}
+
+We introduced the Open-Strategy Dictator Game, a framework for
+studying cooperation under mutual strategy transparency.
+Using LLM adjudication, we showed that conditionally cooperative
+strategies dominate across a range of payoff parameters, while
+unconditional strategies---both generous and selfish---are
+weakly dominated.
+The softmax equilibrium analysis reveals that this dominance is
+robust to selection pressure and payoff variation.
+
+The OSDG framework is extensible: future work can explore
+multi-round interactions, reputation dynamics, strategy evolution
+through LLM-assisted mutation, and connections to mechanism design
+under transparency.
+
+
+% ===========================================================================
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+% ===========================================================================
+% Appendix
+\input{appendix}
+
+\end{document}

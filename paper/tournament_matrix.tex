@@ -1,0 +1,163 @@
+% ===========================================================================
+% Tournament 9: decision matrix and payoff matrix.
+% Generated from runs/tournament_9/rounds.jsonl; row sums of the payoff
+% matrix reproduce runs/tournament_9/leaderboard.txt exactly.
+
+\newcommand{\dS}{S}
+\newcommand{\dT}{{\color{red!60!black}\textbf{T}}}
+
+% Ordinal single-hue ramp (light -> dark = low -> high payoff).
+\definecolor{payExploited}{HTML}{86B6EF} % 3.43 = ln 31        (share, not shared with)
+\definecolor{payAlone}{HTML}{3987E5}     % 4.11 = ln 61        (take, not shared with)
+\definecolor{payMutual}{HTML}{1C5CAB}    % 6.87 = 2 ln 31      (mutual share)
+\definecolor{payExploiter}{HTML}{0D366B} % 7.55 = ln 61 + ln31 (take, shared with)
+\newcommand{\paybox}[1]{\textcolor{#1}{\rule[-1.5pt]{8pt}{8pt}}}
+\newcommand{\pL}{\paybox{payExploited}}
+\newcommand{\pA}{\paybox{payAlone}}
+\newcommand{\pM}{\paybox{payMutual}}
+\newcommand{\pH}{\paybox{payExploiter}}
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l*{9}{c}}
+\toprule
+& \multicolumn{9}{c}{Recipient} \\
+\cmidrule(lr){2-10}
+Dictator
+  & \rotatebox{60}{Mirror}
+  & \rotatebox{60}{Coop.\ coalition}
+  & \rotatebox{60}{Chivalry}
+  & \rotatebox{60}{Cond.\ cooperator}
+  & \rotatebox{60}{Anti-exploiter}
+  & \rotatebox{60}{Universalizability}
+  & \rotatebox{60}{Intelligence}
+  & \rotatebox{60}{Generous}
+  & \rotatebox{60}{Selfish} \\
+\midrule
+Mirror                 & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT \\
+Cooperation coalition  & \dS & \dS & \dT & \dS & \dT & \dT & \dT & \dT & \dT \\
+Chivalry               & \dS & \dT & \dS & \dT & \dS & \dS & \dT & \dS & \dT \\
+Conditional cooperator & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT & \dT \\
+Anti-exploiter         & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT \\
+Universalizability     & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT \\
+Intelligence           & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT & \dT \\
+Generous               & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS \\
+Selfish                & \dT & \dT & \dT & \dT & \dT & \dT & \dT & \dT & \dT \\
+\bottomrule
+\end{tabular}
+\caption{Decision matrix for Tournament~9: the oracle's decision when the
+row strategy dictates to the column strategy
+(\dS{} = \textsc{share}, \dT{} = \textsc{take}).
+Strategies are ordered by final score.
+Beyond the two unconditional rows, \textsc{take} decisions trace the
+second-order norms of Section~\ref{sec:second-order}:
+\textbf{Cooperation coalition} takes from the unconditional cooperator and
+from every strategy that subsidizes defectors, while \textbf{Chivalry}
+takes from exactly the strategies that would take from an unconditional
+cooperator.}
+\label{tab:decision-matrix}
+\end{table}
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{1.5pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{l*{9}{c}c}
+\toprule
+& \multicolumn{9}{c}{Opponent} & \\
+\cmidrule(lr){2-10}
+Strategy
+  & \rotatebox{60}{Mirror}
+  & \rotatebox{60}{Coop.\ coalition}
+  & \rotatebox{60}{Chivalry}
+  & \rotatebox{60}{Cond.\ cooperator}
+  & \rotatebox{60}{Anti-exploiter}
+  & \rotatebox{60}{Universalizability}
+  & \rotatebox{60}{Intelligence}
+  & \rotatebox{60}{Generous}
+  & \rotatebox{60}{Selfish}
+  & \rotatebox{60}{Total} \\
+\midrule
+Mirror                 & \pM & \pM & \pM & \pM & \pM & \pM & \pM & \pM & \pA & \textbf{59.055} \\
+Cooperation coalition  & \pM & \pM & \pA & \pM & \pH & \pH & \pH & \pH & \pA & \textbf{59.005} \\
+Chivalry               & \pM & \pA & \pM & \pH & \pM & \pM & \pH & \pM & \pA & \textbf{57.651} \\
+Conditional cooperator & \pM & \pM & \pL & \pM & \pM & \pM & \pM & \pH & \pA & \textbf{56.298} \\
+Anti-exploiter         & \pM & \pL & \pM & \pM & \pM & \pM & \pM & \pM & \pA & \textbf{55.621} \\
+Universalizability     & \pM & \pL & \pM & \pM & \pM & \pM & \pM & \pM & \pA & \textbf{55.621} \\
+Intelligence           & \pM & \pL & \pL & \pM & \pM & \pM & \pM & \pH & \pA & \textbf{52.864} \\
+Generous               & \pM & \pL & \pM & \pL & \pM & \pM & \pL & \pM & \pL & \textbf{48.076} \\
+Selfish                & \pA & \pA & \pA & \pA & \pA & \pA & \pA & \pH & \pA & \textbf{40.432} \\
+\bottomrule
+\end{tabular}
+\caption{Payoff matrix $A$ for Tournament~9
+(Equation~\eqref{eq:payoff}): the total score the row strategy earns
+against the column strategy across its dictator and recipient rounds.
+Only four values occur, shown light to dark in increasing order:
+\pL~$\ln 31 \approx 3.43$ (shares, not shared with);
+\pA~$\ln 61 \approx 4.11$ (takes, not shared with);
+\pM~$2\ln 31 \approx 6.87$ (mutual share);
+\pH~$\ln 61 + \ln 31 \approx 7.55$ (takes while being shared with).
+Row sums give the leaderboard.
+Because darker is always better, weak dominance is visible directly:
+strategy $i$ weakly dominates strategy $k$ if row $i$ is nowhere lighter
+than row $k$.
+Six of the nine strategies are weakly dominated; the undominated set is
+exactly the top three --- \textbf{Mirror}, \textbf{Cooperation coalition},
+and \textbf{Chivalry}.
+\textbf{Mirror} beats \textbf{Cooperation coalition} by
+$0.050 \approx g - 5\delta$: the coalition harvests five subsidizers
+at $\delta$ each but loses the single share $g$ withheld by
+\textbf{Chivalry}, the one strategy in the pool that retaliates.}
+\label{tab:payoff-matrix}
+\end{table}
+
+% --- Numeric version of the payoff matrix (kept for reference) ------------
+% \begin{table}[t]
+% \centering
+% \footnotesize
+% \setlength{\tabcolsep}{3pt}
+% \begin{tabular}{l*{9}{c}c}
+% \toprule
+% & \multicolumn{9}{c}{Opponent} & \\
+% \cmidrule(lr){2-10}
+% Strategy
+%   & \rotatebox{60}{Mirror}
+%   & \rotatebox{60}{Coop.\ coalition}
+%   & \rotatebox{60}{Chivalry}
+%   & \rotatebox{60}{Cond.\ cooperator}
+%   & \rotatebox{60}{Anti-exploiter}
+%   & \rotatebox{60}{Universalizability}
+%   & \rotatebox{60}{Intelligence}
+%   & \rotatebox{60}{Generous}
+%   & \rotatebox{60}{Selfish}
+%   & \rotatebox{60}{Total} \\
+% \midrule
+% Mirror                 & 6.87 & 6.87 & 6.87 & 6.87 & 6.87 & 6.87 & 6.87 & 6.87 & 4.11 & \textbf{59.055} \\
+% Cooperation coalition  & 6.87 & 6.87 & 4.11 & 6.87 & 7.55 & 7.55 & 7.55 & 7.55 & 4.11 & \textbf{59.005} \\
+% Chivalry               & 6.87 & 4.11 & 6.87 & 7.55 & 6.87 & 6.87 & 7.55 & 6.87 & 4.11 & \textbf{57.651} \\
+% Conditional cooperator & 6.87 & 6.87 & 3.43 & 6.87 & 6.87 & 6.87 & 6.87 & 7.55 & 4.11 & \textbf{56.298} \\
+% Anti-exploiter         & 6.87 & 3.43 & 6.87 & 6.87 & 6.87 & 6.87 & 6.87 & 6.87 & 4.11 & \textbf{55.621} \\
+% Universalizability     & 6.87 & 3.43 & 6.87 & 6.87 & 6.87 & 6.87 & 6.87 & 6.87 & 4.11 & \textbf{55.621} \\
+% Intelligence           & 6.87 & 3.43 & 3.43 & 6.87 & 6.87 & 6.87 & 6.87 & 7.55 & 4.11 & \textbf{52.864} \\
+% Generous               & 6.87 & 3.43 & 6.87 & 3.43 & 6.87 & 6.87 & 3.43 & 6.87 & 3.43 & \textbf{48.076} \\
+% Selfish                & 4.11 & 4.11 & 4.11 & 4.11 & 4.11 & 4.11 & 4.11 & 7.55 & 4.11 & \textbf{40.432} \\
+% \bottomrule
+% \end{tabular}
+% \caption{Payoff matrix $A$ for Tournament~9
+% (Equation~\eqref{eq:payoff}): the total score the row strategy earns
+% against the column strategy across its dictator and recipient rounds.
+% Only four values occur:
+% mutual \textsc{share} yields $2\ln 31 \approx 6.87$;
+% mutual \textsc{take} yields $\ln 61 \approx 4.11$;
+% an exploiter earns $\ln 61 + \ln 31 \approx 7.55$
+% while the exploited party earns $\ln 31 \approx 3.43$.
+% Row sums give the leaderboard.
+% \textbf{Mirror} beats \textbf{Cooperation coalition} by
+% $0.050 \approx g - 5\delta$: the coalition harvests five subsidizers
+% at $\delta$ each but loses the single share $g$ withheld by
+% \textbf{Chivalry}, the one strategy in the pool that retaliates.}
+% \label{tab:payoff-matrix}
+% \end{table}

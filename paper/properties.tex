@@ -1,0 +1,256 @@
+% ===========================================================================
+\section{Properties of Strategies}
+\label{sec:properties}
+
+The archetypes of Section~\ref{sec:archetypes} differ along a small
+number of recurring dimensions.
+This section makes those dimensions precise.
+Throughout, fix a pool $\mathcal{S}$ of $n$ strategies and write
+$d(s, r) \in \{\textup{\textsc{share}}, \textup{\textsc{take}}\}$ for
+the oracle's decision when $s$ dictates to $r$; the decision profile
+is the restriction of $d$ to $\mathcal{S}^2$.
+Properties defined below are relative to this profile.
+(When the oracle is sampled, $d(s,r)$ may be read as the majority
+decision, or the definitions restated in expectation.)
+
+\subsection{Score decomposition and the exchange rate}
+
+Two constants govern every trade-off in the game:
+the dictator's cost of sharing and the recipient's gain from being
+shared with,
+\begin{equation}
+  \delta = u(E) - u(E/2), \qquad g = u(E/2).
+  \label{eq:delta-g}
+\end{equation}
+Let $k_{\mathrm{give}}(s) = |\{r : d(s,r) = \textup{\textsc{share}}\}|$
+and
+$k_{\mathrm{recv}}(s) = |\{r : d(r,s) = \textup{\textsc{share}}\}|$.
+A strategy's tournament score decomposes as
+\begin{equation}
+  \mathrm{Score}(s)
+  = n\, u(E) \;-\; \delta\, k_{\mathrm{give}}(s)
+  \;+\; g\, k_{\mathrm{recv}}(s),
+  \label{eq:score-decomposition}
+\end{equation}
+so any comparison between strategies reduces to
+$g\,\Delta k_{\mathrm{recv}} \gtrless \delta\,\Delta k_{\mathrm{give}}$.
+The \emph{exchange rate}
+\begin{equation}
+  \rho = \frac{g}{\delta}
+       = \frac{\ln(1 + E/2)}{\ln(1+E) - \ln(1 + E/2)}
+  \label{eq:exchange-rate}
+\end{equation}
+measures how many shares given are offset by one share received;
+for $E = 60$, $\rho \approx 5.07$.
+Conditional cooperation is cheap in this game: a strategy can afford
+to share with up to $\lfloor \rho \rfloor$ opponents for each
+additional dictator it induces to share with it.
+The exchange rate recurs throughout: it sets the altruism threshold
+$\lambda^*= 1/\rho$ of Section~\ref{sec:bayesian}, and the
+break-even point for exploiting unconditional cooperators
+(Equation~\eqref{eq:protection-breakeven} below).
+
+\subsection{First-order properties}
+
+\begin{definition}[Unconditionality]
+Strategy $s$ is \emph{unconditional} if $d(s, r)$ does not depend on
+$r$.  The two constant strategies are the unconditional cooperator
+(\textbf{Generous}) and the unconditional defector (\textbf{Selfish});
+all other strategies are \emph{conditional}.
+\end{definition}
+
+\begin{definition}[Self-cooperation]
+Strategy $s$ is \emph{self-cooperating} if
+$d(s, s) = \textup{\textsc{share}}$.
+\end{definition}
+
+Since the round robin includes self-play, failing self-cooperation
+costs $2u(E/2) - u(E) = g - \delta > 0$ outright.
+Self-play is also the degenerate case of decision-process
+correlation: a strategy's copy decides identically, so
+self-cooperation is the minimal form of the FDT-style reasoning
+discussed in Section~\ref{sec:related}.
+
+\begin{definition}[Reciprocity]
+Strategy $s$ is \emph{reciprocal} if $d(s, r) = d(r, s)$ for all
+$r \in \mathcal{S}$: it treats every opponent exactly as that
+opponent treats it (\textbf{Mirror}).
+\end{definition}
+
+\begin{definition}[Behavioral equivalence and extensionality]
+Strategies $r, r'$ are \emph{behaviorally equivalent} if they have
+identical rows and columns in the decision profile:
+$d(r, x) = d(r', x)$ and $d(x, r) = d(x, r')$ for all $x$.
+Strategy $s$ is \emph{extensional} if $d(s, r) = d(s, r')$ whenever
+$r$ and $r'$ are behaviorally equivalent.
+\end{definition}
+
+An intensional strategy reacts to features of the opponent's artifact
+that have no behavioral consequence --- self-labels, style, or
+keyword handshakes.
+The no-collusion rule of our tournaments is in effect a ban on one
+intensional class (secret handshakes).
+
+\begin{definition}[Exploitability]
+Strategy $s$ is \emph{exploited by} $r$ if
+$d(s, r) = \textup{\textsc{share}}$ and
+$d(r, s) = \textup{\textsc{take}}$: $s$ subsidizes an opponent that
+takes from it.
+Relative to the profile, call $r$ an \emph{exploiter} if it exploits
+some strategy in $\mathcal{S}$, and call a strategy that shares with
+an exploiter a \emph{subsidizer}.
+\end{definition}
+
+\begin{definition}[First-order deterrence]
+Strategy $s$ is a \emph{first-order deterrent} if
+$d(s, r) = \textup{\textsc{take}}$ for every exploiter $r$.
+\end{definition}
+
+Every conditional archetype of Section~\ref{sec:archetypes} is a
+first-order deterrent with respect to the unconditional defector.
+By Equation~\eqref{eq:score-decomposition}, first-order deterrence is
+what makes defection unprofitable: a defector's only revenue beyond
+the baseline $n\,u(E)$ is $g$ per subsidizer, so in a pool of
+first-order deterrents it earns the pool minimum.
+
+\subsection{Second-order norms: deterrence and protection}
+\label{sec:second-order}
+
+First-order deterrence leaves a gap.
+In a pool of conditional cooperators with defectors absent, an
+unconditional cooperator earns exactly what the conditional
+cooperators earn --- every entry of its row and column is
+\textup{\textsc{share}} --- so nothing maintains conditionality, and
+each unconditional cooperator raises the revenue of a would-be
+defector by $g$.
+Two archetypes in our pool respond to this second-order problem, in
+opposite directions.
+
+\begin{definition}[Second-order deterrence]
+Strategy $s$ is a \emph{second-order deterrent} if it is a
+first-order deterrent and additionally
+$d(s, r) = \textup{\textsc{take}}$ for every subsidizer $r$.
+(\textbf{Cooperation coalition}.)
+\end{definition}
+
+\begin{proposition}
+\label{prop:drift}
+Let $\mathcal{S}$ contain a second-order deterrent $s_2$ and a set
+$C$ of mutually sharing conditional cooperators that share with
+$s_2$ and with the unconditional cooperator $\bar{c}$, with $s_2$
+sharing with $C$.
+Then $\bar{c}$ earns strictly less than every member of $C$, by at
+least $g$.
+\end{proposition}
+
+\begin{proof}
+$\bar{c}$ and any $c \in C$ have $k_{\mathrm{give}}$ differing by at
+most the defectors and subsidizers that $\bar{c}$ shares with and $c$
+does not, each such round \emph{raising}
+$\mathrm{Score}(c) - \mathrm{Score}(\bar{c})$ by $\delta$ via
+Equation~\eqref{eq:score-decomposition}.
+On the receiving side, $s_2$ takes from $\bar{c}$ (a subsidizer, as
+$\bar{c}$ shares with every exploiter) and shares with $c$, so
+$k_{\mathrm{recv}}(\bar{c}) \le k_{\mathrm{recv}}(c) - 1$.
+Hence
+$\mathrm{Score}(c) - \mathrm{Score}(\bar{c}) \ge g$.
+\end{proof}
+
+Second-order deterrence thus closes the neutral-drift channel: it
+makes unconditional cooperation strictly suboptimal even when
+defectors are extinct, stabilizing the all-conditional configuration.
+The cost is that the punishment falls on the most cooperative
+strategies in the pool whenever they do appear.
+
+\begin{definition}[Protection]
+Strategy $s$ is \emph{protective} if
+$d(s, r) = d(r, \bar{c})$ for all $r$, where $\bar{c}$ is the
+unconditional cooperator: $s$ treats each opponent as that opponent
+would treat an innocent.
+(\textbf{Chivalry}.)
+\end{definition}
+
+A protective strategy addresses the same second-order problem by
+making the \emph{exploitation} of unconditional cooperators costly
+rather than their existence.
+Exploiting one unconditional cooperator harvests $\delta$; each
+protector responds by withholding its share, costing $g$.
+Harvesting is therefore profitable only if the pool contains enough
+innocents per protector:
+\begin{equation}
+  \#\{\text{unconditional cooperators harvested}\}
+  \;>\; \rho \cdot \#\{\text{protectors}\}.
+  \label{eq:protection-breakeven}
+\end{equation}
+
+The two norms are mutually antagonistic.
+An unconditional cooperator is a subsidizer, so a second-order
+deterrent takes from it; a protector, applying the innocent test to
+the second-order deterrent, finds
+$d(s_2, \bar{c}) = \textup{\textsc{take}}$ and takes from $s_2$ in
+turn.
+Each second-order norm punishes precisely the behavior the other
+mandates toward the unconditionally generous.
+Both stabilize full cooperation among conditional strategies; they
+differ in whether unconditional cooperators end up extinct or
+protected.
+This antagonism is not a curiosity: it generates the two families of
+equilibria --- enforcement and protection --- that appear in the
+Bayesian population analysis of Section~\ref{sec:bayesian}, and
+Equation~\eqref{eq:protection-breakeven} determines which family a
+given pool composition favors.
+
+\subsection{Legibility and well-foundedness:
+open strategies versus open source}
+\label{sec:properties-oracle}
+
+Two further properties matter greatly in practice but are
+deliberately excluded from the list above: they are properties of the
+strategy--oracle pair, not of the decision profile, and they are
+where the LLM-adjudicated tournament differs most from its
+predecessors in which formal programs analyze other programs
+\citep{tennenholtz2004program, ospd2013lesswrong}.
+
+\paragraph{Legibility.}
+By Equation~\eqref{eq:score-decomposition}, a strategy's score
+depends on $k_{\mathrm{recv}}$ --- on how \emph{other} dictators
+classify its artifact --- and the exchange rate makes errors on this
+side roughly $\rho$ times as costly as errors the strategy makes as
+dictator.
+A strategy is \emph{legible} to a class of conditional dictators if
+they classify it as the strategy's behavior warrants.
+In program-equilibrium settings legibility is provability:
+cooperation obtains only when a machine-checkable proof about the
+opponent's source exists, so behaviorally equivalent but
+syntactically distinct programs defeat recognition, and cooperation
+is brittle by construction.
+LLM adjudication replaces proof with judgment: legibility becomes
+graded and robust to paraphrase, at the price of classification
+noise.
+Misreadings replace impossibility results --- an aggressive
+classification rule that would simply fail to find proofs in the
+formal setting instead occasionally misfires against cooperative
+opponents in ours, a failure mode we return to in
+Section~\ref{sec:discussion}.
+
+\paragraph{Well-foundedness.}
+Mutual conditionality is self-referential.
+When two reciprocal strategies meet, ``share iff they would share
+with me'' admits two consistent resolutions --- mutual
+\textup{\textsc{share}} and mutual \textup{\textsc{take}} --- and no
+finite unwinding selects between them.
+A strategy is \emph{well-founded} if its decision against every
+opponent in the pool is determined by a finite regress.
+In the formal-program setting this is the L\"obian obstacle, and
+resolving it requires provability-logic constructions engineered for
+the purpose \citep{barasz2014robust} or simulation with stochastic
+grounding \citep{oesterheld2019robust}.
+In our setting the oracle itself acts as the fixed-point selector,
+and empirically selects the cooperative resolution --- a disposition
+of the arena, not a property of any strategy.
+Strategies can also restore well-foundedness on their own:
+\textbf{Universalizability} grounds the regress at depth one by
+evaluating a population of the opponent's copies, and
+\textbf{Chivalry} grounds it by substituting the unconditional
+cooperator into the recursion, which is what makes the protective
+norm of Section~\ref{sec:second-order} implementable at all.
