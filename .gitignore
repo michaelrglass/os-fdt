@@ -16,3 +16,8 @@ wheels/
 !/docs/resources/
 !/docs/resources/**
 
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
