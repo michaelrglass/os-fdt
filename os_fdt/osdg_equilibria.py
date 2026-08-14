@@ -244,59 +244,41 @@ def _dominance_lp(A: np.ndarray, i: int, strict: bool, tol: float
     n = A.shape[0]
     others = [j for j in range(n) if j != i]
     m = len(others)
+    gap = A[others, :] - A[i, :]  # gap[idx, k] = A[j, k] - A[i, k]
 
-    # Variables: [p_0, ..., p_{m-1}, epsilon]
-    # Maximize epsilon subject to:
-    #   sum_j p_j (A[j,k] - A[i,k]) >= epsilon   for all k
-    #   sum_j p_j = 1,  p_j >= 0,  epsilon >= 0
-    c = np.zeros(m + 1)
-    c[-1] = -1.0  # minimize -epsilon
-
-    A_ub = np.zeros((n, m + 1))
-    b_ub = np.zeros(n)
-    for k in range(n):
-        for idx, j in enumerate(others):
-            A_ub[k, idx] = -(A[j, k] - A[i, k])
-        A_ub[k, -1] = 1.0
-
-    A_eq = np.zeros((1, m + 1))
-    A_eq[0, :m] = 1.0
-    b_eq = np.array([1.0])
-
-    bounds = [(0, None)] * m + [(0, None)]
-
-    res = linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq,
-                  bounds=bounds, method='highs')
-
-    if not res.success:
-        return None
-
-    epsilon = -res.fun
-
-    if strict and epsilon <= tol:
-        return None
-
-    if not strict:
-        # Weak dominance: epsilon >= 0 (never worse) is sufficient,
-        # but we also need at least one column strictly better.
-        if epsilon < -tol:
+    if strict:
+        # Variables: [p_0, ..., p_{m-1}, epsilon].
+        # Maximize epsilon subject to per-column advantage >= epsilon.
+        c = np.zeros(m + 1)
+        c[-1] = -1.0  # minimize -epsilon
+        A_ub = np.hstack([-gap.T, np.ones((n, 1))])
+        b_ub = np.zeros(n)
+        A_eq = np.zeros((1, m + 1))
+        A_eq[0, :m] = 1.0
+        res = linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=[1.0],
+                      bounds=[(0, None)] * (m + 1), method='highs')
+        if not res.success or -res.fun <= tol:
             return None
-        # Verify there's at least one column with strict improvement
         p_vec = res.x[:m]
-        improvement = sum(p_vec[idx] * (A[j, k] - A[i, k])
-                          for k in range(n)
-                          for idx, j in enumerate(others))
-        # Actually, check per-column: max improvement > tol
-        max_gap = max(
-            sum(p_vec[idx] * (A[j, k] - A[i, k]) for idx, j in enumerate(others))
-            for k in range(n)
-        )
-        if max_gap <= tol:
-            return None  # identical payoffs, not dominated
+    else:
+        # Weak dominance has optimum epsilon = 0, where the epsilon-LP can
+        # return a degenerate mixture (e.g. a payoff-equivalent strategy)
+        # with no strict improvement anywhere. Instead maximize the TOTAL
+        # advantage subject to per-column advantage >= 0: the optimum is
+        # positive iff some never-worse mixture is strictly better somewhere.
+        c = -gap.sum(axis=1)  # minimize -(total advantage)
+        A_ub = -gap.T
+        b_ub = np.zeros(n)
+        A_eq = np.ones((1, m))
+        res = linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=[1.0],
+                      bounds=[(0, None)] * m, method='highs')
+        if not res.success or -res.fun <= tol:
+            return None
+        p_vec = res.x
 
     p_full = np.zeros(n)
     for idx, j in enumerate(others):
-        p_full[j] = res.x[idx]
+        p_full[j] = p_vec[idx]
     return p_full
 
 
@@ -373,7 +355,9 @@ def find_equivalent_strategies(A: np.ndarray, tol: float = 1e-9) -> List[List[in
 def softmax_equilibrium(A: np.ndarray, beta: float,
                         f0: Optional[np.ndarray] = None,
                         pinned: Optional[Dict[int, float]] = None,
-                        max_iter: int = 10000, tol: float = 1e-12) -> np.ndarray:
+                        max_iter: int = 10000, tol: float = 1e-12,
+                        history: Optional[List[np.ndarray]] = None,
+                        damping: float = 1.0) -> np.ndarray:
     """
     Find f* = softmax(beta * A @ f*) by fixed-point iteration.
 
@@ -387,6 +371,12 @@ def softmax_equilibrium(A: np.ndarray, beta: float,
         pinned: dict mapping strategy index -> fixed frequency value
         max_iter: maximum iterations
         tol: convergence tolerance (L-inf norm of change in f)
+        history: optional list that collects every iterate (initial vector
+            first, fixed point last) for trajectory plots
+        damping: step size in (0, 1]; 1.0 is plain fixed-point iteration,
+            smaller values blend f <- (1-damping)*f + damping*T(f) and
+            converge where plain iteration cycles.  Fixed points are
+            unaffected.
 
     Returns:
         Equilibrium frequency vector f* on the simplex.
@@ -415,6 +405,9 @@ def softmax_equilibrium(A: np.ndarray, beta: float,
             for i in free:
                 f[i] = free_mass / len(free)
 
+    if history is not None:
+        history.append(f.copy())
+
     for _ in range(max_iter):
         rewards = A @ f                     # R_i(f)
 
@@ -429,8 +422,10 @@ def softmax_equilibrium(A: np.ndarray, beta: float,
 
         f_new = f.copy()
         for idx, i in enumerate(free):
-            f_new[i] = f_free[idx]
+            f_new[i] = (1.0 - damping) * f[i] + damping * f_free[idx]
 
+        if history is not None:
+            history.append(f_new.copy())
         if np.max(np.abs(f_new - f)) < tol:
             return f_new
         f = f_new
@@ -441,7 +436,10 @@ def softmax_equilibrium(A: np.ndarray, beta: float,
 def softmax_equilibria_sample(A: np.ndarray, beta: float,
                               num_samples: int = 1000,
                               pinned: Optional[Dict[int, float]] = None,
-                              cluster_tol: float = 1e-4
+                              cluster_tol: float = 1e-4,
+                              damping: float = 1.0,
+                              rng: Optional[np.random.Generator] = None,
+                              max_iter: int = 10000
                               ) -> List[Tuple[np.ndarray, int]]:
     """
     Sample random initial frequency vectors and find softmax fixed points.
@@ -453,12 +451,15 @@ def softmax_equilibria_sample(A: np.ndarray, beta: float,
         num_samples: number of random starting points
         pinned: dict mapping strategy index -> fixed frequency value
         cluster_tol: L-inf distance to consider two fixed points identical
+        damping: step size in (0, 1] passed to softmax_equilibrium
+        rng: optional seeded generator for reproducible sampling
 
     Returns:
         List of (equilibrium_vector, count) sorted by count descending.
     """
     n = A.shape[0]
-    rng = np.random.default_rng()
+    if rng is None:
+        rng = np.random.default_rng()
 
     if pinned is None:
         pinned = {}
@@ -480,7 +481,8 @@ def softmax_equilibria_sample(A: np.ndarray, beta: float,
             for idx, i in enumerate(free):
                 f0[i] = f0_free[idx]
 
-        f_star = softmax_equilibrium(A, beta, f0=f0, pinned=pinned)
+        f_star = softmax_equilibrium(A, beta, f0=f0, pinned=pinned,
+                                     damping=damping, max_iter=max_iter)
 
         # Assign to existing cluster or create new one
         matched = False

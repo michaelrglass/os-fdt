@@ -10,7 +10,11 @@ wheels/
 .venv
 
 # Generated files
-/runs/
+/runs/*
+# ...but release the tournament data the paper reports on
+!/runs/tournament_9/
+!/runs/tournament_9_sol/
+!/runs/tournament_9_fable/
 # Ignore most docs content but keep resources
 # /docs/*
 !/docs/resources/
@@ -21,3 +25,5 @@ wheels/
 *.blg
 *.log
 *.out
+
+Fable*.md

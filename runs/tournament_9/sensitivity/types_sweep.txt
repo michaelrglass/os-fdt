@@ -1,0 +1,70 @@
+
+Sensitivity: author-type masses (own, mixed(lambda=0.5), altruist) on a step-0.1 grid, beta=20, 60 starts per point
+
+  own  mixed  altr  #eq   basin        V  dominant equilibrium
+ 0.00   0.00  1.00    2   39/60   6.8680  mirror:0.200, anti-exploiter:0.200, universalizability:0.200, generous:0.200, chivalry:0.200   [eq2: 21/60 V=6.8680 mirror:0.200, anti-exploiter:0.200, universalizability:0.200, conditional-cooperator:0.200, intelligence:0.200]
+ 0.00   0.10  0.90    2   32/60   6.8680  mirror:0.200, universalizability:0.200, anti-exploiter:0.200, chivalry:0.200, generous:0.200   [eq2: 28/60 V=6.8680 mirror:0.200, universalizability:0.200, anti-exploiter:0.200, conditional-cooperator:0.200, intelligence:0.200]
+ 0.00   0.20  0.80    2   33/60   6.8680  mirror:0.200, anti-exploiter:0.200, universalizability:0.200, chivalry:0.200, generous:0.200   [eq2: 27/60 V=6.8680 mirror:0.200, universalizability:0.200, anti-exploiter:0.200, conditional-cooperator:0.200, intelligence:0.200]
+ 0.00   0.30  0.70    3   35/60   6.8680  mirror:0.200, anti-exploiter:0.200, universalizability:0.200, chivalry:0.200, generous:0.200   [eq2: 23/60 V=6.8680 mirror:0.200, universalizability:0.200, anti-exploiter:0.200, conditional-cooperator:0.200, intelligence:0.200]
+ 0.00   0.40  0.60    3   31/60   6.8680  mirror:0.200, anti-exploiter:0.200, universalizability:0.200, conditional-cooperator:0.200, intelligence:0.200   [eq2: 24/60 V=6.8680 mirror:0.200, universalizability:0.200, anti-exploiter:0.200, chivalry:0.200, generous:0.200]
+ 0.00   0.50  0.50    3   30/60   6.8679  mirror:0.200, anti-exploiter:0.200, universalizability:0.200, conditional-cooperator:0.200, intelligence:0.200   [eq2: 28/60 V=6.8680 mirror:0.200, anti-exploiter:0.200, universalizability:0.200, chivalry:0.200, generous:0.200]
+ 0.00   0.60  0.40    3   30/60   6.8680  mirror:0.200, universalizability:0.200, anti-exploiter:0.200, chivalry:0.200, generous:0.200   [eq2: 27/60 V=6.8679 mirror:0.200, universalizability:0.200, anti-exploiter:0.200, conditional-cooperator:0.200, intelligence:0.200]
+ 0.00   0.70  0.30    3   27/60   6.8679  mirror:0.200, universalizability:0.200, anti-exploiter:0.200, conditional-cooperator:0.200, intelligence:0.200   [eq2: 23/60 V=6.8680 mirror:0.200, anti-exploiter:0.200, universalizability:0.200, chivalry:0.200, generous:0.200]
+ 0.00   0.80  0.20    3   34/60   6.8680  mirror:0.200, anti-exploiter:0.200, universalizability:0.200, chivalry:0.200, generous:0.200   [eq2: 21/60 V=6.8679 mirror:0.200, anti-exploiter:0.200, universalizability:0.200, conditional-cooperator:0.200, intelligence:0.200]
+ 0.00   0.90  0.10    3   29/60   6.8680  mirror:0.200, anti-exploiter:0.200, universalizability:0.200, chivalry:0.200, generous:0.200   [eq2: 23/60 V=6.8679 mirror:0.200, anti-exploiter:0.200, universalizability:0.200, conditional-cooperator:0.200, intelligence:0.200]
+ 0.00   1.00  0.00    3   29/60   6.8680  mirror:0.200, anti-exploiter:0.200, universalizability:0.200, chivalry:0.200, generous:0.200   [eq2: 22/60 V=6.8679 mirror:0.200, universalizability:0.200, anti-exploiter:0.200, conditional-cooperator:0.200, intelligence:0.200]
+ 0.10   0.00  0.90    2   54/60   6.8340  mirror:0.637, conditional-cooperator:0.155, anti-exploiter:0.063, universalizability:0.063, cooperation-coalition:0.042, chivalry:0.025   [eq2: 6/60 V=6.8680 mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333]
+ 0.10   0.10  0.80    2   50/60   6.8345  mirror:0.642, conditional-cooperator:0.154, anti-exploiter:0.062, universalizability:0.062, cooperation-coalition:0.042, chivalry:0.025   [eq2: 10/60 V=6.8680 mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333]
+ 0.10   0.20  0.70    2   45/60   6.8350  mirror:0.646, conditional-cooperator:0.152, anti-exploiter:0.060, universalizability:0.060, cooperation-coalition:0.042, chivalry:0.025   [eq2: 15/60 V=6.8680 mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333]
+ 0.10   0.30  0.60    2   34/60   6.8355  mirror:0.651, conditional-cooperator:0.150, anti-exploiter:0.059, universalizability:0.059, cooperation-coalition:0.042, chivalry:0.025   [eq2: 26/60 V=6.8680 mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333]
+ 0.10   0.40  0.50    2   35/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333   [eq2: 25/60 V=6.8360 mirror:0.655, conditional-cooperator:0.149, universalizability:0.058, anti-exploiter:0.058]
+ 0.10   0.50  0.40    2   43/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333   [eq2: 17/60 V=6.8366 mirror:0.660, conditional-cooperator:0.147, anti-exploiter:0.056, universalizability:0.056]
+ 0.10   0.60  0.30    2   53/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333   [eq2: 7/60 V=6.8371 mirror:0.665, conditional-cooperator:0.146, anti-exploiter:0.055, universalizability:0.055]
+ 0.10   0.70  0.20    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.10   0.80  0.10    2   59/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333   [eq2: 1/60 V=6.8629 mirror:0.221, universalizability:0.196, anti-exploiter:0.196, generous:0.196, chivalry:0.189]
+ 0.10   0.90  0.00    2   59/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333   [eq2: 1/60 V=6.8634 mirror:0.218, anti-exploiter:0.196, universalizability:0.196, generous:0.196, chivalry:0.191]
+ 0.20   0.00  0.80    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.20   0.10  0.70    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.20   0.20  0.60    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.20   0.30  0.50    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.20   0.40  0.40    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.20   0.50  0.30    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.20   0.60  0.20    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.20   0.70  0.10    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.20   0.80  0.00    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.30   0.00  0.70    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.30   0.10  0.60    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.30   0.20  0.50    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.30   0.30  0.40    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.30   0.40  0.30    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.30   0.50  0.20    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.30   0.60  0.10    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.30   0.70  0.00    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.40   0.00  0.60    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.40   0.10  0.50    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.40   0.20  0.40    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.40   0.30  0.30    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.40   0.40  0.20    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.40   0.50  0.10    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.40   0.60  0.00    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.50   0.00  0.50    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.50   0.10  0.40    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.50   0.20  0.30    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.50   0.30  0.20    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.50   0.40  0.10    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.50   0.50  0.00    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.60   0.00  0.40    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.60   0.10  0.30    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.60   0.20  0.20    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.60   0.30  0.10    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.60   0.40  0.00    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.70   0.00  0.30    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.70   0.10  0.20    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.70   0.20  0.10    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.70   0.30  0.00    1   60/60   6.8680  mirror:0.333, cooperation-coalition:0.333, conditional-cooperator:0.333
+ 0.80   0.00  0.20    1   60/60   6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+ 0.80   0.10  0.10    1   60/60   6.8680  mirror:0.333, cooperation-coalition:0.333, conditional-cooperator:0.333
+ 0.80   0.20  0.00    1   60/60   6.8680  mirror:0.333, cooperation-coalition:0.333, conditional-cooperator:0.333
+ 0.90   0.00  0.10    2   41/60   6.8680  mirror:0.333, cooperation-coalition:0.333, conditional-cooperator:0.333   [eq2: 19/60 V=6.8334 mirror:0.437, chivalry:0.152, anti-exploiter:0.131, universalizability:0.131, generous:0.130]
+ 0.90   0.10  0.00    2   41/60   6.8680  mirror:0.333, cooperation-coalition:0.333, conditional-cooperator:0.333   [eq2: 19/60 V=6.8442 mirror:0.324, chivalry:0.180, anti-exploiter:0.162, universalizability:0.162, generous:0.162]
+ 1.00   0.00  0.00    2   42/60   6.8680  mirror:0.333, cooperation-coalition:0.333, conditional-cooperator:0.333   [eq2: 18/60 V=6.8474 mirror:0.300, chivalry:0.188, anti-exploiter:0.168, universalizability:0.168, generous:0.168]

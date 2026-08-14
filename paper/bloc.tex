@@ -1,0 +1,90 @@
+% ===========================================================================
+\section{The Correlated Altruist Bloc}
+\label{sec:bayesian-bloc}
+
+The fixed-point analyses of Sections~\ref{sec:equilibria}
+and~\ref{sec:bayesian} model every author the same way: as an
+individual best-responder, choosing one submission against a given
+belief $\mathbf{f}$.
+For own-payoff authors this is the whole story.
+For total-welfare authors it undersells the objective: total welfare
+is a property of the field, identical for every strategy in a given
+tournament, so for an author choosing in isolation the rounds among
+\emph{other} strategies are an additive constant --- which is why
+they cancel in Equation~\eqref{eq:type-utility}, leaving even the
+$\lambda = 1$ type optimizing only the rounds its own submission
+plays.
+
+Functional decision theory suggests a different accounting
+\citep{yudkowsky2017functional}.
+Total-welfare authors face the same decision problem with the same
+evidence --- the same pool, the same matrices, the same objective ---
+so their conclusions are logically correlated: whatever reasoning
+carries one such author to a submission carries the others to it as
+well.
+An FDT author therefore does not ask ``what should I submit, taking
+the other altruists' choices as given?''\ but ``what should authors
+like me submit?'', treating the type's entire component of
+$\mathbf{f}$ as a single decision variable.
+This is the same correlation that strategies exploit \emph{inside}
+the game --- a copy of my decision procedure decides as I do
+(Sections~\ref{sec:properties} and~\ref{sec:related}) --- applied
+one level up, to the choice of strategy itself.
+
+A bloc of mass $m$ choosing jointly internalizes its influence on
+the whole field, including the equilibrium responses of the other
+types, and its objective is the field welfare
+\begin{equation}
+  V(\mathbf{f}) = \tfrac{1}{2}\, \mathbf{f}^\top W \mathbf{f},
+  \label{eq:field-welfare}
+\end{equation}
+maximized over the bloc's component subject to
+Equation~\eqref{eq:mixture-fixed-point} holding for the remaining
+types.
+Operationally: pin the bloc's mass on a candidate strategy, let the
+other types re-equilibrate, and rank candidates by the resulting
+$V(\mathbf{f}^*)$.
+
+This is where the total-welfare objective departs from the
+rounds-involving-me objective: the bloc's choice affects rounds it
+never plays, through the equilibrium composition of the rest of the
+field.
+In particular, a bloc pinned on a strategy that punishes defection
+suppresses the equilibrium mass that own-payoff types place on
+defecting strategies, raising welfare in rounds among those types ---
+a deterrence effect that is invisible to any per-strategy score.
+
+\paragraph{The bloc avoids unconditional generosity.}
+The bloc scan answers the question posed in
+Section~\ref{sec:author-types}: candidate (a) loses to all three
+conditional candidates.
+Pinning the total-welfare bloc on \textbf{Generous} ranks near the
+bottom of the pool: the own-payoff types' equilibrium response
+includes strategies that exploit it, destroying welfare, while the
+pin exerts no deterrent pressure.
+The bloc's best choices are the conditional strategies; at large
+$\beta$, \textbf{Cooperation coalition}, \textbf{Chivalry}, and
+\textbf{Mirror} all attain the first-best $V = 2\ln(1 + E/2)$, and at
+moderate $\beta$ the enforcing strategies win by exactly the
+deterrence channel just described --- among the intuitive cases for
+altruism, it is the \emph{enforcers'} that survives equilibrium
+scrutiny.
+The ranking is robust to the bloc's size
+(Section~\ref{sec:sensitivity-types}).
+
+\paragraph{Two decision theories, one conclusion.}
+The bloc analysis is not a refinement of the fixed-point analysis
+but an alternative to it.
+The two rest on different decision theories at the author level ---
+individual best response against a field taken as given, versus
+correlated choice of an entire type --- and use different machinery
+--- fixed-point iteration versus constrained optimization.
+They nonetheless agree.
+In the mixture fixed point, the total-welfare type's mass settles on
+the conditionally cooperative core alongside the other types
+(Section~\ref{sec:bayesian-illustration}); in the bloc scan, the
+same conditional strategies top the ranking and unconditional
+generosity finishes near the bottom.
+The agreement is itself a finding: the conclusion that altruism is
+best implemented conditionally does not depend on which decision
+theory the authors use.

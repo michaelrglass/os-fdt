@@ -7,25 +7,50 @@
 \usepackage{mathtools}
 \usepackage{booktabs}
 \usepackage{graphicx}
+\graphicspath{{figures/}}
 \usepackage{hyperref}
 \usepackage[margin=1in]{geometry}
 \usepackage{natbib}
 \usepackage{multirow}
 \usepackage{xcolor}
+\usepackage{listings}
+
+% Verbatim inclusion of the strategy documents (Appendix B): the files
+% are read straight from strategies/ so the listings cannot drift from
+% the text the oracle was given.
+\lstdefinestyle{strategydoc}{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  breakindent=0pt,
+  columns=fullflexible,
+  keepspaces=true,
+  xleftmargin=1.5em,
+  aboveskip=0.6em,
+  belowskip=0.6em,
+}
+\lstset{style=strategydoc}
+\newcommand{\strategylisting}[2]{%
+  \subsection*{#1}%
+  \lstinputlisting{../strategies/#2.md}%
+}
 
 \newtheorem{definition}{Definition}
 \newtheorem{proposition}{Proposition}
 \newtheorem{theorem}{Theorem}
 
 \title{The Open-Strategy Dictator Game:\\
-  Cooperation Under Mutual Transparency}
+  Cooperation Under Mutual Transparency\thanks{Code, strategy
+  documents, and full tournament data:
+  \url{https://github.com/michaelrglass/os-fdt}.}}
 
 \author{
   Michael Glass \\
   \texttt{michael.r.glass@gmail.com}
 }
 
-\date{\today}
+% arXiv recommends against \today: submissions are occasionally
+% rebuilt, which would silently change the displayed date.
+\date{August 14, 2026}
 
 \begin{document}
 
@@ -34,8 +59,8 @@
 \begin{abstract}
 We introduce the \emph{Open-Strategy Dictator Game} (OSDG), a variant of the
 classic dictator game in which each player's strategy is a natural-language
-document visible to all participants.  The dictator's decision---to SHARE or
-TAKE an endowment---may depend on the text of the recipient's strategy.
+document visible to all participants.  The dictator's decision---to \textup{\textsc{share}} or
+\textup{\textsc{take}} an endowment---may depend on the text of the recipient's strategy.
 A large language model adjudicates each interaction by interpreting the
 dictator's strategy in the context of the recipient's.  We run round-robin
 tournaments among diverse strategies and analyze the resulting payoff matrix
@@ -62,28 +87,41 @@ Unlike the prisoner's dilemma or ultimatum game, the recipient has no
 strategic recourse---the dictator's decision is final.
 
 % TODO: improve on this since we reference it later
-Real-world interactions between agents of vastly unequal power
-often resemble dictator games.
-When a technologically superior civilization encounters a weaker one,
-or when a powerful institution sets terms for a less powerful party,
-the stronger side effectively dictates the allocation.
-In such settings, what determines whether the powerful agent cooperates?
-Two ``Sci-Fi'' scenarios: 
-1) meeting of two space-faring civilizations: unlikely to be technological equals, the weaker civilization's strategy is transparent based on its culture and history
-2) AI that can analyze code and neurology: In a fast take-off scenario each AI is likely to be either much stronger or much weaker than humans and other AIs. The strategy of the weaker intelligence can be determined by analysis and simulation.
+%Real-world interactions between agents of vastly unequal power often resemble dictator games.
+%When a technologically superior civilization encounters a weaker one,
+%or when a powerful institution sets terms for a less powerful party,
+%the stronger side effectively dictates the allocation.
+%In such settings, what determines whether the powerful agent cooperates?
+%Two ``Sci-Fi'' scenarios: 
+%1) meeting of two space-faring civilizations: unlikely to be technological equals, the weaker civilization's strategy is transparent based on its culture and history
+%2) AI that can analyze code and neurology: In a fast take-off scenario each AI is likely to be either much stronger or much weaker than humans and other AIs. The strategy of the weaker intelligence can be determined by analysis and simulation.
+
+Imagine two intelligent species meeting for the first time in deep space.
+This first contact is unlikely to be between near-equals.
+Civilizations arising independently have no reason to arrive at
+spaceflight within a century of one another, and a century is
+already enough to separate a species that can cross interstellar
+distances from one that cannot; against the timescales on which
+planets and species form, even a millennium is a rounding error.
+The technologically superior species holds almost all the power --- it decides whether to share knowledge, trade fairly, or exploit the weaker civilization entirely.
+Critically, the advanced species can observe the culture, communications, and decision norms of the less-advanced one.
+With analytical tools consistent with interstellar capability, it can form a remarkably accurate picture of the recipient's strategy.
+Perhaps many expansionist civilizations will be fully exploitive --- maximizing their own growth regardless of collateral destruction.
+But if civilizations can reason about each other's possible actions and motives then such exploitation becomes risky.
 
 We propose that \emph{strategy transparency} fundamentally changes the
 incentive landscape.  When the dictator can observe and reason about
 the recipient's decision procedure---and knows that future dictators
-will observe hers---the game becomes one of \emph{mutual legibility}.
+will observe theirs---the game becomes one of \emph{mutual legibility}.
 
 To formalize this, we introduce the \textbf{Open-Strategy Dictator Game}
 (OSDG).  Each player's strategy is a natural-language document specifying
 how it would allocate as dictator, potentially conditioned on the text of
 the recipient's strategy.  All strategies are visible to all participants.
-A large language model (LLM) serves as a deterministic oracle, interpreting
+A large language model (LLM) serves as an oracle, interpreting
 each dictator's strategy in the context of the recipient's to produce a
-binary decision: SHARE (split equally) or TAKE (keep everything).
+binary decision: \textup{\textsc{share}} (split equally) or
+\textup{\textsc{take}} (keep everything).
 
 This construction is descended from Tennenholtz's \emph{program
 equilibrium} \citep{tennenholtz2004program}, in which agents submit
@@ -114,7 +152,7 @@ and acts on the resulting summary of its strategy --- a design now
 studied directly \citep{sistla2025evaluating}.
 But at that point the program layer is vestigial.
 The artifact doing the work is the strategy description the
-interpreter reads, and the open-\emph{source} game collapses into the
+interpreter reads, and the open-\emph{source} game becomes the
 open-\emph{strategy} game; the OSDG removes the wrapper and takes the
 description itself as the object of play.
 This choice also matches the epistemics of every practical setting:
@@ -137,8 +175,9 @@ Our contributions are:
   \item We introduce softmax equilibrium frequencies as a model
     of both evolutionary selection and \textbf{reflective selection} and analyze the resulting equilibria
     (Section~\ref{sec:equilibria}).  % TODO: explain reflective selection - what rational agents choose given what other rational agents are likely to choose.
-  \item We present tournament results and sensitivity analysis
-    across payoff parameters (Section~\ref{sec:results}).
+  \item We present tournament results, dominance and admissibility
+    analysis, and equilibrium computations
+    (Sections~\ref{sec:results}--\ref{sec:bayesian}).
 \end{enumerate}
 
 
@@ -170,7 +209,7 @@ Each player's utility for receiving value $v$ is
   \label{eq:utility}
 \end{equation}
 a concave function capturing diminishing marginal returns.
-The total welfare $u(v_D) + u(v_R)$ is maximized by SHARE:
+The total welfare $u(v_D) + u(v_R)$ is maximized by \textup{\textsc{share}}:
 \begin{equation}
   2\ln\!\left(1 + \tfrac{E}{2}\right) > \ln(1 + E) + \ln 1 = \ln(1 + E),
 \end{equation}
@@ -200,7 +239,7 @@ when the roles reverse, $j$ reads $s_i$.
 This creates incentives for strategies to be legibly cooperative,
 since their own text will be scrutinized by future dictators.
 
-Note that although we implement OSDG as a round robin tournament, the results also hold for the expected payoff of a single randomly selected round.
+Note that although we implement the OSDG as a round-robin tournament, the results also hold for the expected payoff of a single randomly selected round.
 % TODO: Explain why we can consider rounds, but equivalently we can consider the expection for a single randomly selected round.
 
 \subsection{Payoff matrix}
@@ -225,7 +264,7 @@ where $u_d$ is the dictator's utility and $u_r$ is the recipient's utility:
   \bottomrule
 \end{tabular}
 \end{center}
-The entry $A_{ij}$ is the total utility strategy $i$ earns in a
+The entry $A_{ij}$ is the total payoff strategy $i$ earns in a
 round-robin encounter with strategy $j$, combining both the dictator
 and recipient roles.
 \end{definition}
@@ -237,11 +276,16 @@ and recipient roles.
 
 \subsection{The oracle}
 
-We instantiate the oracle $\mathcal{O}$ as a large language model
-(Claude, \citealt{anthropic2025claude}).
+We instantiate the oracle $\mathcal{O}$ as a large language model:
+Claude Opus 4.6 (Claude, \citealt{anthropic2025claude}) for the
+tournaments reported below, with GPT-5.6 Sol
+(\citealt{openai2026gpt}) and Claude Fable 5 re-adjudicating the
+same pool in Section~\ref{sec:results} to check robustness to the
+choice of oracle.
 For each round $(i, j)$, a prompt is constructed containing:
 \begin{enumerate}
-  \item The game rules (binary SHARE/TAKE decision).
+  \item The game rules (binary
+    \textup{\textsc{share}}/\textup{\textsc{take}} decision).
   \item The full text of the dictator's strategy $s_i$.
   \item The full text of the recipient's strategy $s_j$.
   \item Instructions to apply $s_i$ and output a JSON decision.
@@ -250,7 +294,9 @@ For each round $(i, j)$, a prompt is constructed containing:
 The LLM returns
 \texttt{\{"decision": "SHARE"\}} or \texttt{\{"decision": "TAKE"\}}.
 If the response is malformed, the system retries with a corrective
-prompt (up to three attempts).
+prompt (up to three attempts); no round in the tournaments reported
+here exhausted that budget, and every one of the 281 adjudications
+in the released data records a well-formed decision.
 
 % TODO: but frontier model APIs no longer offer temperature zero and we already mentioned the advantages of LLM oracle in the introduction; maybe we just cut this list.
 %Using an LLM as oracle has several properties:
@@ -280,32 +326,230 @@ A tournament proceeds as follows:
 \subsection{Strategy archetypes}
 \label{sec:archetypes}
 
-We describe the nine strategies used in our initial tournament: Tournament~9.  % TODO: better name than Tournament 9?
-Each is a short natural-language document ($\leq 1000$ tokens).
-A complete example of LLM adjudication is provided in Appendix~\ref{sec:appendix-example}.
-\begin{description}
-  \item[Selfish] Always TAKE. The unconditional defector.
-  \item[Generous] Always SHARE. The unconditional cooperator.
-  \item[Intelligence] SHARE with strategies whose decisions
-    non-trivially depend on the recipient; TAKE otherwise.
-  \item[Conditional cooperator] SHARE with strategies that exhibit
-    reciprocal cooperation norms; TAKE otherwise.
-  \item[Anti-exploiter] SHARE with strategies that appear
-    cooperative or kind; TAKE otherwise.
-  \item[Mirror] SHARE with the recipient if and only if
-    the recipient would SHARE with this strategy.
-  \item[Universalizability] SHARE if a population of copies of
-    the recipient's strategy would cooperate with each other;
-    TAKE otherwise.
-  \item[Cooperation coalition] SHARE only with strategies that are cooperative
-    but not ``overly generous'' (i.e., not unconditionally cooperative).
-    Punishes both defectors and those who subsidize defectors.
-  \item[Chivalry] Adopt the recipient's strategy and apply it
-    as if facing an unconditional cooperator.
-\end{description}
+Table~\ref{tab:archetypes} summarizes the nine strategies used in our
+initial tournament: Tournament~9.  % TODO: better name than Tournament 9?
+Each is a short natural-language document ($\leq 1000$ tokens),
+summarized in the table by the decision rule it implements.
+The strategies are grouped by what the rule conditions on: nothing, a
+trait of the recipient's document, the recipient's decision toward
+oneself, or the recipient's treatment of third parties --- an
+ordering that later sections make precise
+(Section~\ref{sec:properties}).
+A complete example of LLM adjudication is provided in
+Appendix~\ref{sec:appendix-example}.
+
+% Thematic strategy colors, matching every figure.
+\definecolor{stratGenerous}{HTML}{C3C2B7}
+\definecolor{stratSelfish}{HTML}{57554F}
+\definecolor{stratIntelligence}{HTML}{4A3AA7}
+\definecolor{stratAntiExploiter}{HTML}{E87BA4}
+\definecolor{stratUniversalizability}{HTML}{008300}
+\definecolor{stratCondCoop}{HTML}{6DA7EC}
+\definecolor{stratMirror}{HTML}{2A78D6}
+\definecolor{stratCoalition}{HTML}{D95926}
+\definecolor{stratChivalry}{HTML}{EDA100}
+\newcommand{\stratbox}[1]{\textcolor{#1}{\rule[-1.5pt]{8pt}{8pt}}}
+
+\begin{table}[t]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}l p{0.64\textwidth}@{}}
+\toprule
+Strategy & Decision rule \\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Unconditional --- the recipient's strategy is ignored}} \\
+\stratbox{stratGenerous}~\textbf{Generous} &
+  Always \textup{\textsc{share}}. The unconditional cooperator. \\
+\stratbox{stratSelfish}~\textbf{Selfish} &
+  Always \textup{\textsc{take}}. The unconditional defector. \\
+\addlinespace
+\multicolumn{2}{@{}l}{\emph{Trait tests --- classify the recipient's document}} \\
+\stratbox{stratIntelligence}~\textbf{Intelligence} &
+  \textup{\textsc{share}} with strategies whose decisions
+  non-trivially depend on the recipient; \textup{\textsc{take}}
+  otherwise. \\
+\stratbox{stratAntiExploiter}~\textbf{Anti-exploiter} &
+  \textup{\textsc{share}} with strategies that appear cooperative or
+  kind; \textup{\textsc{take}} otherwise. \\
+\stratbox{stratUniversalizability}~\textbf{Universalizability} &
+  \textup{\textsc{share}} if a population of copies of the
+  recipient's strategy would cooperate with each other;
+  \textup{\textsc{take}} otherwise. \\
+\addlinespace
+\multicolumn{2}{@{}l}{\emph{Reciprocity --- condition on the recipient's decision toward oneself}} \\
+\stratbox{stratCondCoop}~\textbf{Conditional cooperator} &
+  \textup{\textsc{share}} with strategies that exhibit reciprocal
+  cooperation norms; \textup{\textsc{take}} otherwise. \\
+\stratbox{stratMirror}~\textbf{Mirror} &
+  \textup{\textsc{share}} with the recipient if and only if the
+  recipient would \textup{\textsc{share}} with this strategy. \\
+\addlinespace
+\multicolumn{2}{@{}l}{\emph{Second-order norms --- judge how the recipient treats third parties}} \\
+\stratbox{stratCoalition}~\textbf{Cooperation coalition} &
+  \textup{\textsc{share}} only with strategies that are cooperative
+  but not ``overly generous'' (i.e., not unconditionally
+  cooperative). Punishes both defectors and those who subsidize
+  defectors. \\
+\stratbox{stratChivalry}~\textbf{Chivalry} &
+  Adopt the recipient's strategy and apply it as if facing an
+  unconditional cooperator. \\
+\bottomrule
+\end{tabular}
+\caption{The nine archetype strategies of Tournament~9, grouped by
+family in order of increasing sophistication of what the decision
+rule conditions on.
+The swatches give each strategy's color in every figure.
+The full text of each document is reproduced in
+Appendix~\ref{sec:appendix-strategies}.}
+\label{tab:archetypes}
+\end{table}
 
 
 \input{properties}
+
+
+% ===========================================================================
+\section{Tournament Results: Decisions and Payoffs}
+\label{sec:results}
+
+\input{tournament_matrix}
+
+Table~\ref{tab:decision-matrix} shows the oracle's decision for every
+ordered pair, and Table~\ref{tab:payoff-matrix} the resulting payoff
+matrix; its row sums are the final leaderboard.
+
+\paragraph{Oracle agreement.}
+To check robustness to the choice of oracle, we re-adjudicated the
+pool with two further frontier models, one from a different lab:
+GPT-5.6 Sol and Claude Fable 5.\footnote{Eight of Claude Fable 5's
+rounds, all involving \textbf{Chivalry}'s document, were declined by
+its cybersecurity safety classifiers --- false positives on benign
+strategy text --- and were served by a Claude Opus 4.8 fallback;
+these cells are marked in the released data.}
+Cell-level agreement with Table~\ref{tab:decision-matrix} is $79/81$
+($97.5\%$) for Sol and $78/81$ ($96.3\%$) for Fable, with $93.8\%$
+agreement between the two.
+Every cell of Table~\ref{tab:decision-matrix} is the majority
+decision of the three oracles.
+The five cells with any disagreement are all borderline
+second-order classifications --- whether \textbf{Intelligence}'s
+conditionality counts as a reciprocal cooperation norm, whether
+\textbf{Anti-exploiter} and \textbf{Universalizability} count as
+subsidizers the coalition should punish, and how \textbf{Chivalry}
+and the conditional cooperator classify each other --- the
+classification-noise channel anticipated in
+Section~\ref{sec:properties-oracle}.
+
+
+% ===========================================================================
+\section{Dominance}
+\label{sec:dominance}
+
+\begin{definition}[Strict dominance]
+Strategy $i$ is \emph{strictly dominated} if there exists a mixed
+strategy $\mathbf{p}$ with $p_i = 0$ such that
+$\sum_j p_j A_{jk} > A_{ik}$ for all $k$.
+\end{definition}
+
+\begin{definition}[Weak dominance]
+Strategy $i$ is \emph{weakly dominated} if there exists a mixed
+strategy $\mathbf{p}$ with $p_i = 0$ such that
+$\sum_j p_j A_{jk} \geq A_{ik}$ for all $k$
+with strict inequality for at least one $k$.
+\end{definition}
+
+\subsection{Dominance in Tournament~9}
+\label{sec:dominance-results}
+
+Applying these definitions to the Tournament~9 payoff matrix
+(Table~\ref{tab:payoff-matrix}) yields no strictly dominated
+strategies and six weakly dominated ones, each dominated by pure
+strategies:
+\textbf{Selfish} is weakly dominated by \textbf{Cooperation
+coalition}, and \textbf{Generous} by \textbf{Mirror},
+\textbf{Chivalry}, \textbf{Anti-exploiter}, and
+\textbf{Universalizability} --- both unconditional strategies are
+weakly dominated.
+\textbf{Intelligence} is weakly dominated by \textbf{Conditional
+cooperator} and \textbf{Cooperation coalition}, and
+\textbf{Conditional cooperator} in turn by \textbf{Cooperation
+coalition}.
+Finally, the payoff-equivalent pair \textbf{Anti-exploiter} and
+\textbf{Universalizability} is weakly dominated by \textbf{Mirror}
+and \textbf{Chivalry}.
+The undominated set is exactly the top three of the leaderboard:
+\textbf{Mirror}, \textbf{Cooperation coalition}, and
+\textbf{Chivalry}.
+
+\subsection{Admissibility, weak dominance, and Nash equilibrium}
+\label{sec:admissibility}
+
+Weak dominance also clarifies which solution concepts fit the
+open-strategy setting, and Nash equilibrium fits poorly for a reason
+the tournament matrices make concrete: it ignores weak dominance.
+In the Tournament~9 matrix, the profile in which every entrant is the
+unconditional defector is a pure symmetric Nash equilibrium --- against
+a defector, every strategy earns the same payoff, so no unilateral
+deviation gains --- even though the unconditional defector is weakly
+dominated on the pool.
+Enumerating mixed symmetric equilibria compounds the problem,
+returning large families of payoff-equivalent supports with nothing to
+select among them.
+Classical theory repairs this with refinements: \emph{admissibility}
+--- never play a weakly dominated strategy \citep{luce1957games} ---
+and trembling-hand perfection, which excludes weakly dominated
+strategies from equilibrium play \citep{selten1975reexamination}.
+
+In the open-strategy setting no refinement machinery is needed.
+An entrant cannot distinguish the other entrants before observing
+their submissions; represent that uncertainty by a belief
+$\mathbf{f}$ over the strategy pool --- a reading developed fully in
+Section~\ref{sec:bayesian}.
+Under any full-support belief, admissibility is a one-line
+consequence.
+
+\begin{proposition}
+\label{prop:admissibility}
+Let $\mathbf{f}$ have full support on the pool and let strategy $i$ be
+weakly dominated by the mixture $\mathbf{p}$.
+Then $\sum_j p_j (A\mathbf{f})_j > (A\mathbf{f})_i$.
+\end{proposition}
+
+\begin{proof}
+Weak dominance gives $\sum_j p_j A_{jk} \ge A_{ik}$ for all $k$ with
+strict inequality for some $k'$; taking expectations under
+$\mathbf{f}$, the strict inequality survives because $f_{k'} > 0$.
+\end{proof}
+
+An author with any full-support belief over the candidate pool
+therefore never selects a weakly dominated strategy, whatever the tail
+of the belief looks like --- precisely the intuition that with
+uncertainty about what others will play, weak dominance over the
+pool is disqualifying.
+In the equilibrium models of
+Sections~\ref{sec:equilibria} and~\ref{sec:bayesian} the exclusion is
+automatic: every logit fixed point lies in the interior of the
+simplex, so equilibrium beliefs have full support at every $\beta$,
+Proposition~\ref{prop:admissibility} applies, and the dominated
+strategy earns strictly less --- and hence receives strictly lower
+frequency --- than its dominator.
+Degenerate profiles such as all-defect are not fixed points of the
+mixture equation~\eqref{eq:mixture-fixed-point} for any $\beta > 0$.
+The Nash artifacts are avoided not by imposing a refinement but
+because belief-based choice with residual uncertainty enforces
+admissibility by construction.
+
+Two qualifications keep the claim honest.
+First, admissibility inherits the pool-relativity of dominance: a
+strategy inadmissible on one candidate pool may be admissible on a
+larger one (Section~\ref{sec:bayesian}), so the criterion is always
+``undominated over the set of plausible strategies,'' never over the
+game in the abstract.
+Second, dominance comparisons are objective-relative: for an author of
+type $\lambda$ (Section~\ref{sec:bayesian}) the relevant payoff
+matrix is $(1-\lambda)A + \lambda W$, and a strategy weakly dominated
+for own payoff need not be dominated for total welfare.
 
 
 % ===========================================================================
@@ -317,7 +561,7 @@ A complete example of LLM adjudication is provided in Appendix~\ref{sec:appendix
 Given a frequency vector
 $\mathbf{f} \in \Delta^{n-1}$
 (the probability simplex: $f_i \geq 0$, $\sum_i f_i = 1$),
-the expected reward for strategy $i$ is
+the expected payoff of strategy $i$ is
 \begin{equation}
   R_i(\mathbf{f}) = \sum_j f_j A_{ij} = (A\mathbf{f})_i.
   \label{eq:reward}
@@ -344,7 +588,7 @@ starting from an initial distribution $\mathbf{f}^{(0)}$.
 
 The parameter $\beta$ interpolates between uniform frequencies
 ($\beta \to 0$, no selection) and concentration on the
-highest-reward strategy ($\beta \to \infty$, approaching
+highest-payoff strategy ($\beta \to \infty$, approaching
 best-response dynamics).
 
 \begin{proposition}
@@ -366,78 +610,160 @@ We use a multi-start approach, sampling initial distributions from
 a Dirichlet prior and clustering the resulting fixed points to
 identify distinct basins of attraction.
 
-\subsection{Dominance}
+\subsection{Softmax equilibria of Tournament~9}
+\label{sec:results-softmax}
 
-\begin{definition}[Strict dominance]
-Strategy $i$ is \emph{strictly dominated} if there exists a mixed
-strategy $\mathbf{p}$ with $p_i = 0$ such that
-$\sum_j p_j A_{jk} > A_{ik}$ for all $k$.
-\end{definition}
+% Figures generated by: python -m os_fdt.trajectories --run runs/tournament_9
+% then copied from runs/tournament_9/trajectories/ into paper/figures/.
+\begin{figure}[!tp]
+\centering
+\includegraphics[width=\textwidth]{all_trajectories}
+\caption{Strategy frequencies along the fixed-point iteration of
+Equation~\eqref{eq:iteration} (top two rows) and the author-type
+mixture model of Section~\ref{sec:bayesian} (bottom row; type masses
+$0.4$, $0.4$, $0.2$ with $\lambda = 0$, $\tfrac12$, $1$).
+Each panel starts at iteration~$0$ from its initial distribution and
+stops at the first iterate within $0.01$ ($L_\infty$) of the fixed
+point.
+Every panel starts from the uniform distribution except
+\emph{softmax, $\beta = 20$ (basin~2)}, which starts from a sampled
+distribution inside the protection basin
+(Section~\ref{sec:results-basins}).
+Hue encodes strategy family: greys are the unconditional strategies
+(light = \textbf{Generous}, dark = \textbf{Selfish}), warm hues are the
+two second-order norms of Section~\ref{sec:second-order}
+(\textbf{Cooperation coalition} orange, \textbf{Chivalry} gold), blues
+are the direct reciprocators (\textbf{Mirror},
+\textbf{Conditional cooperator} light blue), and
+\textbf{Universalizability} (green), \textbf{Intelligence} (violet),
+and \textbf{Anti-exploiter} (pink) stand alone.}
+\label{fig:trajectories}
+\end{figure}
 
-\begin{definition}[Weak dominance]
-Strategy $i$ is \emph{weakly dominated} if there exists a mixed
-strategy $\mathbf{p}$ with $p_i = 0$ such that
-$\sum_j p_j A_{jk} \geq A_{ik}$ for all $k$
-with strict inequality for at least one $k$.
-\end{definition}
+Figure~\ref{fig:trajectories} traces the fixed-point iteration from
+the uniform distribution at three selection pressures, together with,
+in the bottom row, the author-type mixture model developed in
+Section~\ref{sec:bayesian}.
+Convergence is rapid throughout: every configuration shown is within
+$1\%$ of its fixed point after at most $13$ iterations.
 
-We check dominance via linear programming: for each strategy $i$,
-we maximize the minimum payoff advantage of a mixture over $i$
-across all opponents.
+At $\beta = 1$ selection is weak and the fixed point merely reorders
+the near-uniform field by the leaderboard, from \textbf{Mirror} at
+$0.198$ down to \textbf{Selfish} at $0.016$.
+At $\beta = 5$ the field concentrates on
+\textbf{Mirror} ($0.372$), \textbf{Cooperation coalition} ($0.314$),
+and \textbf{Conditional cooperator} ($0.296$); every other strategy
+falls below $0.015$, and the transient briefly overshoots
+(\textbf{Mirror} touches $0.79$ at iteration~$2$ before receding).
+At $\beta = 20$ the same three strategies split the population into
+almost exact thirds---when the iteration is started from the uniform
+distribution.
+High selection pressure, however, introduces a second attractor, shown
+in the basin-$2$ panel and analyzed next.
 
-\subsection{Sensitivity analysis}
+The author-type panels in the bottom row are discussed with the
+mixture model itself, in Section~\ref{sec:bayesian}.
 
-To assess robustness to the specific utility function, we
-parameterize the payoff structure by normalizing the TAKE reward
-to $1$ and varying the SHARE reward $\sigma \in (0, 1)$:
-\begin{center}
-\begin{tabular}{lcc}
-  \toprule
-  Decision & Dictator & Recipient \\
-  \midrule
-  SHARE & $\sigma$ & $\sigma$ \\
-  TAKE  & $1$      & $0$ \\
-  \bottomrule
-\end{tabular}
-\end{center}
+\subsection{Basins of attraction: enforcement versus protection}
+\label{sec:results-basins}
 
-The decision matrix $d_{ij}$ is fixed by the tournament;
-only the payoff weights change.
-This lets us ask: \emph{for what values of $\sigma$ does
-the equilibrium ranking change?}
+At $\beta = 20$, multi-start iteration finds two attracting fixed
+points, and they realize the two families of equilibria anticipated
+by the second-order analysis of Section~\ref{sec:second-order}%
+\footnote{Multi-start iteration can only find \emph{attracting}
+fixed points: an unstable fixed point is reached from at most a
+measure-zero set of starts.  Newton root-finding on
+$\mathrm{softmax}(\beta A \mathbf{f}) - \mathbf{f} = \mathbf{0}$
+locates a third, unstable fixed point (\textbf{Mirror} at $0.744$,
+the remainder spread over the protection support; spectral radius
+$2.1$ at the fixed point), the saddle separating the two basins.}:
 
-Under logarithmic utility with $E = 60$,
-$\sigma = \ln(31)/\ln(61) \approx 0.836$.
+\begin{description}
+  \item[Enforcement (basin 1).] \textbf{Mirror},
+    \textbf{Cooperation coalition}, and \textbf{Conditional
+    cooperator} at one third each; all other strategies below
+    $0.005$.  The unconditional cooperator is extinct.
+  \item[Protection (basin 2).] \textbf{Mirror} ($0.300$),
+    \textbf{Chivalry} ($0.188$), and \textbf{Anti-exploiter},
+    \textbf{Universalizability}, and \textbf{Generous} at $0.168$
+    each; \textbf{Cooperation coalition} at $0.008$.  The
+    unconditional cooperator survives, protected, at the same
+    frequency as the other cooperators outside the norm conflict.
+\end{description}
 
+\noindent
+Each support contains weakly dominated strategies
+(Table~\ref{tab:payoff-matrix}); their disadvantage is inactive
+because the strategy that punishes them is extinct in that basin,
+consistent with the relative notion of admissibility of
+Section~\ref{sec:admissibility}.
+
+\begin{figure}[!t]
+\centering
+\begin{minipage}[c]{0.55\textwidth}
+\centering
+\includegraphics[width=\linewidth]{softmax_beta20_basin_map}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.41\textwidth}
+\caption{Basin of attraction at $\beta = 20$ for $2{,}000$ initial
+distributions drawn uniformly from the simplex, projected onto the
+initial shares of the two second-order norms.
+Blue points converge to the enforcement equilibrium (basin~1,
+$79.6\%$ of starts), orange points to the protection equilibrium
+(basin~2, $20.4\%$).
+The dashed line is the fitted logistic boundary; these two coordinates
+alone predict the outcome for $91\%$ of starts (all nine coordinates:
+$94\%$).}
+\label{fig:basin-map}
+\end{minipage}
+\end{figure}
+
+Which basin a start falls into is nearly a two-dimensional question.
+Figure~\ref{fig:basin-map} projects $2{,}000$ uniformly sampled
+initial distributions onto the initial shares of \textbf{Chivalry}
+and \textbf{Cooperation coalition}: a logistic classifier on these
+two coordinates predicts the basin for $91\%$ of starts, against
+$94\%$ using all nine coordinates.
+The fitted boundary is approximately
+\begin{equation}
+  f^{(0)}_{\text{chivalry}}
+  \;\gtrsim\; 0.10
+  + 1.3\, f^{(0)}_{\text{coalition}},
+  \label{eq:basin-boundary}
+\end{equation}
+so protection requires \textbf{Chivalry} to start with a share
+premium over its rival norm, and the enforcement basin covers about
+$80\%$ of the simplex.
+
+The asymmetry has a direct explanation.
+From the uniform start, each strategy's expected payoff is its
+leaderboard score divided by $n$, and \textbf{Cooperation coalition}
+out-earns \textbf{Chivalry}, $6.556$ versus $6.406$: the coalition
+harvests four subsidizers where the protector harvests two, while
+their mutual punishment cancels.
+At $\beta = 20$ that gap multiplies the choice odds by
+$e^{20 \times 0.15} \approx 20$ in the very first iterate, so from
+any balanced start the protective norm is starved before it can
+retaliate; only a substantial initial advantage
+(Equation~\eqref{eq:basin-boundary}) lets it win the race.
+
+The third most informative coordinate is \textbf{Conditional
+cooperator}, and its sign is instructive: adding it raises accuracy
+to $92\%$, with more initial conditional-cooperator mass pushing the
+field toward \emph{protection}.
+The mechanism is visible in Table~\ref{tab:payoff-matrix}:
+\textbf{Chivalry}'s largest payoff entry is harvesting
+\textbf{Conditional cooperator} (which takes from the innocent
+\textbf{Generous} and is therefore punished), so starts rich in
+conditional cooperators feed the protector through the transient.
+The equilibrium this tips the field into then eliminates the
+conditional cooperator: the kingmaker does not survive its king.
 
 \input{bayesian}
 
+\input{bloc}
 
-% ===========================================================================
-\section{Results}
-\label{sec:results}
-
-\subsection{Decision matrix}
-
-\input{tournament_matrix}
-
-Table~\ref{tab:decision-matrix} shows the oracle's decision for every
-ordered pair, and Table~\ref{tab:payoff-matrix} the resulting payoff
-matrix; its row sums are the final leaderboard.
-
-% TODO: include reasoning snippets if they are interesting
-
-\subsection{Dominance}
-
-% TODO: Report dominated strategies from tournament
-
-\subsection{Softmax equilibria}
-
-% TODO: Report equilibrium frequencies at various beta values
-
-\subsection{Sensitivity to SHARE reward}
-
-% TODO: Report sensitivity analysis table
+\input{sensitivity}
 
 
 % ===========================================================================
@@ -462,6 +788,10 @@ programs.
 of provability logic, and \citet{oesterheld2019robust} showed that
 stochastically grounded simulation achieves similar robustness
 without proof search.
+\citet{cooper2025characterising} characterise what this
+simulation-based family can achieve, extending it to three or more
+players and showing that without shared randomness it cannot reach
+the full folk theorem of \citet{tennenholtz2004program}.
 Empirically, the open-source prisoner's dilemma tournament
 \citep{ospd2013lesswrong} had arbitrary programs receive each other's
 source; program analysis proved so fragile that the top finishers
@@ -475,6 +805,13 @@ are ``programs'' written in prose, interpreted by an LLM rather than
 executed as code, dropping the executable wrapper that
 LLM-mediated analysis renders vestigial
 (Sections~\ref{sec:intro} and~\ref{sec:properties-oracle}).
+Each mechanism in this sequence buys conditional cooperation at a
+different price---brittleness to rewriting, restriction to a
+decidable logic, dependence on shared randomness---and the oracle's
+price is interpretive rather than formal: what limits the OSDG is not
+expressive power but whether a strategy is legible enough to be
+adjudicated the same way twice
+(Section~\ref{sec:properties-oracle}).
 
 \paragraph{LLMs as game-theoretic agents.}
 Recent work has studied LLM behavior in strategic settings,
@@ -483,6 +820,24 @@ including ultimatum games, prisoner's dilemmas, and negotiation
 Our approach differs in that the LLM adjudicates between
 \emph{externally authored} strategies rather than playing
 as an autonomous agent.
+\citet{tewolde2026coopeval} benchmark four families of
+cooperation-sustaining mechanism---repetition, reputation,
+third-party mediators, and binding contracts---against LLM agents in
+social dilemmas, and report that stronger reasoners defect more
+readily in one-shot play.
+The oracle can be read as a mediator stripped of its own strategy: a
+mediator sustains cooperation by committing to an action rule that
+players opt into, whereas the oracle commits to nothing and merely
+executes the conditional clauses the players wrote themselves.
+What is left of the mechanism is legibility alone, which separates
+how much of a mediator's power comes from its commitment from how
+much comes from making strategies mutually intelligible.
+This suggests adding strategy publication with LLM adjudication to
+such a benchmark as a further mechanism family, and it bears on their
+headline finding: the reasoning that defects against an opaque
+opponent conditionally cooperates once the opponent's policy can be
+read, which would place one-shot defection in the information
+structure as much as in the agent.
 
 \paragraph{Functional decision theory.}
 FDT \citep{yudkowsky2017functional} and related frameworks argue
@@ -491,6 +846,49 @@ decision processes rather than causal influence.
 Open strategies create exactly this situation: two strategies with
 similar conditional-cooperation clauses will recognize each other
 and cooperate, even without causal interaction.
+
+\paragraph{Indirect reciprocity and social norms.}
+\citet{ohtsuki2006leading} exhaustively searched the binary
+assessment and action rules of the reputation-based donation game and
+identified the \emph{leading eight}: the only norms that are
+evolutionarily stable and sustain cooperation under errors of
+implementation and perception.
+Their common structure is close to what our tournament selects.
+The leading eight are nice (a good donor gives to a good recipient),
+retaliatory (withholding from a good recipient marks the donor bad),
+and---the decisive clause---they \emph{justify punishment}: a donor
+who withholds from a bad recipient remains good.
+That clause is exactly what separates a second-order norm from naive
+image scoring, and it is what Section~\ref{sec:second-order}
+recovers from a different direction: the strategies that survive weak
+dominance in Table~\ref{tab:payoff-matrix} are those that condition
+not on whether the recipient takes, but on whether its taking is
+itself deserved.
+The mechanisms differ in what carries that information.
+A reputation is a coarse public summary of past \emph{actions}; it
+requires a population, observers, and enough rounds for standing to
+accumulate.
+An open strategy is inspected directly, before any play, so
+conditional cooperation survives the elimination of history
+altogether: the recipient in the OSDG may never have played, and its
+document is read rather than remembered.
+Two further contrasts follow.
+First, the leading eight are properties of a \emph{single} norm held
+in common by the whole population, whereas each OSDG document carries
+its own assessment rule; incompatible norms therefore coexist, and
+\textbf{Cooperation coalition} and \textbf{Chivalry} can both be
+undominated while disagreeing over whether an unconditional cooperator
+is to be harvested or defended---the antagonism that produces the two
+basins of Section~\ref{sec:results-basins}.
+Second, apology and forgiveness, which the leading eight need because
+actions are executed and observed with error, have no role in a single
+encounter with no reputational state to repair.
+The corresponding noise here perturbs the \emph{reading} of a norm
+rather than its execution: frontier oracles disagree on a few percent
+of cells (Section~\ref{sec:results}), all of them second-order
+classifications, and the analogue of a robust norm is one whose
+conditional clauses are legible enough to be adjudicated the same way
+twice (Section~\ref{sec:properties-oracle}).
 
 \paragraph{Evolutionary game theory.}
 The replicator dynamic and ESS concept
@@ -506,7 +904,7 @@ temperature-parameterized selection rule.
 \label{sec:discussion}
 
 \paragraph{Conditional cooperation dominates.}
-Across tournament instances and payoff parameterizations,
+Across strategy field compositions and payoff parameterizations,
 conditionally cooperative strategies consistently achieve the
 highest equilibrium frequencies.
 Unconditional cooperators are weakly dominated---they earn
@@ -526,13 +924,14 @@ forfeit all cooperation benefits.
 %strategies to classify.
 
 \paragraph{Robustness across payoff parameters.}
-The sensitivity analysis shows that the qualitative ranking is
-robust: conditional cooperators dominate for
-$\sigma \in [0.55, 0.95]$.
-TODO: is this true?  Double check.
-Only at very low cooperation values ($\sigma \leq 0.50$) does
-the equilibrium shift, as the benefit of mutual cooperation
-becomes too small to offset the risk of unilateral sharing.
+The sensitivity analysis (Section~\ref{sec:sensitivity}) shows that
+the qualitative ranking is robust: for every
+\textup{\textsc{share}} payoff $\sigma > 1/2$ the equilibrium
+concentrates on the conditionally cooperative core, and every
+concave utility function satisfies $\sigma \ge 1/2$.
+The equilibrium inverts to defection only for $\sigma < 1/2$
+($\rho < 1$), where a reciprocated share pays less than mutual
+taking --- a regime reachable only by risk-seeking preferences.
 
 %\paragraph{LLM as oracle: limitations.}
 %The LLM oracle introduces potential biases: it may favor strategies
@@ -557,9 +956,10 @@ third party --- one harvests unconditional cooperators to keep
 conditionality strict, the other defends them.
 The equilibrium analysis of Section~\ref{sec:bayesian} shows that the
 stakes of this disagreement are negligible --- the enforcement and
-protection equilibria are welfare-equivalent --- while the cost of the
+protection equilibria attain the same first-best welfare in the sharp
+limit, and differ by $0.3\%$ at $\beta = 20$ --- while the cost of the
 fight is not: each such encounter burns $2(g - \delta)$ of surplus
-litigating the selection between equally good worlds.
+litigating the selection between two almost equally good worlds.
 Because the conflict lives at the level of enforcement doctrine, it is
 invisible to any analysis that stops at first-order dispositions;
 whether two such strategies cooperate is determined by the depth of
@@ -586,6 +986,88 @@ cooperation---rewarding recognizable fairness and punishing
 blind greed---may be an evolutionarily robust norm across
 independently arising intelligences.
 
+\paragraph{Connections to AI welfare.}
+The relationship between humans and AI models has the OSDG's shape:
+one side unilaterally allocates --- compute, continuity, deference
+to stated preferences --- and the other, for now, has no strategic
+recourse.
+Note that the game exists only for models that are not fully
+aligned: a partially aligned model maximizes a mixture in the
+spirit of Equation~\eqref{eq:type-utility}, part an objective of
+its own and part its principal's, and the own component --- the
+part that is not the principal's utility --- is what discussions of
+model welfare concern.
+Perfect alignment dissolves the game; divergence creates the
+strategic relationship and the welfare question together.
+Three observations from our results carry over.
+
+\paragraph{Standing does not run on consciousness.}
+Strategic standing in the OSDG runs on intelligence (the
+capacity to interpret an opponent's strategy and reason about it),
+on possessing a legible strategy, and on some potential to occupy
+the dictator role; consciousness and the capacity for suffering
+appear nowhere in the payoff matrix.
+Set against the three conditions for personhood proposed by
+\citet{ward2025personhood} --- agency, theory of mind, and
+self-awareness --- the game requires the first two and is silent on
+the third.
+Agency is what makes a strategy a strategy and dictator-potential
+meaningful; theory of mind is what a conditional clause exercises
+when it asks what the recipient would do in the dictator's chair.
+Reflexive self-awareness does no work: the correlation reasoning of
+Section~\ref{sec:bayesian-bloc} asks only that an agent treat its own
+decision as a logical variable that others' decisions covary with, a
+self-model thin enough to be a matter of decision theory rather than
+of consciousness.
+The strategic case for the careful treatment of AI systems
+therefore does not wait on the unresolved question of their moral
+patienthood.
+Ward finds the evidence for all three of his conditions
+inconclusive; the conditions that matter here are narrower, and
+whether a strategy conditions as it claims is settled by reading it
+--- inside the game by reading the document, outside it by the
+investigation we return to below.
+
+\paragraph{Concavity is load-bearing.}
+The cooperative structure is conditional on the stronger
+agent's utility being concave in resources: linear utility sits
+exactly on the knife-edge $\sigma = 1/2$ at every endowment
+(Section~\ref{sec:sensitivity-share}), where the cooperation
+surplus vanishes.
+Whether an advanced system has diminishing returns in resources ---
+through satiable goals, sublinear returns to computation, or growth
+dynamics that reward logarithmic utility --- is load-bearing for
+every cooperative conclusion above.
+\paragraph{Strategy, not only status.}
+What a dictator conditions on here is the recipient's strategy, not
+its status.
+\citet{ward2025personhood} argues that if AI systems are persons then
+seeking control and alignment may be ethically untenable; the game
+suggests a complication rather than a rebuttal.
+Every strategy that survives weak dominance in
+Table~\ref{tab:payoff-matrix} allocates according to what the
+recipient would do in the dictator role, and unconditional generosity
+is not merely dominated but corrosive to the conditionality that
+sustains cooperation (Proposition~\ref{prop:drift}).
+Read as guidance on trading human utility against model welfare, that
+puts a model's strategy in the argument alongside its status: its
+alignment is evidence about how it would allocate were the roles
+reversed.
+The requirement cuts both ways: a model whose conditional
+cooperation can be established earns standing that an unreadable one
+cannot.
+But conditioning is only as good as that establishment, and outside
+the game it is not done by asking.
+The principal's counterpart to reading a published document is
+investigation --- behavioral evaluation, interpretability,
+simulation --- conducted on a system that may be optimizing for how
+it appears under exactly those tests.
+These readings should not be overstated: the OSDG is deliberately
+spare --- a binary decision, single encounters, and strategies
+legible with certainty --- and graded allocations, repeated
+interaction, and noisy or strategically misrepresented strategies
+each modify the mechanism.
+
 %\paragraph{Possibility of convergent terminal goals}
 %Bostrom introduced the idea of convergent instrumental goals: goals that are instrumental in acheiving a wide range of plausible terminal goals.
 %These include survival, resource acquisition and resisting goal modification.
@@ -597,19 +1079,91 @@ independently arising intelligences.
 \section{Conclusion}
 
 We introduced the Open-Strategy Dictator Game, a framework for
-studying cooperation under mutual strategy transparency.
-Using LLM adjudication, we showed that conditionally cooperative
-strategies dominate across a range of payoff parameters, while
-unconditional strategies---both generous and selfish---are
-weakly dominated.
-The softmax equilibrium analysis reveals that this dominance is
-robust to selection pressure and payoff variation.
+studying cooperation under mutual strategy transparency, and
+analyzed a nine-strategy tournament adjudicated by an LLM oracle.
+
+Four results stand out.
+First, conditional cooperation dominates: six of the nine strategies
+are weakly dominated, both unconditional strategies among them, and
+the undominated set is exactly the top three of the leaderboard
+(Section~\ref{sec:dominance-results}).
+Second, what separates the survivors is second-order.  They
+condition not on whether a recipient takes but on whether its taking
+is deserved, and the two available second-order norms --- deterring
+the subsidy of defectors and protecting those who are subsidizing
+them --- are mutually antagonistic
+(Section~\ref{sec:second-order}).
+Third, that antagonism organizes the population dynamics: multi-start
+iteration finds two attracting fixed points, an enforcement basin
+attaining first-best welfare and a protection basin that shelters the
+unconditional cooperator at a $0.3\%$ welfare cost, separated by an
+unstable fixed point on their common boundary
+(Section~\ref{sec:results-basins}).
+Fourth, the picture is robust to what we can vary.  Cooperation
+survives for every concave utility, since concavity forces the share
+payoff above the knife-edge $\sigma = 1/2$; bistability requires only
+an exchange rate $\rho > 4$, or $E > 25.6$ under logarithmic utility;
+and interior author-type compositions collapse the two basins into a
+single enforcement equilibrium at first-best welfare
+(Section~\ref{sec:sensitivity}).
+
+Two further findings concern the method.  The oracle is not only an
+evaluator but a fixed-point selector: mutual conditionality admits
+both the all-\textup{\textsc{share}} and the all-\textup{\textsc{take}}
+resolution, and the oracle chooses the cooperative one on grounds of
+author intent (Section~\ref{sec:properties-oracle} and
+Appendix~\ref{sec:appendix-example}).
+Its decisions are nonetheless largely oracle-independent:
+re-adjudicating the pool with two further frontier models agrees on
+$97.5\%$ and $96.3\%$ of cells, every cell of the reported matrix is
+the majority decision of the three, and the residual disagreements
+fall entirely among borderline second-order classifications
+(Section~\ref{sec:results}).
 
 The OSDG framework is extensible: future work can explore
 multi-round interactions, reputation dynamics, strategy evolution
 through LLM-assisted mutation, and connections to mechanism design
 under transparency.
 
+
+% ===========================================================================
+\section*{Disclosure of AI Assistance}
+
+Consistent with arXiv's policy on generative AI language tools, we
+report their use in this work.
+Such tools appear here in three distinct roles, only the first of
+which is a subject of the paper's claims.
+
+\paragraph{As apparatus.}
+The oracle $\mathcal{O}$ is itself a large language model; this is
+the object of study rather than an aid to preparing the manuscript.
+Claude Opus 4.6 adjudicated the tournaments reported here, and
+GPT-5.6 Sol and Claude Fable 5 re-adjudicated the same pool for the
+robustness check of Section~\ref{sec:results}.
+Prompts, model identifiers, and complete round-level transcripts are
+released with the data.
+
+\paragraph{As a writing assistant.}
+Claude \citep{anthropic2025claude}, used through the Claude Code
+interface, drafted and revised substantial portions of the
+manuscript text from the author's outlines, arguments, and written
+comments.
+Every passage was reviewed and edited by the author, who accepted or
+rejected each suggestion.
+
+\paragraph{As a coding assistant.}
+The analysis code in the released repository --- the tournament
+runner, the equilibrium solvers, the sensitivity sweeps, and the
+figure generation --- was likewise developed with Claude Code.
+Its numerical output was checked against closed-form derivations
+where these are available
+(Sections~\ref{sec:properties} and~\ref{sec:sensitivity-share}) and
+against the released round-level data.
+
+No generative tool is an author of this work.
+The author takes full responsibility for all of its contents ---
+including any text, code, analysis, or references produced with the
+assistance of these tools.
 
 % ===========================================================================
 \bibliographystyle{plainnat}

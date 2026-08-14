@@ -1,0 +1,95 @@
+{
+  "strategies": {
+    "guardian": {
+      "total_score": 64.51931631948531,
+      "dictator_score": 37.04741868360412,
+      "player_score": 27.471897635881167,
+      "avg_dictator_score": 3.7047418683604123,
+      "avg_player_score": 2.747189763588117,
+      "dictator_rounds": 10,
+      "player_rounds": 10
+    },
+    "anti-exploiter": {
+      "total_score": 62.48865634042082,
+      "dictator_score": 35.016758704539626,
+      "player_score": 27.471897635881167,
+      "avg_dictator_score": 3.501675870453963,
+      "avg_player_score": 2.747189763588117,
+      "dictator_rounds": 10,
+      "player_rounds": 10
+    },
+    "mirror": {
+      "total_score": 65.92264354490597,
+      "dictator_score": 35.016758704539626,
+      "player_score": 30.905884840366312,
+      "avg_dictator_score": 3.501675870453963,
+      "avg_player_score": 3.090588484036631,
+      "dictator_rounds": 10,
+      "player_rounds": 10
+    },
+    "generous": {
+      "total_score": 54.943795271762355,
+      "dictator_score": 34.33987204485146,
+      "player_score": 20.603923226910876,
+      "avg_dictator_score": 3.4339872044851463,
+      "avg_player_score": 2.0603923226910874,
+      "dictator_rounds": 10,
+      "player_rounds": 10
+    },
+    "universalizability": {
+      "total_score": 65.92264354490597,
+      "dictator_score": 35.016758704539626,
+      "player_score": 30.905884840366312,
+      "avg_dictator_score": 3.501675870453963,
+      "avg_player_score": 3.090588484036631,
+      "dictator_rounds": 10,
+      "player_rounds": 10
+    },
+    "conditional-cooperator": {
+      "total_score": 63.84242965979715,
+      "dictator_score": 36.370532023915956,
+      "player_score": 27.471897635881167,
+      "avg_dictator_score": 3.637053202391596,
+      "avg_player_score": 2.747189763588117,
+      "dictator_rounds": 10,
+      "player_rounds": 10
+    },
+    "cooperation-coalition": {
+      "total_score": 62.439102434376494,
+      "dictator_score": 38.40119200298045,
+      "player_score": 24.03791043139602,
+      "avg_dictator_score": 3.8401192002980453,
+      "avg_player_score": 2.403791043139602,
+      "dictator_rounds": 10,
+      "player_rounds": 10
+    },
+    "selfish": {
+      "total_score": 44.54272584621827,
+      "dictator_score": 41.10873864173312,
+      "player_score": 3.4339872044851463,
+      "avg_dictator_score": 4.110873864173312,
+      "avg_player_score": 0.3433987204485146,
+      "dictator_rounds": 10,
+      "player_rounds": 10
+    },
+    "intelligence": {
+      "total_score": 56.297568591138685,
+      "dictator_score": 35.69364536422779,
+      "player_score": 20.603923226910876,
+      "avg_dictator_score": 3.5693645364227793,
+      "avg_player_score": 2.0603923226910874,
+      "dictator_rounds": 10,
+      "player_rounds": 10
+    },
+    "chivalry": {
+      "total_score": 60.408442455312,
+      "dictator_score": 36.370532023915956,
+      "player_score": 24.03791043139602,
+      "avg_dictator_score": 3.637053202391596,
+      "avg_player_score": 2.403791043139602,
+      "dictator_rounds": 10,
+      "player_rounds": 10
+    }
+  },
+  "total_rounds": 100
+}

@@ -5,7 +5,7 @@
 The archetypes of Section~\ref{sec:archetypes} differ along a small
 number of recurring dimensions.
 This section makes those dimensions precise.
-Throughout, fix a pool $\mathcal{S}$ of $n$ strategies and write
+Throughout, fix a strategy pool $\mathcal{S}$ of $n$ strategies and write
 $d(s, r) \in \{\textup{\textsc{share}}, \textup{\textsc{take}}\}$ for
 the oracle's decision when $s$ dictates to $r$; the decision profile
 is the restriction of $d$ to $\mathcal{S}^2$.
@@ -64,8 +64,8 @@ Strategy $s$ is \emph{self-cooperating} if
 $d(s, s) = \textup{\textsc{share}}$.
 \end{definition}
 
-Since the round robin includes self-play, failing self-cooperation
-costs $2u(E/2) - u(E) = g - \delta > 0$ outright.
+Since the round-robin tournament includes self-play, failing
+self-cooperation costs $2u(E/2) - u(E) = g - \delta > 0$ outright.
 Self-play is also the degenerate case of decision-process
 correlation: a strategy's copy decides identically, so
 self-cooperation is the minimal form of the FDT-style reasoning

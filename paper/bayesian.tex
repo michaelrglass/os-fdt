@@ -11,10 +11,11 @@ civilizations, or organizations with access to strong AI ---
 and a strategy is the endpoint of a deliberate investigation,
 not a variant surviving rounds of selection.
 This section shows that the same fixed-point machinery arises from
-Bayesian reasoning by such authors, with two payoffs:
+Bayesian reasoning by such authors, with two benefits:
 the inverse temperature $\beta$ acquires a rational interpretation,
 and the model extends naturally to authors who differ in how much
-they value their own reward versus the total reward of the tournament.
+they value their own payoff versus the total welfare of the
+tournament.
 
 \subsection{From selection to belief}
 
@@ -51,7 +52,8 @@ Instead we work with an empirical \emph{candidate pool}
 $\mathcal{P}$: the strategies submitted to our tournaments together
 with strategies elicited from AI models
 (Section~\ref{sec:archetypes}), and we place prior distributions over
-$\mathcal{P}$.
+$\mathcal{P}$; each tournament's strategy pool is a subset
+$\mathcal{S} \subseteq \mathcal{P}$.
 The analytical questions then become robustness questions:
 whether and how the equilibrium answers change as the prior over
 $\mathcal{P}$ shifts, and as $\mathcal{P}$ itself grows.
@@ -61,92 +63,29 @@ No strategy is even weakly dominant over the unrestricted space of
 possibilities, because for any strategy $s$ there exists a strategy
 that recognizes $s$ exactly and conditions its decision on that
 recognition.
-Dominance results (Section~\ref{sec:equilibria}) are therefore
-necessarily statements about a candidate pool and a prior over it,
-never about the game in the abstract.
+Dominance results (Section~\ref{sec:dominance}) are therefore
+necessarily statements about a candidate pool $\mathcal{P}$ and a
+prior over it, never about the game in the abstract.
 The same holds for equilibrium multiplicity: when the fixed-point
 equation has several solutions, which one is reached is determined by
 the initial credence --- the prior --- and the multi-start procedure of
 Section~\ref{sec:equilibria} is, under this reading, a scan over
 priors.
 
-\subsection{Admissibility, weak dominance, and Nash equilibrium}
-\label{sec:admissibility}
-
-The belief-based reading also clarifies which solution concepts fit
-the open-strategy setting, and Nash equilibrium fits poorly for a
-reason the tournament matrices make concrete: it ignores weak
-dominance.
-In the Tournament~9 matrix, the profile in which every entrant is the
-unconditional defector is a pure symmetric Nash equilibrium --- against
-a defector, every strategy scores alike, so no unilateral deviation
-gains --- even though the unconditional defector is weakly dominated
-on the pool.
-Enumerating mixed symmetric equilibria compounds the problem,
-returning large families of payoff-equivalent supports with nothing to
-select among them.
-Classical theory repairs this with refinements: \emph{admissibility}
---- never play a weakly dominated strategy \citep{luce1957games} ---
-and trembling-hand perfection, which excludes weakly dominated
-strategies from equilibrium play \citep{selten1975reexamination}.
-
-Under uncertainty about the field, no refinement machinery is needed;
-admissibility is a one-line consequence of full-support beliefs.
-
-\begin{proposition}
-\label{prop:admissibility}
-Let $\mathbf{f}$ have full support on the pool and let strategy $i$ be
-weakly dominated by the mixture $\mathbf{p}$.
-Then $\sum_j p_j (A\mathbf{f})_j > (A\mathbf{f})_i$.
-\end{proposition}
-
-\begin{proof}
-Weak dominance gives $\sum_j p_j A_{jk} \ge A_{ik}$ for all $k$ with
-strict inequality for some $k'$; taking expectations under
-$\mathbf{f}$, the strict inequality survives because $f_{k'} > 0$.
-\end{proof}
-
-An author with any full-support belief over the candidate pool
-therefore never selects a weakly dominated strategy, whatever the tail
-of the belief looks like --- precisely the intuition that with
-uncertainty about what others will play, weak dominance over the
-plausible set is disqualifying.
-In the equilibrium model the exclusion is automatic: every logit fixed
-point lies in the interior of the simplex
-(Section~\ref{sec:equilibria}), so equilibrium beliefs have full
-support at every $\beta$, Proposition~\ref{prop:admissibility}
-applies, and the dominated strategy earns strictly less --- and hence
-receives strictly lower frequency --- than its dominator.
-Degenerate profiles such as all-defect are not fixed points of the
-mixture equation~\eqref{eq:mixture-fixed-point} introduced below, for
-any $\beta > 0$.
-The Nash artifacts are avoided not by imposing a refinement but
-because belief-based choice with residual uncertainty enforces
-admissibility by construction.
-
-Two qualifications keep the claim honest.
-First, admissibility inherits the pool-relativity of dominance: a
-strategy inadmissible on one candidate pool may be admissible on a
-larger one, so the criterion is always ``undominated over the set of
-plausible strategies,'' never over the game in the abstract.
-Second, dominance comparisons are objective-relative: for an author of
-type $\lambda$ the relevant payoff matrix is
-$(1-\lambda)A + \lambda W$, and a strategy weakly dominated for own
-reward need not be dominated for total reward.
-
 \subsection{Author types}
+\label{sec:author-types}
 
 Perhaps the most consequential difference between authors is how much
-they value their own reward against the total reward of the
+they value their own payoff against the total welfare of the
 tournament.
 We index types by $\lambda \in [0, 1]$.
 Alongside the payoff matrix $A$ of Equation~\eqref{eq:payoff}, define
 the \emph{welfare matrix} $W$ by
 \begin{equation}
-  W_{ij} = s_d(d_{ij}) + s_r(d_{ij}) + s_d(d_{ji}) + s_r(d_{ji}),
+  W_{ij} = u_d(d_{ij}) + u_r(d_{ij}) + u_d(d_{ji}) + u_r(d_{ji}),
   \label{eq:welfare-matrix}
 \end{equation}
-the total score generated by both rounds between strategies $i$ and
+the total welfare generated by both rounds between strategies $i$ and
 $j$, counting both parties.
 A type-$\lambda$ author evaluates strategy $i$ against belief
 $\mathbf{f}$ by
@@ -155,9 +94,10 @@ $\mathbf{f}$ by
   = (1 - \lambda)\, (A\mathbf{f})_i + \lambda\, (W\mathbf{f})_i .
   \label{eq:type-utility}
 \end{equation}
-Type $\lambda = 0$ maximizes own reward, recovering
-Equation~\eqref{eq:reward}; type $\lambda = 1$ maximizes total reward.
-(Total reward includes rounds not involving the chosen strategy, but
+Type $\lambda = 0$ maximizes own payoff, recovering
+Equation~\eqref{eq:reward}; type $\lambda = 1$ maximizes total
+welfare.
+(Total welfare includes rounds not involving the chosen strategy, but
 for an individual author those rounds are unaffected by the choice and
 drop out of the comparison; they return in
 Section~\ref{sec:bayesian-bloc}.)
@@ -165,7 +105,7 @@ Section~\ref{sec:bayesian-bloc}.)
 The direct trade-off between the objectives has a closed form in the
 constants of Section~\ref{sec:properties}: sharing with a recipient
 who will not reciprocate costs $(1-\lambda)\,\delta$ of weighted own
-reward and contributes $\lambda\, g$ of weighted welfare, so a type
+payoff and contributes $\lambda\, g$ of weighted welfare, so a type
 prefers unconditional generosity toward non-reciprocators only if
 \begin{equation}
   \lambda > \lambda^* = \frac{\delta}{g} = \frac{1}{\rho},
@@ -175,6 +115,81 @@ which for $E = 60$ gives $\lambda^* \approx 0.197$.
 Below the threshold, all types favor conditional cooperation on direct
 payoffs alone; the equilibrium effects computed below sharpen this
 further.
+
+\paragraph{What is the most self-interested strategy?}
+The type index turns loose questions about motive into precise ones:
+which strategy should a type-$\lambda$ author submit?
+For the own-payoff author ($\lambda = 0$) the preceding sections
+already contain the answer, and it is not the plain reading.
+\textbf{Selfish} --- take from everyone, maximizing each round in
+isolation --- is weakly dominated by \textbf{Cooperation coalition}
+(Section~\ref{sec:dominance-results}): whatever the field,
+indiscriminate taking earns no more than selective taking, and
+against some fields strictly less.
+The surviving candidates are conditional: \textbf{Mirror} tops the
+leaderboard, and the own-payoff equilibrium concentrates on the
+enforcement core (Section~\ref{sec:results-softmax}).
+Self-interest, pursued rationally against other rational
+participants, chooses conditional cooperation --- reserving
+\textup{\textsc{take}} for defectors and their subsidizers.
+
+\paragraph{What is the most altruistic strategy?}
+For the $\lambda = 1$ author the answer is less settled, and the
+question is worth posing carefully.
+Four candidates come with intuitive cases:
+(a)~\textbf{Generous}: unconditional giving is the plain reading of
+altruism;
+(b)~a conditional cooperator such as \textbf{Mirror}: by making
+defection unprofitable it steers rational participants away from
+\textbf{Selfish} --- altruism through incentives rather than gifts;
+(c)~\textbf{Cooperation coalition}: it pushes the field away from
+\textbf{Selfish} \emph{and} away from \textbf{Generous}, and the
+second push reinforces the first, since every unconditional
+cooperator it drives out is a subsidizer whose absence lowers a
+defector's revenue (Proposition~\ref{prop:drift});
+(d)~\textbf{Chivalry}: conditional cooperation \emph{plus}
+protection --- it deters defection while keeping the innocents it
+defends in the field.
+Note that (c) and (d) embody the two antagonistic second-order norms
+of Section~\ref{sec:second-order}: they disagree precisely over
+whether (a) is to be harvested or defended.
+None of this can be settled by reading the strategy texts, because
+each case is a claim about how rational co-players \emph{respond} in
+equilibrium.
+The bloc formalism of Section~\ref{sec:bayesian-bloc} turns the
+question into a computation, and the answer is that the plain
+reading finishes near the bottom.
+
+\paragraph{Neither objective is served by causal maximization.}
+Both answers defy the decision-level logic of their own objectives.
+Fix any encounter and evaluate the
+\textup{\textsc{share}}/\textup{\textsc{take}} decision by causal
+lights, holding every other decision fixed:
+\textup{\textsc{take}} raises the dictator's own payoff by $\delta$
+in every case, and \textup{\textsc{share}} raises the round's
+welfare by $g - \delta > 0$ in every case.
+A causal maximizer of own payoff therefore always takes, and a
+causal maximizer of total welfare always shares: applied decision by
+decision, causal reasoning recommends exactly the two unconditional
+strategies --- the plain readings rejected above, both weakly
+dominated (Section~\ref{sec:dominance-results}).
+The strategies that actually optimize each terminal goal commit to
+decisions that are causally suboptimal for that very goal:
+\textbf{Mirror} and the coalition share where taking would earn
+$\delta$ more, and the welfare bloc's best choices take from
+violators, burning $g - \delta$ of the very surplus their objective
+counts, to sustain deterrence.
+What licenses these commitments is that the OSDG offers no decision
+node at which to deviate unobserved: the decision is computed by the
+oracle from the artifact, so a strategy that would take where
+\textbf{Mirror} shares is a \emph{different artifact}, and every
+conditional opponent treats it differently.
+The correlation between one's disposition and others' decisions is
+evaluative rather than causal --- and it is where all the payoff
+lives.
+This is the sense in which the open-strategy setting rewards
+functional rather than causal decision theory
+(Section~\ref{sec:related}).
 
 \subsection{Random utility and the mixture fixed point}
 
@@ -207,7 +222,7 @@ equilibrium is the fixed point
 A single type with $\lambda = 0$ recovers
 Equation~\eqref{eq:softmax} exactly: the softmax equilibrium of
 Section~\ref{sec:equilibria} is the special case of homogeneous
-own-reward authors, and is formally a logit quantal-response
+own-payoff authors, and is formally a logit quantal-response
 equilibrium \citep{mckelvey1995quantal} of the submission game.
 Existence follows as before: the right-hand side of
 Equation~\eqref{eq:mixture-fixed-point} is a continuous self-map of
@@ -215,79 +230,48 @@ the simplex, so Brouwer's theorem applies, and every computation of
 Section~\ref{sec:equilibria} carries over with $U^\lambda$ in place
 of $R$.
 
-\subsection{The correlated altruist bloc}
-\label{sec:bayesian-bloc}
-
-Total reward is a property of the field, identical for every strategy
-in a given tournament.
-For an author choosing in isolation this makes rounds among
-\emph{other} strategies an additive constant, which is why they cancel
-in Equation~\eqref{eq:type-utility}.
-But exchangeability cuts both ways: authors of the same type reasoning
-from the same evidence reach correlated conclusions, so the
-total-reward types choose, in effect, as a bloc whose decision
-variable is its entire component of $\mathbf{f}$.
-A bloc of mass $m$ internalizes its influence on the whole field,
-including the equilibrium responses of the other types, and its
-objective is the field welfare
-\begin{equation}
-  V(\mathbf{f}) = \tfrac{1}{2}\, \mathbf{f}^\top W \mathbf{f},
-  \label{eq:field-welfare}
-\end{equation}
-maximized over the bloc's component subject to
-Equation~\eqref{eq:mixture-fixed-point} holding for the remaining
-types.
-Operationally: pin the bloc's mass on a candidate strategy, let the
-other types re-equilibrate, and rank candidates by the resulting
-$V(\mathbf{f}^*)$.
-
-This is where the total-reward objective departs from the
-rounds-involving-me objective: the bloc's choice affects rounds it
-never plays, through the equilibrium composition of the rest of the
-field.
-In particular, a bloc pinned on a strategy that punishes defection
-suppresses the equilibrium mass that own-reward types place on
-defecting strategies, raising welfare in rounds among those types ---
-a deterrence effect that is invisible to any per-strategy score.
-
 \subsection{Illustration: shifting the prior over the pool}
+\label{sec:bayesian-illustration}
 
 Applying the model to the Tournament~9 pool
-%(implementation: \texttt{os\_fdt.author\_types}) 
 illustrates how the answers move --- and fail to move --- as the prior shifts.
 
 \paragraph{Objectives pool at equilibrium.}
-With author types in proportions $0.4$ own-reward, $0.4$ mixed
-($\lambda = 0.5$), $0.2$ total-reward at $\beta = 5$, all three types
-concentrate on the same cooperative core
+With author types in proportions $0.4$ own-payoff, $0.4$ mixed
+($\lambda = 0.5$), $0.2$ total-welfare, all three types concentrate on
+the same cooperative core
 (\textbf{Mirror}, \textbf{Conditional cooperator},
-\textbf{Cooperation coalition}), diverging only marginally.
-Because every mutual \textsc{share} creates a surplus $g - \delta > 0$
-that pays both parties, strategies maximizing mutual cooperation are
-near-optimal for every $\lambda$; objective heterogeneity is nearly
-unidentifiable from submissions.
-
-\paragraph{The altruist bloc avoids unconditional generosity.}
-In the bloc scan, pinning the total-reward bloc on \textbf{Generous}
-ranks near the bottom of the pool: the own-reward types' equilibrium
-response includes strategies that exploit it, destroying welfare, while
-the pin exerts no deterrent pressure.
-The bloc's best choices are the conditional strategies; at large
-$\beta$, \textbf{Cooperation coalition}, \textbf{Chivalry}, and
-\textbf{Mirror} all attain the first-best $V = 2\ln(1 + E/2)$, and at
-moderate $\beta$ the enforcing strategies win by exactly the
-deterrence channel of Section~\ref{sec:bayesian-bloc}.
+\textbf{Cooperation coalition}), diverging only marginally; the
+bottom row of Figure~\ref{fig:trajectories} traces the convergence of
+the mixture fixed point, Equation~\eqref{eq:mixture-fixed-point}, at
+$\beta = 5$ and $\beta = 20$.
+Because every mutual \textup{\textsc{share}} creates a surplus
+$g - \delta > 0$ that pays both parties, strategies maximizing mutual
+cooperation are near-optimal for every $\lambda$; objective
+heterogeneity is nearly unidentifiable from submissions.
 
 \paragraph{Prior shifts select among equilibria.}
-At large $\beta$ the fixed point is not unique, and the surviving
-configurations realize the two antagonistic second-order norms of
-Section~\ref{sec:second-order}: an \emph{enforcement} equilibrium
-(conditional cooperators and second-order deterrents; unconditional
-cooperators extinct) and a \emph{protection} equilibrium
-(protective strategies that punish exploiters of the generous;
-unconditional cooperators persist, unexploited).
-Both attain the same welfare, so no performance criterion separates
-them --- which basin obtains is decided by the prior over the pool.
+At large $\beta$ the own-payoff fixed point is not unique: the two
+basins of Section~\ref{sec:results-basins} realize the enforcement
+and protection configurations of the antagonistic second-order norms
+(Section~\ref{sec:second-order}).
+Both configurations are fully cooperative on their support --- every
+round a mutual \textup{\textsc{share}} --- and both attain the
+first-best welfare $V = 2\ln(1 + E/2)$ in the sharp limit.
+At $\beta = 20$ the tie is not exact: the protection fixed point
+retains a remnant of its rival norm (\textbf{Cooperation coalition},
+mass $0.008$), and the remnant's feud with \textbf{Chivalry} and
+harvesting of the subsidizers cost $0.3\%$ of welfare --- a gap that
+vanishes as $\beta$ grows.
+Welfare therefore barely separates the basins; which one obtains is
+decided by the prior over the pool, and Figure~\ref{fig:basin-map}
+is, under this reading, a map of that decision: the initial credence
+assigned to the two rival norms determines the equilibrium that
+iterated deliberation reaches.
+Under the type mixture above, by contrast, multi-start sampling
+($300$ Dirichlet starts) finds a single fixed point at both
+temperatures: at these type masses the protection configuration is no
+longer an attractor.
 Growing the pool has the same character: adding an AI-elicited
 strategy can create or destroy dominance relations and shift basin
 boundaries, so we report equilibrium conclusions together with the

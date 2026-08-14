@@ -1,0 +1,14 @@
+
+Sensitivity: mixed-type lambda, masses own=0.4 mixed=0.4 altruist=0.2, beta=20, 60 starts per point
+
+lambda= 0.00  #eq=1  basin 60/60  V=6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+lambda= 0.10  #eq=1  basin 60/60  V=6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+lambda= 0.20  #eq=1  basin 60/60  V=6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+lambda= 0.30  #eq=1  basin 60/60  V=6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+lambda= 0.40  #eq=1  basin 60/60  V=6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+lambda= 0.50  #eq=1  basin 60/60  V=6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+lambda= 0.60  #eq=1  basin 60/60  V=6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+lambda= 0.70  #eq=1  basin 60/60  V=6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+lambda= 0.80  #eq=1  basin 60/60  V=6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+lambda= 0.90  #eq=1  basin 60/60  V=6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333
+lambda= 1.00  #eq=1  basin 60/60  V=6.8680  mirror:0.333, conditional-cooperator:0.333, cooperation-coalition:0.333

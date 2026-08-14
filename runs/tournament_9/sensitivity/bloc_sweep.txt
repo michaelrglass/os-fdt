@@ -1,0 +1,15 @@
+
+Sensitivity: altruist-bloc mass (remainder split evenly between own and mixed(lambda=0.5)), beta=20, 60 starts per pin
+
+bloc=0.05:  cooperation-coalition (6.868)  >  mirror (6.868)  >  conditional-cooperator (6.868, 2 eq)  >  chivalry (6.867)
+           worst: selfish (6.599)   generous rank: 8/9
+bloc=0.10:  cooperation-coalition (6.868)  >  mirror (6.868)  >  conditional-cooperator (6.868, 2 eq)  >  chivalry (6.868)
+           worst: selfish (6.344)   generous rank: 8/9
+bloc=0.20:  cooperation-coalition (6.868)  >  chivalry (6.868)  >  mirror (6.868)  >  conditional-cooperator (6.683, 2 eq)
+           worst: selfish (5.875)   generous rank: 8/9
+bloc=0.30:  cooperation-coalition (6.868)  >  chivalry (6.868)  >  mirror (6.868)  >  conditional-cooperator (6.593, 2 eq)
+           worst: selfish (5.462)   generous rank: 8/9
+bloc=0.40:  cooperation-coalition (6.868)  >  chivalry (6.868)  >  mirror (6.868)  >  conditional-cooperator (6.541)
+           worst: selfish (5.103)   generous rank: 8/9
+bloc=0.50:  cooperation-coalition (6.868)  >  chivalry (6.868)  >  mirror (6.868)  >  conditional-cooperator (6.525)
+           worst: selfish (4.800)   generous rank: 8/9

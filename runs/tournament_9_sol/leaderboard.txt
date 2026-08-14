@@ -1,0 +1,17 @@
+Tournament Leaderboard
+================================================================================
+
+Total Rounds: 100
+
+Rank   Strategy                  Total      Avg Dict   Avg Player
+--------------------------------------------------------------------------------
+1      anti-exploiter            65.923     3.502      3.091     
+2      chivalry                  64.519     3.705      2.747     
+3      mirror                    63.166     3.569      2.747     
+4      universalizability        62.489     3.502      2.747     
+5      cooperation-coalition     62.439     3.840      2.404     
+6      conditional-cooperator    60.408     3.637      2.404     
+7      guardian                  59.005     3.840      2.060     
+8      generous                  54.944     3.434      2.060     
+9      intelligence              52.864     3.569      1.717     
+10     selfish                   44.543     4.111      0.343     

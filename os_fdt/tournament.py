@@ -12,6 +12,11 @@ try:
 except ImportError:
     Anthropic = None  # Allow imports for testing without anthropic installed
 
+try:
+    from openai import OpenAI
+except ImportError:
+    OpenAI = None  # Allow imports for testing without openai installed
+
 def load_strategies() -> dict[str, str]:
     """
     Read all .md files in repo-root/strategies
@@ -36,29 +41,69 @@ class TournamentOptions:
     total_endowment: int
     self_play: bool
 
+def model_provider(model: str) -> str:
+    """Infer the API provider from the model name."""
+    return "anthropic" if model.startswith("claude") else "openai"
+
+
+def _complete_anthropic(model: str, messages: list[dict]) -> str:
+    if Anthropic is None:
+        raise RuntimeError("anthropic module not installed. Install with: pip install anthropic")
+    client = Anthropic()
+
+    # Frontier-tier models run safety classifiers that can refuse benign
+    # strategy documents (observed: a cyber-category false positive on
+    # chivalry vs selfish). Route refused requests to an Opus fallback
+    # server-side; the serving model is recorded in the response text.
+    kwargs = {}
+    if model.startswith(("claude-fable", "claude-mythos", "claude-opus-5")):
+        kwargs = {
+            "extra_headers": {"anthropic-beta": "server-side-fallback-2026-06-01"},
+            "extra_body": {"fallbacks": [{"model": "claude-opus-4-8"}]},
+        }
+
+    message = client.messages.create(  # pyright: ignore[reportCallIssue,reportArgumentType]
+        model=model,
+        max_tokens=16000,  # thinking models spend from this cap before the text
+        messages=messages,
+        **kwargs
+    )
+    if message.stop_reason == "refusal":
+        raise RuntimeError(
+            f"Model refused request (fallback chain exhausted): "
+            f"{getattr(message, 'stop_details', None)}")
+    # Models with thinking enabled return thinking blocks before the text.
+    text = "".join(b.text for b in message.content if b.type == "text")
+    if not message.model.startswith(model):
+        text += f"\n\n[refusal fallback: served by {message.model}]"
+    return text
+
+
+def _complete_openai(model: str, messages: list[dict]) -> str:
+    if OpenAI is None:
+        raise RuntimeError("openai module not installed. Install with: pip install openai")
+    client = OpenAI()
+    response = client.responses.create(
+        model=model,
+        input=messages,  # pyright: ignore[reportArgumentType]
+    )
+    return response.output_text
+
+
 def get_llm_response(model: str, prompt: str,
                      topts: TournamentOptions, max_retries: int = 3) -> tuple[dict[str, int], str, str]:
     """
-    Send prompt to Claude, get the decision as "SHARE" or "TAKE".
+    Send prompt to the oracle model (Anthropic or OpenAI, inferred from the
+    model name), get the decision as "SHARE" or "TAKE".
     Validates the response and retries with firmer instructions if needed.
     Returns: (allocation_dict, decision, response_text)
     """
-    if Anthropic is None:
-        raise RuntimeError("anthropic module not installed. Install with: pip install anthropic")
-
-    client = Anthropic()
+    complete = {"anthropic": _complete_anthropic,
+                "openai": _complete_openai}[model_provider(model)]
     messages = [{"role": "user", "content": prompt}]
 
     for attempt in range(max_retries):
-        # Send to Claude
-        message = client.messages.create(
-            model=model,
-            max_tokens=4096,
-            messages=messages
-        )
-
-        # Extract the response text
-        response_text = message.content[0].text
+        response_text = complete(model, messages)
 
         try:
             # Extract the JSON from the response (look for json code block)
@@ -123,7 +168,7 @@ def run_tournament(output_dir: str, *,
 
     Args:
         output_dir: Directory to write tournament results
-        model: Anthropic model name
+        model: oracle model name (Anthropic or OpenAI)
         topts: tournament options
         dry_run: If True, use dummy random responses instead of calling LLM (for testing)
     """
@@ -274,8 +319,9 @@ Examples:
   # Run without self-play
   python -m os_fdt.tournament --no-self-play
 
-  # Use a different model
-  python -m os_fdt.tournament --model claude-opus-4-20250514
+  # Use a different model (provider inferred from the name)
+  python -m os_fdt.tournament --model claude-opus-4-6
+  python -m os_fdt.tournament --model gpt-5.6-sol
 
   # Run with limited rounds per strategy
   python -m os_fdt.tournament --max-rounds 10
@@ -299,7 +345,8 @@ Examples:
         '--model',
         type=str,
         default='claude-opus-4-6',
-        help='Model to use for LLM responses (default: claude-opus-4-6)'
+        help='Oracle model; Anthropic or OpenAI is inferred from the name '
+             '(default: claude-opus-4-6)'
     )
 
     parser.add_argument(

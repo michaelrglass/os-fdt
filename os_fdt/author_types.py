@@ -116,19 +116,28 @@ def mixture_equilibrium(A: np.ndarray, W: np.ndarray,
                         types: List[Tuple[float, float]], beta: float,
                         f0: np.ndarray,
                         pinned: Optional[Tuple[int, float]] = None,
-                        max_iter: int = 20000, tol: float = 1e-13
+                        max_iter: int = 20000, tol: float = 1e-13,
+                        history: Optional[List[np.ndarray]] = None,
+                        damping: float = 1.0
                         ) -> Tuple[np.ndarray, Dict[float, np.ndarray]]:
     """
     Fixed point of f = pinned_mass + sum_t mass_t * softmax(beta * U_t(f)).
 
     types: list of (lambda, mass) for the free (softmax-responding) types.
     pinned: optional (strategy_index, mass) held fixed (the altruist bloc).
+    history: optional list that collects every iterate (f0 first, fixed
+        point last) for trajectory plots.
+    damping: step size in (0, 1]; 1.0 is plain fixed-point iteration,
+        smaller values blend f <- (1-damping)*f + damping*T(f) and converge
+        where plain iteration cycles.  Fixed points are unaffected.
 
     Returns (f, per_type_choice) where per_type_choice maps lambda to that
     type's choice distribution at the fixed point.
     """
     n = A.shape[0]
     f = f0.copy()
+    if history is not None:
+        history.append(f.copy())
     comps: Dict[float, np.ndarray] = {}
     for _ in range(max_iter):
         fn = np.zeros(n)
@@ -141,6 +150,10 @@ def mixture_equilibrium(A: np.ndarray, W: np.ndarray,
             q /= q.sum()
             comps[lam] = q
             fn += mass * q
+        if damping < 1.0:
+            fn = (1.0 - damping) * f + damping * fn
+        if history is not None:
+            history.append(fn.copy())
         if np.max(np.abs(fn - f)) < tol:
             return fn, comps
         f = fn
@@ -152,7 +165,9 @@ def sample_equilibria(A: np.ndarray, W: np.ndarray,
                       num_samples: int,
                       pinned: Optional[Tuple[int, float]] = None,
                       cluster_tol: float = 1e-4,
-                      rng: Optional[np.random.Generator] = None
+                      rng: Optional[np.random.Generator] = None,
+                      damping: float = 1.0,
+                      max_iter: int = 20000
                       ) -> List[Tuple[np.ndarray, Dict[float, np.ndarray], int]]:
     """
     Multi-start the fixed-point iteration and cluster distinct equilibria.
@@ -167,7 +182,8 @@ def sample_equilibria(A: np.ndarray, W: np.ndarray,
         f0 = rng.dirichlet(np.ones(n)) * free_mass
         if pinned is not None:
             f0[pinned[0]] += pinned[1]
-        f, comps = mixture_equilibrium(A, W, types, beta, f0, pinned=pinned)
+        f, comps = mixture_equilibrium(A, W, types, beta, f0, pinned=pinned,
+                                       damping=damping, max_iter=max_iter)
         for idx, (centroid, _, count) in enumerate(clusters):
             if np.max(np.abs(f - centroid)) < cluster_tol:
                 clusters[idx] = (centroid, clusters[idx][1], count + 1)

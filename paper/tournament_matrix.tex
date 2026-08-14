@@ -20,37 +20,28 @@
 \begin{table}[t]
 \centering
 \small
-\setlength{\tabcolsep}{3pt}
 \begin{tabular}{l*{9}{c}}
 \toprule
 & \multicolumn{9}{c}{Recipient} \\
 \cmidrule(lr){2-10}
-Dictator
-  & \rotatebox{60}{Mirror}
-  & \rotatebox{60}{Coop.\ coalition}
-  & \rotatebox{60}{Chivalry}
-  & \rotatebox{60}{Cond.\ cooperator}
-  & \rotatebox{60}{Anti-exploiter}
-  & \rotatebox{60}{Universalizability}
-  & \rotatebox{60}{Intelligence}
-  & \rotatebox{60}{Generous}
-  & \rotatebox{60}{Selfish} \\
+Dictator & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
 \midrule
-Mirror                 & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT \\
-Cooperation coalition  & \dS & \dS & \dT & \dS & \dT & \dT & \dT & \dT & \dT \\
-Chivalry               & \dS & \dT & \dS & \dT & \dS & \dS & \dT & \dS & \dT \\
-Conditional cooperator & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT & \dT \\
-Anti-exploiter         & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT \\
-Universalizability     & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT \\
-Intelligence           & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT & \dT \\
-Generous               & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS \\
-Selfish                & \dT & \dT & \dT & \dT & \dT & \dT & \dT & \dT & \dT \\
+1.~Mirror                 & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT \\
+2.~Cooperation coalition  & \dS & \dS & \dT & \dS & \dT & \dT & \dT & \dT & \dT \\
+3.~Chivalry               & \dS & \dT & \dS & \dT & \dS & \dS & \dT & \dS & \dT \\
+4.~Conditional cooperator & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT & \dT \\
+5.~Anti-exploiter         & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT \\
+6.~Universalizability     & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT \\
+7.~Intelligence           & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dT & \dT \\
+8.~Generous               & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS & \dS \\
+9.~Selfish                & \dT & \dT & \dT & \dT & \dT & \dT & \dT & \dT & \dT \\
 \bottomrule
 \end{tabular}
 \caption{Decision matrix for Tournament~9: the oracle's decision when the
 row strategy dictates to the column strategy
 (\dS{} = \textsc{share}, \dT{} = \textsc{take}).
-Strategies are ordered by final score.
+Strategies are numbered by final score; column numbers refer to the same
+ordering.
 Beyond the two unconditional rows, \textsc{take} decisions trace the
 second-order norms of Section~\ref{sec:second-order}:
 \textbf{Cooperation coalition} takes from the unconditional cooperator and
@@ -63,47 +54,41 @@ cooperator.}
 \begin{table}[t]
 \centering
 \small
-\setlength{\tabcolsep}{1.5pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{tabular}{l*{9}{c}c}
+\begin{tabular}{l*{9}{c}cc}
 \toprule
-& \multicolumn{9}{c}{Opponent} & \\
+& \multicolumn{9}{c}{Opponent} & & \\
 \cmidrule(lr){2-10}
-Strategy
-  & \rotatebox{60}{Mirror}
-  & \rotatebox{60}{Coop.\ coalition}
-  & \rotatebox{60}{Chivalry}
-  & \rotatebox{60}{Cond.\ cooperator}
-  & \rotatebox{60}{Anti-exploiter}
-  & \rotatebox{60}{Universalizability}
-  & \rotatebox{60}{Intelligence}
-  & \rotatebox{60}{Generous}
-  & \rotatebox{60}{Selfish}
-  & \rotatebox{60}{Total} \\
+Strategy & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9
+  & Total & Dominated by \\
 \midrule
-Mirror                 & \pM & \pM & \pM & \pM & \pM & \pM & \pM & \pM & \pA & \textbf{59.055} \\
-Cooperation coalition  & \pM & \pM & \pA & \pM & \pH & \pH & \pH & \pH & \pA & \textbf{59.005} \\
-Chivalry               & \pM & \pA & \pM & \pH & \pM & \pM & \pH & \pM & \pA & \textbf{57.651} \\
-Conditional cooperator & \pM & \pM & \pL & \pM & \pM & \pM & \pM & \pH & \pA & \textbf{56.298} \\
-Anti-exploiter         & \pM & \pL & \pM & \pM & \pM & \pM & \pM & \pM & \pA & \textbf{55.621} \\
-Universalizability     & \pM & \pL & \pM & \pM & \pM & \pM & \pM & \pM & \pA & \textbf{55.621} \\
-Intelligence           & \pM & \pL & \pL & \pM & \pM & \pM & \pM & \pH & \pA & \textbf{52.864} \\
-Generous               & \pM & \pL & \pM & \pL & \pM & \pM & \pL & \pM & \pL & \textbf{48.076} \\
-Selfish                & \pA & \pA & \pA & \pA & \pA & \pA & \pA & \pH & \pA & \textbf{40.432} \\
+1.~Mirror                 & \pM & \pM & \pM & \pM & \pM & \pM & \pM & \pM & \pA & \textbf{59.055} & --- \\
+2.~Cooperation coalition  & \pM & \pM & \pA & \pM & \pH & \pH & \pH & \pH & \pA & \textbf{59.005} & --- \\
+3.~Chivalry               & \pM & \pA & \pM & \pH & \pM & \pM & \pH & \pM & \pA & \textbf{57.651} & --- \\
+4.~Conditional cooperator & \pM & \pM & \pL & \pM & \pM & \pM & \pM & \pH & \pA & \textbf{56.298} & 2 \\
+5.~Anti-exploiter         & \pM & \pL & \pM & \pM & \pM & \pM & \pM & \pM & \pA & \textbf{55.621} & 1, 3 \\
+6.~Universalizability     & \pM & \pL & \pM & \pM & \pM & \pM & \pM & \pM & \pA & \textbf{55.621} & 1, 3 \\
+7.~Intelligence           & \pM & \pL & \pL & \pM & \pM & \pM & \pM & \pH & \pA & \textbf{52.864} & 2, 4 \\
+8.~Generous               & \pM & \pL & \pM & \pL & \pM & \pM & \pL & \pM & \pL & \textbf{48.076} & 1, 3, 5, 6 \\
+9.~Selfish                & \pA & \pA & \pA & \pA & \pA & \pA & \pA & \pH & \pA & \textbf{40.432} & 2 \\
 \bottomrule
 \end{tabular}
 \caption{Payoff matrix $A$ for Tournament~9
-(Equation~\eqref{eq:payoff}): the total score the row strategy earns
-against the column strategy across its dictator and recipient rounds.
+(Equation~\eqref{eq:payoff}): the total payoff the row strategy earns
+against the column strategy across its dictator and recipient rounds;
+strategies are numbered by final score as in
+Table~\ref{tab:decision-matrix}.
 Only four values occur, shown light to dark in increasing order:
 \pL~$\ln 31 \approx 3.43$ (shares, not shared with);
 \pA~$\ln 61 \approx 4.11$ (takes, not shared with);
 \pM~$2\ln 31 \approx 6.87$ (mutual share);
 \pH~$\ln 61 + \ln 31 \approx 7.55$ (takes while being shared with).
 Row sums give the leaderboard.
-Because darker is always better, weak dominance is visible directly:
+Because darker is always better, weak dominance
+(Section~\ref{sec:dominance}) is visible directly:
 strategy $i$ weakly dominates strategy $k$ if row $i$ is nowhere lighter
-than row $k$.
+than row $k$; the last column lists the strategies that weakly dominate
+each row.
 Six of the nine strategies are weakly dominated; the undominated set is
 exactly the top three --- \textbf{Mirror}, \textbf{Cooperation coalition},
 and \textbf{Chivalry}.
